@@ -1,1 +1,1 @@
-  echo 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 | docker login ghcr.io -u korniykom --password-stdin
+  echo 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 | docker login ghcr.io -u korniykom --password-stdin
