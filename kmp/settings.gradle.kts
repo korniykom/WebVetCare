@@ -1,4 +1,4 @@
-rootProject.name = "WebVetCare"
+rootProject.name = "Webvetcare"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
