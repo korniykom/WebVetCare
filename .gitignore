@@ -1,1 +1,88 @@
-.idea
+# ==========================
+# Gradle
+# ==========================
+.gradle/
+build/
+**/build/
+!gradle/libs.versions.toml
+
+# Gradle Wrapper
+gradle/wrapper/gradle-wrapper.jar
+
+# Gradle local properties
+local.properties
+
+# ==========================
+# IDE
+# ==========================
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# VS Code
+.vscode/
+
+# ==========================
+# Kotlin / KMP / Compose
+# ==========================
+.kotlinc/
+.ksp/
+.kotlin/
+*.kotlin_module
+out/
+*.log
+*.tmp
+
+# Compose Multiplatform generated resources
+**/composeApp/build/
+**/androidApp/build/
+**/gateway/build/
+**/kotlin-js-store/wasm/
+**/build/js/
+**/build/wasm/
+**/build/reports/
+
+# ==========================
+# Android
+# ==========================
+*.apk
+*.ap_
+*.aab
+captures/
+.externalNativeBuild
+.cxx/
+*.keystore
+
+# Android Studio / IntelliJ
+*.hprof
+
+# ==========================
+# Spring / Java
+# ==========================
+*.class
+*.jar
+*.war
+*.ear
+*.log
+*.tmp
+*.out
+
+# ==========================
+# Node / JS / Yarn
+# ==========================
+node_modules/
+yarn-error.log
+yarn.lock
+
+# ==========================
+# OS
+# ==========================
+.DS_Store
+Thumbs.db
+
+# ==========================
+# Kubernetes / local env
+# ==========================
+k8s/frontend/.env
+k8s/gateway/.env
