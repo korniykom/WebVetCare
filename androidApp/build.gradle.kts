@@ -1,12 +1,12 @@
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.composeMultiplatform)
-    alias(libs.plugins.composeCompiler)
+    alias(ui.plugins.androidApplication)
+    alias(ui.plugins.composeMultiplatform)
+    alias(ui.plugins.composeCompiler)
 }
 
 dependencies {
-    implementation(libs.compose.uiToolingPreview)
-    implementation(libs.androidx.activity.compose)
+    implementation(ui.compose.uiToolingPreview)
+    implementation(ui.androidx.activity.compose)
     implementation(project(":composeApp"))
 }
 
@@ -18,10 +18,10 @@ kotlin {
 
 android {
     namespace = "com.korniykom.webvetcare"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileSdk = ui.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
+        minSdk = ui.versions.android.minSdk.get().toInt()
     }
     packaging {
         resources {

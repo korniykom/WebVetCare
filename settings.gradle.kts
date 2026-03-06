@@ -16,6 +16,14 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
+    versionCatalogs {
+        create("libs") {
+            from(files("./gradle/lib.toml"))
+        }
+        create("ui") {
+            from(files("./gradle/ui.toml"))
+        }
+    }
     repositories {
         google {
             mavenContent {
