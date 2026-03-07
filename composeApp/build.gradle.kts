@@ -5,7 +5,6 @@ plugins {
     alias(ui.plugins.kotlinMultiplatform)
     alias(ui.plugins.composeMultiplatform)
     alias(ui.plugins.composeCompiler)
-    alias(ui.plugins.composeHotReload)
 }
 
 kotlin {
