@@ -10,12 +10,6 @@ dependencies {
     implementation(project(":composeApp"))
 }
 
-kotlin {
-    compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
-    }
-}
-
 android {
     namespace = "com.korniykom.webvetcare"
     compileSdk = ui.versions.android.compileSdk.get().toInt()

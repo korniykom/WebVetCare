@@ -10,20 +10,12 @@ pluginManagement {
                 includeGroupAndSubgroups("com.google")
             }
         }
-        mavenCentral()
         gradlePluginPortal()
+        mavenCentral()
     }
 }
 
 dependencyResolutionManagement {
-    versionCatalogs {
-        create("libs") {
-            from(files("./gradle/lib.toml"))
-        }
-        create("ui") {
-            from(files("./gradle/ui.toml"))
-        }
-    }
     repositories {
         google {
             mavenContent {
@@ -34,10 +26,12 @@ dependencyResolutionManagement {
         }
         mavenCentral()
     }
-}
 
-plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+    versionCatalogs {
+        create("ui") {
+            from(files("/gradle/ui.versions.toml"))
+        }
+    }
 }
 
 include(":composeApp")
