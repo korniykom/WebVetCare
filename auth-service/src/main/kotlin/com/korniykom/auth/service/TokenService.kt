@@ -3,7 +3,9 @@ package com.korniykom.auth.service
 import com.korniykom.auth.config.JwtConfig
 import com.korniykom.auth.domain.exceptions.InvalidTokenException
 import com.korniykom.auth.domain.type.UserId
+import com.korniykom.auth.entity.RefreshTokenEntity
 import com.korniykom.auth.repository.RefreshTokenRepository
+import com.korniykom.auth.security.TokenGenerator
 import com.nimbusds.jose.jwk.JWKSet
 import com.nimbusds.jose.jwk.RSAKey
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet
@@ -25,7 +27,7 @@ class TokenService(
     private val privateKey: RSAPrivateKey,
     private val publicKey: RSAPublicKey,
     private val jwtConfig: JwtConfig,
-    private val refreshTokenRepository: RefreshTokenRepository
+    private val refreshTokenRepository: RefreshTokenRepository,
 ) {
     private val encoder = NimbusJwtEncoder(
         ImmutableJWKSet(JWKSet(RSAKey.Builder(publicKey).privateKey(privateKey).build()))
@@ -47,6 +49,22 @@ class TokenService(
                 claims
             )
         ).tokenValue
+    }
+
+    fun generateRefreshToken(userId: UserId): String {
+        val token = TokenGenerator.generateSecureToken()
+        val hash = DigestUtils.sha256Hex(token)
+        val expiresAt = Instant.now().plusSeconds(jwtConfig.refreshTokenExpiry!!)
+
+        refreshTokenRepository.save(
+            RefreshTokenEntity(
+                userId = userId,
+                tokenHash = hash,
+                expiresAt = expiresAt
+            )
+        )
+
+        return token
     }
 
     fun validateRefreshToken(token: String): UserId {
