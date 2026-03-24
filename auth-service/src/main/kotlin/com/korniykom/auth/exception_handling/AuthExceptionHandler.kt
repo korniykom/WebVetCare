@@ -1,5 +1,6 @@
 package com.korniykom.auth.exception_handling
 
+import com.korniykom.auth.domain.exceptions.InvalidTokenException
 import com.korniykom.auth.domain.exceptions.UserAlreadyExistsException
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.MethodArgumentNotValidException
@@ -30,6 +31,15 @@ class AuthExceptionHandler {
                 "message" to error.defaultMessage
             )
         }
+    )
+
+    @ExceptionHandler(InvalidTokenException::class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    fun onInvalidTokenException(
+        e: InvalidTokenException
+    ) = mapOf(
+        "code" to "INVALID_TOKEN",
+        "message" to e.message
     )
 
 }

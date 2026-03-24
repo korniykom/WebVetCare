@@ -15,7 +15,9 @@ spring:
     locations: classpath:db/migration
 app:
   jwt:
-    access-token-expirty: 60
+    private-key-path: ${JWT_PRIVATE_KEY_PATH:src/main/resources/keys/private.pem}
+    public-key-path: ${JWT_PUBLIC_KEY_PATH:src/main/resources/keys/public.pem}
+    access-token-expiry: 60
     refresh-token-expiry: 120
 logging:
   level:
