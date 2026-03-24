@@ -1,5 +1,6 @@
 package com.korniykom.auth.controller
 
+import com.korniykom.auth.domain.type.User
 import com.korniykom.auth.dto.RegisterRequest
 import com.korniykom.auth.dto.TokenResponse
 import com.korniykom.auth.service.AuthService
@@ -18,9 +19,13 @@ class AuthController(
 ) {
     @PostMapping("/register")
     fun register(
-        @Valid @RequestBody request: RegisterRequest
-    ): ResponseEntity<TokenResponse> {
-        return ResponseEntity.status(HttpStatus.CREATED).body(authService.register(request))
+        @Valid @RequestBody body: RegisterRequest
+    ): User {
+        return authService.register(
+            email = body.email,
+            password = body.password,
+            username = body.username
+        )
     }
 
     @PostMapping("/login")

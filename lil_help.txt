@@ -6,9 +6,6 @@ build backend
 ./gradlew :gateway:bootBuildImage --imageName=ghcr.io/korniykom/webvetcare-gateway:latest
 docker push ghcr.io/korniykom/webvetcare-gateway:latest
 
-minikube start
-minikube addons enable ingress
 minikube ip
-minikube addons enable ingress
 
 kubectl apply -k k8s/
