@@ -1,24 +1,28 @@
 package com.korniykom.auth.service
 
 import com.korniykom.auth.domain.exceptions.InvalidPasswordException
+import com.korniykom.auth.domain.exceptions.InvalidTokenException
 import com.korniykom.auth.domain.exceptions.UserAlreadyExistsException
 import com.korniykom.auth.domain.exceptions.UserNotFoundException
 import com.korniykom.auth.entity.UserEntity
 import com.korniykom.auth.mappers.toUser
 import com.korniykom.auth.repository.AuthUserRepository
+import com.korniykom.auth.repository.RefreshTokenRepository
 import com.korniykom.auth.security.PasswordEncoder
 import jakarta.transaction.Transactional
+import org.apache.commons.codec.digest.DigestUtils
 import org.springframework.stereotype.Service
 
 @Service
 class AuthService(
     private val authUserRepository: AuthUserRepository,
     private val passwordEncoder: PasswordEncoder,
-    private val tokenService: TokenService
+    private val tokenService: TokenService,
+    private val refreshTokenRepository: RefreshTokenRepository
 ) {
 
     @Transactional
-    fun register(email: String, username: String, password: String): Pair<String, String> {
+    fun register(email: String, password: String): Pair<String, String> {
         val trimmedEmail = email.trim()
 
         if (authUserRepository.findByEmail(trimmedEmail) != null) {
@@ -29,7 +33,6 @@ class AuthService(
             UserEntity(
                 id = null,
                 email = trimmedEmail,
-                username = username,
                 password = passwordEncoder.encode(password)
             )
         ).toUser()
@@ -57,10 +60,22 @@ class AuthService(
     }
 
     fun refresh(refreshToken: String): Pair<String, String> {
-        TODO("implement")
+        val userId = tokenService.validateRefreshToken(refreshToken)
+        val user = authUserRepository.findById(userId).orElseThrow {
+            UserNotFoundException()
+        }
+        val accessToken = tokenService.generateAccessToken(userId, user.email)
+        val refreshToken = tokenService.generateRefreshToken(userId)
+
+        return Pair(accessToken, refreshToken)
     }
 
-    fun logout() {
-        TODO("implement")
+    fun logout(refreshToken: String) {
+        val hash = DigestUtils.sha256Hex(refreshToken)
+
+        refreshTokenRepository.findByTokenHash(hash)
+            ?: throw InvalidTokenException()
+
+        tokenService.revokeRefreshToken(refreshToken)
     }
 }

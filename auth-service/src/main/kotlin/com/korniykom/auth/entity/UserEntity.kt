@@ -21,8 +21,6 @@ class UserEntity(
     val email: String,
     @Column(nullable = false)
     val password: String,
-    @Column(nullable = false)
-    val username: String,
     @CreationTimestamp
     val createdAt: Instant = Instant.now()
 )

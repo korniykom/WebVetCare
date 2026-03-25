@@ -72,7 +72,7 @@ class TokenService(
         val entity = refreshTokenRepository.findByTokenHash(hash)
             ?: throw InvalidTokenException()
 
-        if(entity.expiresAt.isBefore((Instant.now()))) {
+        if (entity.expiresAt.isBefore((Instant.now()))) {
             refreshTokenRepository.delete(entity)
             throw InvalidTokenException()
         }
@@ -85,7 +85,9 @@ class TokenService(
     fun revokeRefreshToken(token: String) {
         val hash = DigestUtils.sha256Hex(token)
         refreshTokenRepository.findByTokenHash(hash)
-            ?.let {refreshTokenRepository.delete(it) }
+            ?.let {
+                refreshTokenRepository.delete(it)
+            }
     }
 
     fun getPublicKey(): RSAPublicKey = publicKey

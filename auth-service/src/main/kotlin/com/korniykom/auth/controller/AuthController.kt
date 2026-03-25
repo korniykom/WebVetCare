@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.CookieValue
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/auth")
 class AuthController(
     private val authService: AuthService,
-    private val jwtConfig: JwtConfig
+    private val jwtConfig: JwtConfig,
 ) {
     @PostMapping("/register")
     fun register(
@@ -29,12 +30,11 @@ class AuthController(
         val (accessToken, refreshToken) = authService.register(
             email = body.email,
             password = body.password,
-            username = body.username
         )
 
         val cookie = Cookie("refresh_token", refreshToken).apply {
             isHttpOnly = true
-            secure = true
+            secure = false
             path = "/api/auth/refresh"
             maxAge = jwtConfig.refreshTokenExpiry!!.toInt()
         }
@@ -57,7 +57,7 @@ class AuthController(
 
         val cookie = Cookie("refresh_token", refreshToken).apply {
             isHttpOnly = true
-            secure = true
+            secure = false
             path = "/api/auth/refresh"
             maxAge = jwtConfig.refreshTokenExpiry!!.toInt()
         }
@@ -68,10 +68,38 @@ class AuthController(
     }
 
     @PostMapping("/refresh")
-    fun refresh() {
+    fun refresh(
+        @CookieValue("refresh_token") refreshToken: String,
+        response: HttpServletResponse
+    ): ResponseEntity<TokenResponse> {
+        val (accessToken, newRefreshToken) = authService.refresh(refreshToken)
+
+        val cookie = Cookie("refresh_token", newRefreshToken).apply {
+            isHttpOnly = true
+            secure = false
+            path = "/api/auth/refresh"
+            maxAge = jwtConfig.refreshTokenExpiry!!.toInt()
+        }
+        response.addCookie(cookie)
+
+        return ResponseEntity.ok(TokenResponse(accessToken))
     }
 
     @PostMapping("/logout")
-    fun logout() {
+    fun logout(
+        @CookieValue("refresh_token") refreshToken: String,
+        response: HttpServletResponse
+    ): ResponseEntity<Void> {
+        authService.logout(refreshToken)
+
+        val cookie = Cookie("refresh_token", "").apply {
+            isHttpOnly = true
+            secure = false
+            path = "/api/auth/refresh"
+            maxAge = 0
+        }
+        response.addCookie(cookie)
+
+        return ResponseEntity.noContent().build()
     }
 }
