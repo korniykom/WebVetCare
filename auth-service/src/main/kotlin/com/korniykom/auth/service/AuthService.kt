@@ -1,8 +1,8 @@
 package com.korniykom.auth.service
 
+import com.korniykom.auth.domain.exceptions.InvalidPasswordException
 import com.korniykom.auth.domain.exceptions.UserAlreadyExistsException
-import com.korniykom.auth.domain.type.User
-import com.korniykom.auth.dto.LoginRequest
+import com.korniykom.auth.domain.exceptions.UserNotFoundException
 import com.korniykom.auth.entity.UserEntity
 import com.korniykom.auth.mappers.toUser
 import com.korniykom.auth.repository.AuthUserRepository
@@ -21,7 +21,7 @@ class AuthService(
     fun register(email: String, username: String, password: String): Pair<String, String> {
         val trimmedEmail = email.trim()
 
-        if(authUserRepository.findByEmail(trimmedEmail) != null) {
+        if (authUserRepository.findByEmail(trimmedEmail) != null) {
             throw UserAlreadyExistsException()
         }
 
@@ -38,12 +38,22 @@ class AuthService(
         val refreshToken = tokenService.generateRefreshToken(savedUser.id)
 
 
-        return Pair(accessToken,refreshToken)
-
+        return Pair(accessToken, refreshToken)
     }
 
-    fun login(request: LoginRequest): Pair<String, String> {
-        TODO("implement")
+    fun login(email: String, password: String): Pair<String, String> {
+        val user = authUserRepository.findByEmail(email.trim())
+            ?: throw UserNotFoundException()
+
+        if (!passwordEncoder.matches(password, user.password)) {
+            throw InvalidPasswordException()
+        }
+
+        val domainUser = user.toUser()
+        val accessToken = tokenService.generateAccessToken(domainUser.id, domainUser.email)
+        val refreshToken = tokenService.generateRefreshToken(domainUser.id)
+
+        return Pair(accessToken, refreshToken)
     }
 
     fun refresh(refreshToken: String): Pair<String, String> {

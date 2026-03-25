@@ -1,7 +1,9 @@
 package com.korniykom.auth.exception_handling
 
+import com.korniykom.auth.domain.exceptions.InvalidPasswordException
 import com.korniykom.auth.domain.exceptions.InvalidTokenException
 import com.korniykom.auth.domain.exceptions.UserAlreadyExistsException
+import com.korniykom.auth.domain.exceptions.UserNotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -39,6 +41,24 @@ class AuthExceptionHandler {
         e: InvalidTokenException
     ) = mapOf(
         "code" to "INVALID_TOKEN",
+        "message" to e.message
+    )
+
+    @ExceptionHandler(UserNotFoundException::class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    fun onUserNotFoundException(
+        e: UserNotFoundException
+    ) = mapOf(
+        "code" to "USER_NOT_FOUND",
+        "message" to e.message
+    )
+
+    @ExceptionHandler(InvalidPasswordException::class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    fun onInvalidPasswordException(
+        e: InvalidPasswordException
+    ) = mapOf(
+        "code" to "INVALID_PASSWORD",
         "message" to e.message
     )
 

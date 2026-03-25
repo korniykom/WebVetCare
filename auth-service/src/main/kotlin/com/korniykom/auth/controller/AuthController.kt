@@ -1,6 +1,7 @@
 package com.korniykom.auth.controller
 
 import com.korniykom.auth.config.JwtConfig
+import com.korniykom.auth.dto.LoginRequest
 import com.korniykom.auth.dto.RegisterRequest
 import com.korniykom.auth.dto.TokenResponse
 import com.korniykom.auth.service.AuthService
@@ -45,7 +46,25 @@ class AuthController(
     }
 
     @PostMapping("/login")
-    fun login() {
+    fun login(
+        @Valid @RequestBody body: LoginRequest,
+        response: HttpServletResponse
+    ): ResponseEntity<TokenResponse> {
+        val (accessToken, refreshToken) = authService.login(
+            email = body.email,
+            password = body.password
+        )
+
+        val cookie = Cookie("refresh_token", refreshToken).apply {
+            isHttpOnly = true
+            secure = true
+            path = "/api/auth/refresh"
+            maxAge = jwtConfig.refreshTokenExpiry!!.toInt()
+        }
+
+        response.addCookie(cookie)
+
+        return ResponseEntity.ok(TokenResponse(accessToken))
     }
 
     @PostMapping("/refresh")
