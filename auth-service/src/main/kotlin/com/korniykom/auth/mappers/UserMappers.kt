@@ -6,7 +6,6 @@ import com.korniykom.auth.entity.UserEntity
 fun UserEntity.toUser(): User {
     return User(
         id = id!!,
-        username = username,
         email = email,
     )
 }

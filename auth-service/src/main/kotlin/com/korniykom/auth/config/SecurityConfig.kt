@@ -18,6 +18,8 @@ class SecurityConfig {
                 auth
                     .requestMatchers("/api/auth/**")
                     .permitAll()
+                    .requestMatchers("/.well-known/jwks.json")
+                    .permitAll()
                     .anyRequest()
                     .authenticated()
             }
