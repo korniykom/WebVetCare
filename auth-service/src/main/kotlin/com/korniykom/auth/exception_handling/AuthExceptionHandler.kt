@@ -36,7 +36,7 @@ class AuthExceptionHandler {
     )
 
     @ExceptionHandler(InvalidTokenException::class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     fun onInvalidTokenException(
         e: InvalidTokenException
     ) = mapOf(
