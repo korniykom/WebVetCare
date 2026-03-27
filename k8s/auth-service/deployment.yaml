@@ -16,7 +16,7 @@ spec:
         - name: ghcr-secret
       containers:
         - name: auth-service
-          image: ghcr.io/korniykom/webvetcare-auth-service:latest
+          image: ghcr.io/korniykom/webvetcare-auth-service:0.0.1-snapshot
           ports:
             - containerPort: 9991
           env:

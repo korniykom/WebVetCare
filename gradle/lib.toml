@@ -4,9 +4,10 @@ springBoot = "4.0.5"
 springDependencyManagement = "1.1.7"
 commonsCodec = "1.21.0"
 testcontainers = "1.21.4"
+java = "17"
 
 [libraries]
-springBootStarterThymeleaf = { module = "org.springframework.boot:spring-boot-starter-themeleaf" }
+springBootStarterThymeleaf = { module = "org.springframework.boot:spring-boot-starter-thymeleaf" }
 springBootStarterWebmvc = { module = "org.springframework.boot:spring-boot-starter-webmvc" }
 kotlinReflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
 jacksonModuleKotlin = { module = "tools.jackson.module:jackson-module-kotlin" }

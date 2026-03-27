@@ -1,3 +1,5 @@
+import org.springframework.boot.buildpack.platform.build.PullPolicy
+
 plugins {
     alias(libs.plugins.kotlinJvm)
     alias(libs.plugins.kotlinPluginSpring)
@@ -8,6 +10,13 @@ plugins {
 group = "com.korniykom"
 version = "0.0.1-SNAPSHOT"
 description = "gateway"
+
+val serviceName = "gateway"
+val namespace = "webvetcare"
+val registryUrl = "ghcr.io/korniykom"
+val imageTag = project.version.toString()
+val mImageName = "$namespace-$serviceName"
+val fullImageName = "$registryUrl/$mImageName:$imageTag"
 
 java {
     toolchain {
@@ -20,14 +29,14 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-    implementation("org.springframework.boot:spring-boot-starter-webmvc")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("tools.jackson.module:jackson-module-kotlin")
-    testImplementation("org.springframework.boot:spring-boot-starter-thymeleaf-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    implementation(libs.springBootStarterThymeleaf)
+    implementation(libs.springBootStarterWebmvc)
+    implementation(libs.kotlinReflect)
+    implementation(libs.jacksonModuleKotlin)
+    testImplementation(libs.springBootStarterThymeleafTest)
+    testImplementation(libs.springBootStarterWebmvcTest)
+    testImplementation(libs.kotlinTestJunit5)
+    testRuntimeOnly(libs.junitPlatformLauncher)
 }
 
 kotlin {
@@ -38,4 +47,22 @@ kotlin {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.bootBuildImage {
+    imageName = "$mImageName:$imageTag"
+    imagePlatform = "linux/amd64"
+    pullPolicy = PullPolicy.IF_NOT_PRESENT
+    cleanCache = false
+    environment = mapOf("BP_JVM_VERSION" to libs.versions.java.get())
+}
+
+tasks.register<Exec>("tagImage") {
+    dependsOn(tasks.bootBuildImage)
+    commandLine("docker", "tag", "$mImageName:$imageTag", fullImageName)
+}
+
+tasks.register<Exec>("pushImage") {
+    dependsOn("tagImage")
+    commandLine("docker", "push", fullImageName)
 }

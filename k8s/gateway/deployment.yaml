@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: gateway
-          image: ghcr.io/korniykom/webvetcare-gateway:latest
+          image: ghcr.io/korniykom/webvetcare-gateway:0.0.1-snapshot
           ports:
             - containerPort: 8080

@@ -18,3 +18,9 @@ minikube ip
 kubectl get pods -n webvetcare
 
  kubectl describe pod auth-service-5d4dd9d867-lnfnq -n webvetcare
+
+
+ building images
+./gradlew :gateway:pushImage
+./gradlew :auth-service:pushImage
+
