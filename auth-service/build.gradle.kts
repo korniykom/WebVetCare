@@ -1,9 +1,9 @@
 plugins {
-    kotlin("jvm") version "2.2.21"
-    kotlin("plugin.spring") version "2.2.21"
-    id("org.springframework.boot") version "4.0.4"
-    id("io.spring.dependency-management") version "1.1.7"
-    kotlin("plugin.jpa") version "1.9.24"
+    alias(libs.plugins.kotlinJvm)
+    alias(libs.plugins.kotlinPluginSpring)
+    alias(libs.plugins.springBoot)
+    alias(libs.plugins.springDependencyManagement)
+    alias(libs.plugins.kotlinPluginJpa)
 }
 
 group = "com.korniykom"
@@ -21,22 +21,22 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.flywaydb:flyway-core")
-    implementation("org.springframework.security:spring-security-crypto")
-    implementation("org.springframework.security:spring-security-oauth2-jose")
-    implementation("commons-codec:commons-codec:1.21.0")
-    runtimeOnly("org.postgresql:postgresql")
-    runtimeOnly("org.flywaydb:flyway-database-postgresql")
+    implementation(libs.springBootStarterWeb)
+    implementation(libs.springBootStarterSecurity)
+    implementation(libs.springBootStarterValidation)
+    implementation(libs.kotlinReflect)
+    implementation(libs.springBootStarterDataJpa)
+    implementation(libs.flywayCore)
+    implementation(libs.springSecurityCrypto)
+    implementation(libs.springSecurityOauth2Jose)
+    implementation(libs.commonsCodec)
+    runtimeOnly(libs.postgresql)
+    runtimeOnly(libs.flywayDatabasePostgresql)
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.testcontainers:postgresql:1.21.4")
-    testImplementation("org.testcontainers:junit-jupiter:1.21.4")
-    testImplementation("org.springframework.boot:spring-boot-starter-webflux")
+    testImplementation(libs.springBootStarterTest)
+    testImplementation(libs.testcontainersPostgresql)
+    testImplementation(libs.testcontainersJunitJupiter)
+    testImplementation(libs.springBootStarterWebflux)
 }
 
 kotlin {

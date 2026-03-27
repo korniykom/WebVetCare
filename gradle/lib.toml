@@ -1,8 +1,38 @@
 [versions]
-kotlin = "2.3.0"
+kotlin = "2.3.20"
+springBoot = "4.0.5"
+springDependencyManagement = "1.1.7"
+commonsCodec = "1.21.0"
+testcontainers = "1.21.4"
 
 [libraries]
+springBootStarterThymeleaf = { module = "org.springframework.boot:spring-boot-starter-themeleaf" }
+springBootStarterWebmvc = { module = "org.springframework.boot:spring-boot-starter-webmvc" }
+kotlinReflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
+jacksonModuleKotlin = { module = "tools.jackson.module:jackson-module-kotlin" }
+springBootStarterThymeleafTest = { module = "org.springframework.boot:spring-boot-starter-thymeleaf-test" }
+springBootStarterWebmvcTest = { module = "org.springframework.boot:spring-boot-starter-webmvc-test" }
+kotlinTestJunit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5" }
+junitPlatformLauncher = { module = "org.junit.platform:junit-platform-launcher" }
+springBootStarterWeb = { module = "org.springframework.boot:spring-boot-starter-web" }
+springBootStarterSecurity = { module = "org.springframework.boot:spring-boot-starter-security" }
+springBootStarterValidation = { module = "org.springframework.boot:spring-boot-starter-validation" }
+springBootStarterDataJpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
+springBootStarterTest = { module = "org.springframework.boot:spring-boot-starter-test" }
+springBootStarterWebflux = { module = "org.springframework.boot:spring-boot-starter-webflux" }
+springSecurityCrypto = { module = "org.springframework.security:spring-security-crypto" }
+springSecurityOauth2Jose = { module = "org.springframework.security:spring-security-oauth2-jose" }
+flywayCore = { module = "org.flywaydb:flyway-core" }
+flywayDatabasePostgresql = { module = "org.flywaydb:flyway-database-postgresql" }
+postgresql = { module = "org.postgresql:postgresql" }
+commonsCodec = { module = "commons-codec:commons-codec", version.ref = "commonsCodec" }
+testcontainersPostgresql = { module = "org.testcontainers:postgresql", version.ref = "testcontainers" }
+testcontainersJunitJupiter = { module = "org.testcontainers:junit-jupiter", version.ref = "testcontainers" }
+
 
 [plugins]
 kotlinPluginSpring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+springBoot = { id = "org.springframework.boot", version.ref = "springBoot" }
+springDependencyManagement = { id = "io.spring.dependency-management", version.ref = "springDependencyManagement" }
+kotlinPluginJpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlin" }
