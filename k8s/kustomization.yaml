@@ -5,8 +5,19 @@ namespace: webvetcare
 
 resources:
   - namespace.yaml
+
   - gateway/deployment.yaml
   - gateway/service.yaml
+
   - frontend/deployment.yaml
   - frontend/service.yaml
+
+  - auth-service/deployment.yaml
+  - auth-service/service.yaml
+  - auth-service/jwt-keys-sealed.yaml
+
+  - auth-service/postgres/postgres-deployment.yaml
+  - auth-service/postgres/postgres-service-clusterip.yaml
+  - auth-service/postgres/postgres-service-nodeport.yaml
+
   - ingress.yaml

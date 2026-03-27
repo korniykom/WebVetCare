@@ -1,10 +1,10 @@
 package com.korniykom.auth.config
 
-import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.core.io.ResourceLoader
-import java.io.File
+import org.springframework.core.io.ClassPathResource
+import org.springframework.core.io.FileSystemResource
+import java.io.InputStream
 import java.security.KeyFactory
 import java.security.interfaces.RSAPrivateKey
 import java.security.interfaces.RSAPublicKey
@@ -14,14 +14,21 @@ import java.util.Base64
 
 @Configuration
 class RsaKeyConfig(
-    private val jwtConfig: JwtConfig,
-    private val resourceLoader: ResourceLoader
+    private val jwtConfig: JwtConfig
 ) {
+
+    private fun loadResource(path: String): InputStream {
+        return if (path.startsWith("classpath:")) {
+            ClassPathResource(path.removePrefix("classpath:")).inputStream
+        } else {
+            FileSystemResource(path).inputStream
+        }
+    }
 
     @Bean
     fun rsaPrivateKey(): RSAPrivateKey {
-        val pem = resourceLoader.getResource(jwtConfig.privateKeyPath)
-            .inputStream.bufferedReader().readText()
+        val pem = loadResource(jwtConfig.privateKeyPath)
+            .bufferedReader().readText()
             .replace("-----BEGIN PRIVATE KEY-----", "")
             .replace("-----END PRIVATE KEY-----", "")
             .replace("\\s".toRegex(), "")
@@ -32,8 +39,8 @@ class RsaKeyConfig(
 
     @Bean
     fun rsaPublicKey(): RSAPublicKey {
-        val pem = resourceLoader.getResource(jwtConfig.publicKeyPath)
-            .inputStream.bufferedReader().readText()
+        val pem = loadResource(jwtConfig.publicKeyPath)
+            .bufferedReader().readText()
             .replace("-----BEGIN PUBLIC KEY-----", "")
             .replace("-----END PUBLIC KEY-----", "")
             .replace("\\s".toRegex(), "")

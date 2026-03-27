@@ -1,11 +1,20 @@
-build frontend
-docker build -t ghcr.io/korniykom/webvetcare-frontend:latest .
-docker push ghcr.io/korniykom/webvetcare-frontend:latest
+### Instal sealed secrets in minikube
+kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/latest/download/controller.yaml
 
-build backend
-./gradlew :gateway:bootBuildImage --imageName=ghcr.io/korniykom/webvetcare-gateway:latest
-docker push ghcr.io/korniykom/webvetcare-gateway:latest
+kubectl get pods -n kube-system | grep sealed-secrets
+
+
+kubectl create secret generic auth-jwt-keys \
+  --from-file=private.pem=auth-service/src/main/resources/keys/private.pem \
+  --from-file=public.pem=auth-service/src/main/resources/keys/public.pem \
+  --namespace=webvetcare \
+  --dry-run=client -o yaml | kubeseal --format=yaml > k8s/auth-service/jwt-keys-sealed.yaml
+
+kubectl apply -k k8s/
 
 minikube ip
 
-kubectl apply -k k8s/
+
+kubectl get pods -n webvetcare
+
+ kubectl describe pod auth-service-5d4dd9d867-lnfnq -n webvetcare
