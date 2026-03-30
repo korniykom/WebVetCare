@@ -1,4 +1,7 @@
-### Instal sealed secrets in minikube
+minikube delete
+
+minikube start
+
 kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/latest/download/controller.yaml
 
 kubectl get pods -n kube-system | grep sealed-secrets

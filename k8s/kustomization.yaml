@@ -6,6 +6,8 @@ namespace: webvetcare
 resources:
   - namespace.yaml
 
+  - ghcr-secret.yaml
+
   - gateway/deployment.yaml
   - gateway/service.yaml
 

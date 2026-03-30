@@ -7,6 +7,14 @@ plugins {
     alias(ui.plugins.composeCompiler)
 }
 
+val serviceName = "compose-web"
+val namespace = "webvetcare"
+val registryUrl = "ghcr.io/korniykom"
+val imageTag = "0.0.1"
+
+val imageName = "$namespace-$serviceName"
+val fullImageName = "$registryUrl/$imageName:$imageTag"
+
 kotlin {
     
     jvm()
@@ -55,4 +63,23 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
+}
+
+tasks.register<Exec>("buildImage") {
+    dependsOn("jsBrowserProductionWebpack")
+
+    commandLine(
+        "docker", "build",
+        "-t", fullImageName,
+        rootProject.projectDir.absolutePath
+    )
+}
+
+tasks.register<Exec>("pushImage") {
+    dependsOn("buildImage")
+
+    commandLine(
+        "docker", "push",
+        fullImageName
+    )
 }

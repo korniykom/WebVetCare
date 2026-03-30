@@ -5,6 +5,8 @@ metadata:
   name: gateway
 
 spec:
+  imagePullSecrets:
+    - name: ghcr-secret
   replicas: 1
   selector:
     matchLabels:

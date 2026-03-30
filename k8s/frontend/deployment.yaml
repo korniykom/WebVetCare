@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: frontend
 spec:
+  imagePullSecrets:
+    - name: ghcr-secret
   replicas: 1
   selector:
     matchLabels:
@@ -14,6 +16,6 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: ghcr.io/korniykom/webvetcare-frontend:latest
+          image: ghcr.io/korniykom/webvetcare-compose-web:0.0.1
           ports:
             - containerPort: 3000
