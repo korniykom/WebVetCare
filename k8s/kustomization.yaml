@@ -20,4 +20,11 @@ resources:
   - auth-service/postgres/postgres-service-clusterip.yaml
   - auth-service/postgres/postgres-service-nodeport.yaml
 
+  - user-service/deployment.yaml
+  - user-service/service.yaml
+
+  - user-service/postgres/postgres-deployment.yaml
+  - user-service/postgres/postgres-service-clusterip.yaml
+  - user-service/postgres/postgres-service-nodeport.yaml
+
   - ingress.yaml

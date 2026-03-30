@@ -1,14 +1,22 @@
+import org.springframework.boot.buildpack.platform.build.PullPolicy
+
 plugins {
-    kotlin("jvm") version "2.2.21"
-    kotlin("plugin.spring") version "2.2.21"
-    id("org.springframework.boot") version "4.0.5"
-    id("io.spring.dependency-management") version "1.1.7"
+    alias(libs.plugins.kotlinJvm)
+    alias(libs.plugins.kotlinPluginSpring)
+    alias(libs.plugins.springBoot)
+    alias(libs.plugins.springDependencyManagement)
 }
 
 group = "com.korniykom"
 version = "0.0.1-SNAPSHOT"
 description = "user-service"
 
+val serviceName = "user-service"
+val namespace = "webvetcare"
+val registryUrl = "ghcr.io/korniykom"
+val imageTag = project.version.toString()
+val mImageName = "$namespace-$serviceName"
+val fullImageName = "$registryUrl/$mImageName:$imageTag"
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
@@ -20,12 +28,10 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-}
+    implementation(libs.springBootStarterWeb)
+    implementation(libs.kotlinReflect)
+    testImplementation(libs.springBootStarterTest)
+    }
 
 kotlin {
     compilerOptions {
@@ -35,4 +41,22 @@ kotlin {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.bootBuildImage {
+    imageName = "$mImageName:$imageTag"
+    imagePlatform = "linux/amd64"
+    pullPolicy = PullPolicy.IF_NOT_PRESENT
+    cleanCache = false
+    environment = mapOf("BP_JVM_VERSION" to libs.versions.java.get())
+}
+
+tasks.register<Exec>("tagImage") {
+    dependsOn(tasks.bootBuildImage)
+    commandLine("docker", "tag", "$mImageName:$imageTag", fullImageName)
+}
+
+tasks.register<Exec>("pushImage") {
+    dependsOn("tagImage")
+    commandLine("docker", "push", fullImageName)
 }

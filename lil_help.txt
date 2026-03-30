@@ -23,4 +23,5 @@ kubectl get pods -n webvetcare
  building images
 ./gradlew :gateway:pushImage
 ./gradlew :auth-service:pushImage
+./gradlew :user-service:pushImage
 

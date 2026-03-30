@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+      containers:
+        - name: user-service
+          image: ghcr.io/korniykom/webvetcare-user-service:0.0.1-snapshot
+          ports:
+            - containerPort: 9992
+          env:
+            - name: DB_HOST
+              value: user-postgres
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_NAME
+              value: userdb
+            - name: DB_USER
+              value: postgres
+            - name: DB_PASS
+              value: postgres
+            - name: AUTH_JWTS_URI
+              value: http://auth-service:9991/.well-known/jwks.json
