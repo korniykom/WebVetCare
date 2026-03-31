@@ -12,14 +12,11 @@ import jakarta.persistence.Table
 @Entity
 @Table(name = "patient_profiles")
 class PatientProfile(
-    @Id
-    val id: String,
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
-    @JoinColumn(name = "user_id")
-    val user: User,
+    @Id
+    @Column(name = "user_id")
+    val userId: String,
 
     @Column(nullable = false)
-    val contactEmail: String,
+    val contactEmail: String
 )

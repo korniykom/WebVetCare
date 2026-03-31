@@ -15,15 +15,11 @@ import java.util.UUID
 @Entity
 @Table(name = "doctor_profiles")
 class DoctorProfile(
-    @Id
-    val id: String,
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
-    @JoinColumn(name = "user_id")
-    val user: User,
+    @Id
+    @Column(name = "user_id")
+    val userId: String,
 
     @Column(nullable = false)
     val specialization: String
-
-    )
+)

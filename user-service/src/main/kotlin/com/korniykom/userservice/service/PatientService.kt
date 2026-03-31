@@ -29,14 +29,13 @@ class PatientService(
 
         val profile = patientProfileRepository.save(
             PatientProfile(
-                id = userId,
-                user = user,
+                userId = userId,
                 contactEmail = request.contact_email
             )
         )
 
         return PatientProfileResponse(
-            id = profile.id,
+            id = profile.userId,
             contactEmail = profile.contactEmail
         )
     }
@@ -47,7 +46,7 @@ class PatientService(
             .orElseThrow { PatientProfileNotFoundException() }
 
         return PatientProfileResponse(
-            id = profile.id,
+            id = profile.userId,
             contactEmail = profile.contactEmail
         )
     }

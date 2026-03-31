@@ -30,7 +30,7 @@ postgresql = { module = "org.postgresql:postgresql" }
 commonsCodec = { module = "commons-codec:commons-codec", version.ref = "commonsCodec" }
 testcontainersPostgresql = { module = "org.testcontainers:postgresql", version.ref = "testcontainers" }
 testcontainersJunitJupiter = { module = "org.testcontainers:junit-jupiter", version.ref = "testcontainers" }
-
+mockitoKotlin = { module = "org.mockito.kotlin:mockito-kotlin", version = "6.3.0" }
 
 [plugins]
 kotlinPluginSpring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }

@@ -30,13 +30,12 @@ class DoctorService(
 
         val profile = doctorProfileRepository.save(
             DoctorProfile(
-                id = userId,
-                user = user,
+                userId = userId,
                 specialization = request.specialization
             )
         )
         return DoctorProfileResponse(
-            id = profile.id,
+            id = profile.userId,
             specialization = profile.specialization
         )
     }
@@ -46,7 +45,7 @@ class DoctorService(
         val profile = doctorProfileRepository.findById(userId)
             .orElseThrow { DoctorProfileNotFoundException() }
         return DoctorProfileResponse(
-            id = profile.id,
+            id = profile.userId,
             specialization = profile.specialization
         )
     }

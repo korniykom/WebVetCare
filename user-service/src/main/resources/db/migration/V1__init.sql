@@ -10,11 +10,11 @@ CREATE TABLE user_roles (
 );
 
 CREATE TABLE doctor_profiles (
-    id                  VARCHAR(255) PRIMARY KEY REFERENCES users(id),
-    specialization      VARCHAR(255) NOT NULL
+    user_id        VARCHAR(255) PRIMARY KEY REFERENCES users(id),
+    specialization VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE patient_profiles (
-    id                    VARCHAR(255) PRIMARY KEY REFERENCES users(id),
-    contact_email         VARCHAR(255) NOT NULL
+    user_id              VARCHAR(255) PRIMARY KEY REFERENCES users(id),
+    contact_phone_number VARCHAR(255) NOT NULL
 );
