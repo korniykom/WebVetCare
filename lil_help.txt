@@ -28,3 +28,4 @@ kubectl get pods -n webvetcare
 ./gradlew :auth-service:pushImage
 ./gradlew :user-service:pushImage
 
+kubectl delete secret ghcr-secret -n webvetcare

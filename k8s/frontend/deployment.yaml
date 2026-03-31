@@ -3,8 +3,6 @@ kind: Deployment
 metadata:
   name: frontend
 spec:
-  imagePullSecrets:
-    - name: ghcr-secret
   replicas: 1
   selector:
     matchLabels:
@@ -14,6 +12,8 @@ spec:
       labels:
         app: frontend
     spec:
+      imagePullSecrets:
+        - name: ghcr-secret
       containers:
         - name: frontend
           image: ghcr.io/korniykom/webvetcare-compose-web:0.0.1

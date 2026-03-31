@@ -9,6 +9,7 @@ java = "17"
 [libraries]
 springBootStarterThymeleaf = { module = "org.springframework.boot:spring-boot-starter-thymeleaf" }
 springBootStarterWebmvc = { module = "org.springframework.boot:spring-boot-starter-webmvc" }
+springSecurityOauth2ResourceServer = { module = "org.springframework.security:spring-security-oauth2-resource-server" }
 kotlinReflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
 jacksonModuleKotlin = { module = "tools.jackson.module:jackson-module-kotlin" }
 springBootStarterThymeleafTest = { module = "org.springframework.boot:spring-boot-starter-thymeleaf-test" }
