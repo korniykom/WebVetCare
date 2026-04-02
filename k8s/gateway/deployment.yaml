@@ -25,6 +25,6 @@ spec:
             - name: AUTH_SERVICE_URL
               value: http://auth-service:9991
             - name: USER_SERVICE_URL
-              value: http://user-service:8080
+              value: http://user-service:9992
             - name: JWKS_URI
               value: http://auth-service:9991/.well-known/jwks.json
