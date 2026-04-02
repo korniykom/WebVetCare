@@ -5,7 +5,7 @@ spring:
     name:
       auth-service
   datasource:
-    url: jdbc:postgresql://${DB_HOST:192.168.39.66}:${DB_PORT:30432}/${DB_NAME:authdb}
+    url: jdbc:postgresql://${DB_HOST:192.168.39.150}:${DB_PORT:30432}/${DB_NAME:authdb}
     username: postgres
     password: postgres
   jpa:

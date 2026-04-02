@@ -30,5 +30,5 @@ spec:
               value: postgres
             - name: DB_PASS
               value: postgres
-            - name: AUTH_JWTS_URI
+            - name: AUTH_JWKS_URI
               value: http://auth-service:9991/.well-known/jwks.json
