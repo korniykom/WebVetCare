@@ -13,14 +13,16 @@ class SecurityConfig {
     @Bean
     fun securityFilterChain(http: ServerHttpSecurity): SecurityWebFilterChain {
         return http
-            .csrf { it.disable() }
-            .authorizeExchange {
-                it.pathMatchers("/api/auth/**").permitAll()
-                it.anyExchange().authenticated()
+            .authorizeExchange { exchanges ->
+                exchanges
+                    .pathMatchers("/api/auth/**")
+                    .permitAll()
+                    .pathMatchers("/.well-known/jwks.json")
+                    .permitAll()
+                    .anyExchange()
+                            .authenticated()
             }
-            .oauth2ResourceServer {
-                it.jwt { }
-            }
+            .oauth2ResourceServer { it.jwt {} }
             .build()
     }
 }

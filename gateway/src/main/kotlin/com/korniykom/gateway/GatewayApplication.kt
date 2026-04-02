@@ -21,6 +21,10 @@ class GatewayApplication {
                 r.path("/api/users/**")
                     .uri(userServiceUrl)
             }
+            .route(".well-known/jwks.json") { r ->
+                r.path("/.well-knonw/jwks.json")
+                    .uri(authServiceUrl)
+            }
             .build()
     }
 
