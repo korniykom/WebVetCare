@@ -1,6 +1,4 @@
 plugins {
-    // this is necessary to avoid the plugins to be loaded multiple times
-    // in each subproject's classloader
     alias(ui.plugins.androidApplication) apply false
     alias(ui.plugins.androidLibrary) apply false
     alias(ui.plugins.composeMultiplatform) apply false
@@ -9,4 +7,5 @@ plugins {
     alias(ui.plugins.kotlinAndroid) apply false
     alias(libs.plugins.kotlinJvm) apply false
     alias(libs.plugins.kotlinPluginSpring) apply false
+    alias(libs.plugins.springDependencyManagement) apply false
 }

@@ -27,16 +27,24 @@ java {
 repositories {
     mavenCentral()
 }
-
 dependencies {
-    implementation(libs.springBootStarterThymeleaf)
-    implementation(libs.springBootStarterWebmvc)
+    implementation(platform(libs.springCloudDependencies))
+    implementation(libs.springCloudGateway)
+    implementation(libs.springBootStarterWebflux)
+    implementation(libs.springBootStarterOauth2ResourceServer)
+    implementation(libs.springSecurityOauth2Jose)
     implementation(libs.kotlinReflect)
     implementation(libs.jacksonModuleKotlin)
-    testImplementation(libs.springBootStarterThymeleafTest)
-    testImplementation(libs.springBootStarterWebmvcTest)
+    implementation(libs.springCloudLoadBalancer)
+
     testImplementation(libs.kotlinTestJunit5)
     testRuntimeOnly(libs.junitPlatformLauncher)
+}
+
+dependencyManagement {
+    imports {
+        mavenBom(libs.springCloudDependencies.get().toString())
+    }
 }
 
 kotlin {

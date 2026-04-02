@@ -2,18 +2,20 @@
 kotlin = "2.3.20"
 springBoot = "4.0.5"
 springDependencyManagement = "1.1.7"
+springCloudBom = "2025.1.1"
+springCloudDependencyManagement = "2025.1.1"
 commonsCodec = "1.21.0"
 testcontainers = "1.21.4"
 java = "17"
 
 [libraries]
-springBootStarterThymeleaf = { module = "org.springframework.boot:spring-boot-starter-thymeleaf" }
-springBootStarterWebmvc = { module = "org.springframework.boot:spring-boot-starter-webmvc" }
+springCloudLoadBalancer = { module = "org.springframework.cloud:spring-cloud-starter-loadbalancer" }
+springCloudGateway = { module = "org.springframework.cloud:spring-cloud-gateway-server-webflux" }
+springCloudDependencies = { module = "org.springframework.cloud:spring-cloud-dependencies", version.ref = "springCloudBom" }
+springBootStarterOauth2ResourceServer = { module = "org.springframework.boot:spring-boot-starter-oauth2-resource-server", version.ref = "springBoot" }
 springSecurityOauth2ResourceServer = { module = "org.springframework.security:spring-security-oauth2-resource-server" }
 kotlinReflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
 jacksonModuleKotlin = { module = "tools.jackson.module:jackson-module-kotlin" }
-springBootStarterThymeleafTest = { module = "org.springframework.boot:spring-boot-starter-thymeleaf-test" }
-springBootStarterWebmvcTest = { module = "org.springframework.boot:spring-boot-starter-webmvc-test" }
 kotlinTestJunit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5" }
 junitPlatformLauncher = { module = "org.junit.platform:junit-platform-launcher" }
 springBootStarterWeb = { module = "org.springframework.boot:spring-boot-starter-web" }

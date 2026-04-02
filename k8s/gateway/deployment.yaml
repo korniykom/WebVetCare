@@ -21,3 +21,10 @@ spec:
           image: ghcr.io/korniykom/webvetcare-gateway:0.0.1-snapshot
           ports:
             - containerPort: 8080
+          env:
+            - name: AUTH_SERVICE_URL
+              value: http://auth-service:9991
+            - name: USER_SERVICE_URL
+              value: http://user-service:8080
+            - name: JWKS_URI
+              value: http://auth-service:9991/.well-known/jwks.json
