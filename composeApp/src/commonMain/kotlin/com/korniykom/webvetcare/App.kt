@@ -1,35 +1,55 @@
 package com.korniykom.webvetcare
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import org.jetbrains.compose.resources.painterResource
+import com.korniykom.webvetcare.presentation.components.buttons.WebVetCareButton
+import com.korniykom.webvetcare.presentation.components.buttons.WebVetCareButtonStyle
+import com.korniykom.webvetcare.presentation.theme.WebVetCareTheme
 
-import webvetcare.composeapp.generated.resources.Res
-import webvetcare.composeapp.generated.resources.compose_multiplatform
 
 @Composable
-@Preview
 fun App() {
-    MaterialTheme {
+    WebVetCareTheme {
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Image(painterResource(Res.drawable.compose_multiplatform), null)
-            Text("Compose App")
+            WebVetCareButton(
+                text = "login",
+                onClick = {},
+                modifier = Modifier,
+                style = WebVetCareButtonStyle.YELLOW,
+                enabled = true,
+                isLoading = false
+            )
+            WebVetCareButton(
+                text = "login",
+                onClick = {},
+                modifier = Modifier,
+                style = WebVetCareButtonStyle.WHITE,
+                enabled = true,
+                isLoading = false
+            )
+            WebVetCareButton(
+                text = "login",
+                onClick = {},
+                modifier = Modifier,
+                style = WebVetCareButtonStyle.TEAL,
+                enabled = true,
+                isLoading = false
+            )
+            WebVetCareButton(
+                text = "login",
+                onClick = {},
+                modifier = Modifier,
+                style = WebVetCareButtonStyle.TEAL_GHOST,
+                enabled = true,
+                isLoading = false
+            )
         }
     }
 }

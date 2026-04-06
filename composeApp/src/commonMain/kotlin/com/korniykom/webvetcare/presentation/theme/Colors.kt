@@ -16,6 +16,7 @@ val LightGray = Color(0xFFE8EDF2)
 val Amber = Color(0xFFF5A623)
 val ErrorRed = Color(0xFFE53935)
 val Success = Color(0xFF43A047)
+val Transparent = Color(0x000)
 
 val LocalExtendedColors = staticCompositionLocalOf { lightExtendedColors }
 
@@ -26,7 +27,8 @@ get() = LocalExtendedColors.current
 
 @Immutable
 data class ExtendedColors(
-    val success: Color
+    val success: Color,
+    val transparent: Color
 )
 
 val lightColorScheme = lightColorScheme(
@@ -49,27 +51,29 @@ val lightColorScheme = lightColorScheme(
 
 val darkColorScheme = darkColorScheme(
     primary = Teal,
-    onPrimary = DarkNavy,
-    primaryContainer = Teal,
-    onPrimaryContainer = White,
-    secondary = LightGray,
-    onSecondary = DarkNavy,
+    onPrimary = White,
+    primaryContainer = LightGray,
+    onPrimaryContainer = Teal,
+    secondary = DarkNavy,
+    onSecondary = White,
     tertiary = Amber,
     onTertiary = DarkNavy,
     error = ErrorRed,
-    onError = DarkNavy,
-    background = DarkNavy,
-    onBackground = White,
-    surface = DarkNavy,
-    onSurface = White,
-    surfaceVariant = DarkNavy,
-    onSurfaceVariant = LightGray,
+    onError = White,
+    background = White,
+    surface = White,
+    onSurface = DarkNavy,
+    surfaceVariant = LightGray,
+    onSurfaceVariant = LightGray
 )
 
 val lightExtendedColors = ExtendedColors(
-    success = Success
+    success = Success,
+    transparent = Transparent
 )
 
 val darkExtendedColors = ExtendedColors(
-    success = Success
+    success = Success,
+    transparent = Transparent
+
 )

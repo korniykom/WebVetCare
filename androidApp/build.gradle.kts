@@ -5,8 +5,16 @@ plugins {
 }
 
 dependencies {
+    implementation(ui.compose.runtime)
+    implementation(ui.compose.foundation)
+    implementation(ui.compose.material3)
+    implementation(ui.compose.ui)
+    implementation(ui.compose.components.resources)
     implementation(ui.compose.uiToolingPreview)
     implementation(ui.androidx.activity.compose)
+    debugImplementation(ui.androidx.compose.uiTooling)
+    debugImplementation(ui.compose.components.resources)
+    implementation(ui.compose.ui.preview)
     implementation(project(":composeApp"))
 }
 

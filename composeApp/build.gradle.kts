@@ -16,7 +16,7 @@ val imageName = "$namespace-$serviceName"
 val fullImageName = "$registryUrl/$imageName:$imageTag"
 
 kotlin {
-    
+
     jvm()
     
     js {
