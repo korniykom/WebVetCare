@@ -41,6 +41,8 @@ kotlin {
             implementation(ui.compose.uiToolingPreview)
             implementation(ui.androidx.lifecycle.viewmodelCompose)
             implementation(ui.androidx.lifecycle.runtimeCompose)
+            implementation(ui.koin.core)
+            implementation(ui.koin.compose.viewmodel)
         }
         commonTest.dependencies {
             implementation(ui.kotlin.test)

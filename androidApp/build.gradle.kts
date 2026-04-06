@@ -16,6 +16,9 @@ dependencies {
     debugImplementation(ui.compose.components.resources)
     implementation(ui.compose.ui.preview)
     implementation(project(":composeApp"))
+    implementation(ui.koin.android)
+    implementation(ui.koin.androidx.compose)
+    implementation(ui.koin.compose.viewmodel)
 }
 
 kotlin {
