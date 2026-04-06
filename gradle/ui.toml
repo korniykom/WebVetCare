@@ -20,7 +20,7 @@ androidx-compose = "1.10.6"
 
 
 [libraries]
-koin-compose-viewmodel   = { group = "io.insert-koin", name = "koin-compose-viewmodel",   version.ref = "koin" }
+koin-compose-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmodel", version.ref = "koin" }
 koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }

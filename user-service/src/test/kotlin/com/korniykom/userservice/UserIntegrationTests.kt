@@ -6,18 +6,17 @@ import com.korniykom.userservice.repository.DoctorProfileRepository
 import com.korniykom.userservice.repository.PatientProfileRepository
 import com.korniykom.userservice.repository.UserRepository
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.MediaType
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.`when`
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.bean.override.mockito.MockitoBean
 import org.springframework.boot.web.server.context.WebServerApplicationContext
 import org.springframework.security.oauth2.jwt.Jwt
 import org.springframework.security.oauth2.jwt.Jwt.withTokenValue
 import org.springframework.security.oauth2.jwt.JwtDecoder
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
+import org.springframework.test.context.bean.override.mockito.MockitoBean
 import org.springframework.test.web.reactive.server.WebTestClient
 import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.junit.jupiter.Container
@@ -129,7 +128,7 @@ class UserIntegrationTests {
     fun `POST become-doctor with token returns 200`() {
         webTestClient.post()
             .uri("/api/users/become-doctor")
-            .headers{ it.setBearerAuth("test-token")}
+            .headers { it.setBearerAuth("test-token") }
             .bodyValue(BecomeDoctorRequest(specialization = "Surgery"))
             .exchange()
             .expectStatus().isOk
@@ -138,7 +137,7 @@ class UserIntegrationTests {
 
         webTestClient.get()
             .uri("/api/users/me")
-            .headers{ it.setBearerAuth("test-token")}
+            .headers { it.setBearerAuth("test-token") }
             .exchange()
             .expectStatus().isOk
             .expectBody()
@@ -150,7 +149,7 @@ class UserIntegrationTests {
     fun `POST become-patient with token returns 200`() {
         webTestClient.post()
             .uri("/api/users/become-patient")
-            .headers{ it.setBearerAuth("test-token")}
+            .headers { it.setBearerAuth("test-token") }
             .bodyValue(BecomePatientRequest(contact_email = "mail@mail.com"))
             .exchange()
             .expectStatus().isOk
@@ -159,7 +158,7 @@ class UserIntegrationTests {
 
         webTestClient.get()
             .uri("/api/users/me")
-            .headers{ it.setBearerAuth("test-token")}
+            .headers { it.setBearerAuth("test-token") }
             .exchange()
             .expectStatus().isOk
             .expectBody()
@@ -204,7 +203,7 @@ class UserIntegrationTests {
 
         webTestClient.get()
             .uri("/api/users/doctor-profile")
-            .headers{ it.setBearerAuth("test-token")}
+            .headers { it.setBearerAuth("test-token") }
             .exchange()
             .expectStatus().isOk
     }
@@ -221,7 +220,7 @@ class UserIntegrationTests {
 
         webTestClient.get()
             .uri("/api/users/patient-profile")
-            .headers{ it.setBearerAuth("test-token")}
+            .headers { it.setBearerAuth("test-token") }
             .exchange()
             .expectStatus().isOk
     }

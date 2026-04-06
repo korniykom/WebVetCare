@@ -1,15 +1,9 @@
 package com.korniykom.auth.entity
 
 import com.korniykom.auth.domain.type.UserId
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
 import java.time.Instant
-import java.util.UUID
 
 @Entity
 @Table(name = "auth_users")

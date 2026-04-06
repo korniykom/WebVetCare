@@ -1,5 +1,5 @@
 package com.korniykom.auth.domain.exceptions
 
-class UserNotFoundException: RuntimeException(
+class UserNotFoundException : RuntimeException(
     "User not found"
 )

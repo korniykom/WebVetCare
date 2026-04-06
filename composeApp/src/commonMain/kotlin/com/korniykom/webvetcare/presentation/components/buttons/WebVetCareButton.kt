@@ -33,19 +33,22 @@ fun WebVetCareButton(
     enabled: Boolean = true,
     isLoading: Boolean = false,
 ) {
-    val colors = when(style) {
+    val colors = when (style) {
         WebVetCareButtonStyle.YELLOW -> ButtonDefaults.buttonColors(
             contentColor = MaterialTheme.colorScheme.secondary,
             containerColor = MaterialTheme.colorScheme.tertiary,
         )
+
         WebVetCareButtonStyle.WHITE -> ButtonDefaults.buttonColors(
             contentColor = MaterialTheme.colorScheme.secondary,
             containerColor = MaterialTheme.colorScheme.background,
         )
+
         WebVetCareButtonStyle.TEAL -> ButtonDefaults.buttonColors(
             contentColor = MaterialTheme.colorScheme.onPrimary,
             containerColor = MaterialTheme.colorScheme.primary,
         )
+
         WebVetCareButtonStyle.TEAL_GHOST -> ButtonDefaults.buttonColors(
             contentColor = MaterialTheme.colorScheme.primary,
             containerColor = MaterialTheme.colorScheme.onPrimary,
@@ -57,10 +60,10 @@ fun WebVetCareButton(
         color = MaterialTheme.colorScheme.extended.transparent
     )
 
-    val border = when(style) {
+    val border = when (style) {
         WebVetCareButtonStyle.YELLOW -> defaultBorderStroke
-        WebVetCareButtonStyle.WHITE ->  defaultBorderStroke
-        WebVetCareButtonStyle.TEAL ->  defaultBorderStroke
+        WebVetCareButtonStyle.WHITE -> defaultBorderStroke
+        WebVetCareButtonStyle.TEAL -> defaultBorderStroke
         WebVetCareButtonStyle.TEAL_GHOST -> BorderStroke(
             width = 2.dp,
             color = MaterialTheme.colorScheme.primary
@@ -70,7 +73,7 @@ fun WebVetCareButton(
     Button(
         colors = colors,
         onClick = onClick,
-        enabled =  enabled,
+        enabled = enabled,
         modifier = modifier,
         border = border,
         shape = RoundedCornerShape(10.dp)

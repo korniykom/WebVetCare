@@ -1,11 +1,6 @@
 package com.korniykom.userservice.exception_handling
 
-import com.korniykom.userservice.domain.exceptions.DoctorProfileNotFoundException
-import com.korniykom.userservice.domain.exceptions.PatientProfileNotFoundException
-import com.korniykom.userservice.domain.exceptions.UserAlreadyDoctorException
-import com.korniykom.userservice.domain.exceptions.UserAlreadyPatientException
-import com.korniykom.userservice.domain.exceptions.UserNotDoctorException
-import com.korniykom.userservice.domain.exceptions.UserNotFoundException
+import com.korniykom.userservice.domain.exceptions.*
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
@@ -21,6 +16,7 @@ class UserExceptionHandler {
         "code" to "USER_NOT_FOUND",
         "message" to e.message
     )
+
     @ExceptionHandler(UserNotDoctorException::class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     fun onUserNotDoctorException(
@@ -29,6 +25,7 @@ class UserExceptionHandler {
         "code" to "USER_NOT_A_DOCTOR",
         "message" to e.message
     )
+
     @ExceptionHandler(DoctorProfileNotFoundException::class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     fun onDoctorProfileNotFoundException(
@@ -37,6 +34,7 @@ class UserExceptionHandler {
         "code" to "DOCTOR_PROFILE_NOT_FOUND",
         "message" to e.message
     )
+
     @ExceptionHandler(PatientProfileNotFoundException::class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     fun onPatientProfileNotFoundException(
@@ -45,6 +43,7 @@ class UserExceptionHandler {
         "code" to "PATIENT_PROFILE_NOT_FOUND",
         "message" to e.message
     )
+
     @ExceptionHandler(UserAlreadyDoctorException::class)
     @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
     fun onUserAlreadyDoctorException(
@@ -53,6 +52,7 @@ class UserExceptionHandler {
         "code" to "USER_ALREADY_DOCTOR",
         "message" to e.message
     )
+
     @ExceptionHandler(UserAlreadyPatientException::class)
     @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
     fun onUserAlreadyPatientException(

@@ -2,8 +2,8 @@ package com.korniykom.auth.repository
 
 import com.korniykom.auth.entity.RefreshTokenEntity
 import org.springframework.data.jpa.repository.JpaRepository
-import java.util.UUID
+import java.util.*
 
-interface RefreshTokenRepository: JpaRepository<RefreshTokenEntity, UUID> {
+interface RefreshTokenRepository : JpaRepository<RefreshTokenEntity, UUID> {
     fun findByTokenHash(tokenHash: String): RefreshTokenEntity?
 }

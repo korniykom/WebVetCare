@@ -16,7 +16,7 @@ class UserController(
 ) {
     @GetMapping("/me")
     fun getMe(@AuthenticationPrincipal jwt: Jwt): ResponseEntity<UserResponse> {
-         val userId = jwt.subject
+        val userId = jwt.subject
         val email = jwt.getClaim<String>("email")
         return ResponseEntity.ok(userService.getOrCreateUser(userId, email))
     }

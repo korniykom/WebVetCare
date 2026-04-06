@@ -3,7 +3,6 @@ package com.korniykom.userservice.service
 import com.korniykom.userservice.domain.enums.Role
 import com.korniykom.userservice.domain.exceptions.DoctorProfileNotFoundException
 import com.korniykom.userservice.domain.exceptions.UserAlreadyDoctorException
-import com.korniykom.userservice.domain.exceptions.UserNotDoctorException
 import com.korniykom.userservice.domain.exceptions.UserNotFoundException
 import com.korniykom.userservice.dto.request.BecomeDoctorRequest
 import com.korniykom.userservice.dto.response.DoctorProfileResponse

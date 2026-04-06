@@ -18,9 +18,9 @@ class PatientService(
 ) {
     fun becomePatient(userId: String, request: BecomePatientRequest): PatientProfileResponse {
         val user = userRepository.findById(userId)
-            .orElseThrow{ UserNotFoundException() }
+            .orElseThrow { UserNotFoundException() }
 
-        if(user.roles.contains(Role.PATIENT)) {
+        if (user.roles.contains(Role.PATIENT)) {
             throw UserAlreadyPatientException()
         }
 

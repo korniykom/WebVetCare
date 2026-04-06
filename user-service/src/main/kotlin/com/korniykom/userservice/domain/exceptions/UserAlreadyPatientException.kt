@@ -1,6 +1,6 @@
 package com.korniykom.userservice.domain.exceptions
 
-class UserAlreadyPatientException: RuntimeException(
+class UserAlreadyPatientException : RuntimeException(
     "User already patient"
 ) {
 }

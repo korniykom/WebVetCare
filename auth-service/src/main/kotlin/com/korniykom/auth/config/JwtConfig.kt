@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 @ConfigurationProperties(prefix = "app.jwt")
 class JwtConfig {
-     var privateKeyPath: String = ""
+    var privateKeyPath: String = ""
     var publicKeyPath: String = ""
     var accessTokenExpiry: Long? = null
     var refreshTokenExpiry: Long? = null

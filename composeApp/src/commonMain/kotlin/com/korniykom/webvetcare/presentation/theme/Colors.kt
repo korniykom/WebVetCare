@@ -9,7 +9,7 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
-val DarkNavy  = Color(0xFF0B1F3A)
+val DarkNavy = Color(0xFF0B1F3A)
 val Teal = Color(0xFF1A7F78)
 val White = Color(0xFFF8FAFC)
 val LightGray = Color(0xFFE8EDF2)
@@ -21,9 +21,9 @@ val Transparent = Color(0x000)
 val LocalExtendedColors = staticCompositionLocalOf { lightExtendedColors }
 
 val ColorScheme.extended: ExtendedColors
-@ReadOnlyComposable
-@Composable
-get() = LocalExtendedColors.current
+    @ReadOnlyComposable
+    @Composable
+    get() = LocalExtendedColors.current
 
 @Immutable
 data class ExtendedColors(

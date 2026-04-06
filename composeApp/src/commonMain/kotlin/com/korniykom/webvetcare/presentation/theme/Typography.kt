@@ -7,12 +7,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.Font
-import webvetcare.composeapp.generated.resources.DMSans_Bold
-import webvetcare.composeapp.generated.resources.DMSans_Regular
-import webvetcare.composeapp.generated.resources.DMSans_SemiBold
-import webvetcare.composeapp.generated.resources.Lato_Bold
-import webvetcare.composeapp.generated.resources.Lato_Regular
-import webvetcare.composeapp.generated.resources.Res
+import webvetcare.composeapp.generated.resources.*
 
 val DMSans
     @Composable get() = FontFamily(
