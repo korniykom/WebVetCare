@@ -42,6 +42,5 @@ plugins {
 
 include(":auth-service")
 include(":composeApp")
-include(":androidApp")
 include(":gateway")
 include(":user-service")

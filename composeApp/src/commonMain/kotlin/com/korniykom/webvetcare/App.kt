@@ -7,7 +7,7 @@ import com.korniykom.webvetcare.presentation.theme.WebVetCareTheme
 
 @Composable
 fun App() {
-    WebVetCareTheme {
+    WebVetCareTheme{
         LandingPageRoot()
     }
 }

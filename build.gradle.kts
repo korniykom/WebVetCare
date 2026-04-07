@@ -1,6 +1,4 @@
 plugins {
-    alias(ui.plugins.androidApplication) apply false
-    alias(ui.plugins.androidLibrary) apply false
     alias(ui.plugins.composeMultiplatform) apply false
     alias(ui.plugins.composeCompiler) apply false
     alias(ui.plugins.kotlinMultiplatform) apply false

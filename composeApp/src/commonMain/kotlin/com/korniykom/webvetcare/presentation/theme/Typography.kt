@@ -37,6 +37,12 @@ val Lato
         )
     )
 
+val Typography.H0: TextStyle
+    @Composable get() = TextStyle(
+        fontFamily = DMSans,
+        fontWeight = FontWeight.Bold,
+        fontSize = 52.sp,
+    )
 val Typography.H1: TextStyle
     @Composable get() = TextStyle(
         fontFamily = DMSans,

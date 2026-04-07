@@ -31,7 +31,6 @@ fun WebVetCareButton(
     modifier: Modifier = Modifier,
     style: WebVetCareButtonStyle = WebVetCareButtonStyle.TEAL,
     enabled: Boolean = true,
-    isLoading: Boolean = false,
 ) {
     val colors = when (style) {
         WebVetCareButtonStyle.YELLOW -> ButtonDefaults.buttonColors(
@@ -40,8 +39,8 @@ fun WebVetCareButton(
         )
 
         WebVetCareButtonStyle.WHITE -> ButtonDefaults.buttonColors(
-            contentColor = MaterialTheme.colorScheme.secondary,
-            containerColor = MaterialTheme.colorScheme.background,
+            contentColor = MaterialTheme.colorScheme.background,
+            containerColor = MaterialTheme.colorScheme.extended.transparent,
         )
 
         WebVetCareButtonStyle.TEAL -> ButtonDefaults.buttonColors(
@@ -62,7 +61,11 @@ fun WebVetCareButton(
 
     val border = when (style) {
         WebVetCareButtonStyle.YELLOW -> defaultBorderStroke
-        WebVetCareButtonStyle.WHITE -> defaultBorderStroke
+        WebVetCareButtonStyle.WHITE -> BorderStroke(
+            width = 2.dp,
+            color = MaterialTheme.colorScheme.background
+        )
+
         WebVetCareButtonStyle.TEAL -> defaultBorderStroke
         WebVetCareButtonStyle.TEAL_GHOST -> BorderStroke(
             width = 2.dp,
@@ -80,11 +83,12 @@ fun WebVetCareButton(
     ) {
         Box(
             contentAlignment = Alignment.Center,
-            modifier = Modifier.padding(4.dp)
         ) {
             Text(
                 text = text,
-                style = MaterialTheme.typography.bodyBold
+                style = MaterialTheme.typography.bodyBold,
+                modifier = Modifier.padding(4.dp)
+
             )
         }
     }
