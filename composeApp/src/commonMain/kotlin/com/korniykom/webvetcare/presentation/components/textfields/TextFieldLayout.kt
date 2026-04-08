@@ -19,10 +19,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.korniykom.webvetcare.presentation.theme.bodyBold
-import com.korniykom.webvetcare.presentation.theme.bodyRegular
-import com.korniykom.webvetcare.presentation.theme.caption
-import com.korniykom.webvetcare.presentation.theme.label
 
 @Composable
 fun TextFieldLayout(
@@ -62,7 +58,7 @@ fun TextFieldLayout(
         if(title != null) {
             Text(
                 text = title,
-                style = MaterialTheme.typography.bodyBold.copy(
+                style = MaterialTheme.typography.bodyMedium.copy(
                     fontSize = 13.sp
                 ),
                 color = textFieldTitleColor(isError = isError, enabled = enabled),            )
@@ -79,7 +75,7 @@ fun TextFieldLayout(
                 } else {
                     MaterialTheme.colorScheme.tertiary
                 },
-                style = MaterialTheme.typography.bodyRegular.copy(
+                style = MaterialTheme.typography.bodyMedium.copy(
                     fontSize = 13.sp
                 )
             )

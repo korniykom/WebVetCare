@@ -10,7 +10,7 @@ fun WebVetCareTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val colorScheme = if (darkTheme) darkColorScheme else lightColorScheme
+    val colorScheme =  darkColorScheme
     val extendedScheme = if (darkTheme) darkExtendedColors else lightExtendedColors
 
     CompositionLocalProvider(LocalExtendedColors provides extendedScheme) {

@@ -21,10 +21,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.korniykom.webvetcare.presentation.theme.bodyBold
-import com.korniykom.webvetcare.presentation.theme.bodyRegular
 import org.jetbrains.compose.resources.vectorResource
 import webvetcare.composeapp.generated.resources.Res
 import webvetcare.composeapp.generated.resources.eye_icon
@@ -62,7 +61,8 @@ fun PasswordTextField(
             } else {
                 TextObfuscationMode.Hidden
             },
-            textStyle = MaterialTheme.typography.bodyBold.copy(
+            textStyle = MaterialTheme.typography.bodyMedium.copy(
+                fontWeight = FontWeight.Bold,
                 color = textFieldTextColor(enabled, isError)
             ),
             interactionSource = interactionSource,
@@ -84,7 +84,7 @@ fun PasswordTextField(
                             Text(
                                 text = placeholder,
                                 color = textFieldPlaceholderColor(isError),
-                                style = MaterialTheme.typography.bodyRegular
+                                style = MaterialTheme.typography.bodyMedium
                             )
                         }
                         innerBox()

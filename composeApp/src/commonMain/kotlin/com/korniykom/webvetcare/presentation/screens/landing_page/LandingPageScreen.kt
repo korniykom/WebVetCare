@@ -12,7 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -21,14 +21,9 @@ import com.korniykom.webvetcare.presentation.components.buttons.WebVetCareButton
 import com.korniykom.webvetcare.presentation.components.logos.PawLogo
 import com.korniykom.webvetcare.presentation.components.particle_background.ParticleBackground
 import com.korniykom.webvetcare.presentation.theme.DarkNavy
-import com.korniykom.webvetcare.presentation.theme.H0
 import com.korniykom.webvetcare.presentation.theme.Navy80
-import com.korniykom.webvetcare.presentation.theme.Navy90
 import com.korniykom.webvetcare.presentation.theme.Teal40
 import com.korniykom.webvetcare.presentation.theme.Teal70
-import com.korniykom.webvetcare.presentation.theme.Teal80
-import com.korniykom.webvetcare.presentation.theme.White
-import com.korniykom.webvetcare.presentation.theme.bodyRegular
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -61,14 +56,20 @@ fun LandingPageScreen(
             Spacer(modifier = Modifier.height(28.dp))
             Text(
                 text = "WebVetCare",
-                style = MaterialTheme.typography.H0,
+                style = MaterialTheme.typography.titleLarge.copy(
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 56.sp
+                ),
                 color = DarkNavy,
             )
             Spacer(modifier = Modifier.height(20.dp))
             Text(
                 text = "Your trusted digital veterinary care platform —\n" +
                         "book appointments, manage health records, connect with doctors.",
-                style = MaterialTheme.typography.bodyRegular,
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 14.sp
+                ),
                 color = DarkNavy,
                 textAlign = TextAlign.Center,
                 lineHeight = 28.sp

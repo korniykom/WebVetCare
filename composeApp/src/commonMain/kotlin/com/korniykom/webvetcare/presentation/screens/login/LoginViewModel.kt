@@ -1,0 +1,69 @@
+package com.korniykom.webvetcare.presentation.screens.login
+
+import androidx.compose.runtime.snapshotFlow
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.korniykom.webvetcare.domain.EmailValidator
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
+
+class LoginViewModel : ViewModel() {
+    private var hasLoadedInitialData = false
+
+    private val _state = MutableStateFlow(LoginState())
+    val state = _state
+        .onStart {
+            if (!hasLoadedInitialData) {
+
+                hasLoadedInitialData = true
+            }
+        }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000L),
+            initialValue = LoginState()
+        )
+
+    private val isEmailValidFlow = snapshotFlow { state.value.emailTextFieldState.text.toString() }
+        .map { email -> EmailValidator.validate(email) }
+        .distinctUntilChanged()
+
+    private val isPasswordNotBlankFlow =
+        snapshotFlow { state.value.passwordTextFieldState.toString() }
+            .map { password -> password.isNotBlank() }
+            .distinctUntilChanged()
+
+    private fun observeTextStates() {
+        combine(
+            isEmailValidFlow,
+            isPasswordNotBlankFlow
+        ) { isEmailValid, isPasswordNotBlank ->
+            _state.update {
+                it.copy(
+                    canLogin = isEmailValid && isPasswordNotBlank
+                )
+            }
+        }.launchIn(viewModelScope)
+    }
+
+    fun onAction(action: LoginAction) {
+        when(action) {
+            LoginAction.OnForgotPasswordClick -> {}
+            LoginAction.OnLoginClick -> {}
+            LoginAction.OnRegisterClick -> {}
+            LoginAction.OnTogglePasswordVisibilityClick -> {
+                _state.update { it.copy(
+                    isPasswordVisible = !it.isPasswordVisible
+                ) }
+            }
+        }
+    }
+
+}

@@ -1,6 +1,6 @@
 package com.korniykom.webvetcare.presentation.screens.landing_page
 
-class LandingPageAction {
+sealed interface LandingPageAction {
     data object LoginButtonClicked
     data object RegisterButtonClicked
 }

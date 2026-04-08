@@ -11,10 +11,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.korniykom.webvetcare.presentation.theme.WebVetCareTheme
-import com.korniykom.webvetcare.presentation.theme.bodyBold
+
 import com.korniykom.webvetcare.presentation.theme.extended
 
 enum class WebVetCareButtonStyle {
@@ -44,7 +45,7 @@ fun WebVetCareButton(
         )
 
         WebVetCareButtonStyle.TEAL -> ButtonDefaults.buttonColors(
-            contentColor = MaterialTheme.colorScheme.onPrimary,
+            contentColor = MaterialTheme.colorScheme.background,
             containerColor = MaterialTheme.colorScheme.primary,
         )
 
@@ -83,7 +84,9 @@ fun WebVetCareButton(
         ) {
             Text(
                 text = text,
-                style = MaterialTheme.typography.bodyBold,
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontWeight = FontWeight.Bold
+                ),
                 modifier = Modifier.padding(4.dp)
 
             )

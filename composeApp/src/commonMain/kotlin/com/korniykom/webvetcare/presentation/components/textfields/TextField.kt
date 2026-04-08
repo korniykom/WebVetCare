@@ -12,9 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import com.korniykom.webvetcare.presentation.theme.bodyBold
-import com.korniykom.webvetcare.presentation.theme.bodyRegular
+
 
 @Composable
 fun TextField(
@@ -45,7 +45,8 @@ fun TextField(
             } else {
                 TextFieldLineLimits.Default
             },
-            textStyle = MaterialTheme.typography.bodyBold.copy(
+            textStyle = MaterialTheme.typography.bodyMedium.copy(
+                fontWeight = FontWeight.Bold,
                 color = textFieldTextColor(enabled, isError)
             ),
             interactionSource = interactionSource,
@@ -63,7 +64,7 @@ fun TextField(
                         Text(
                             text = placeholder,
                             color = textFieldPlaceholderColor(isError),
-                            style = MaterialTheme.typography.bodyRegular
+                            style = MaterialTheme.typography.bodyMedium
                         )
                     }
                     innerBox()
