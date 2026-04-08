@@ -37,51 +37,90 @@ val Lato
         )
     )
 
-val Typography.H0: TextStyle
-    @Composable get() = TextStyle(
-        fontFamily = DMSans,
-        fontWeight = FontWeight.Bold,
-        fontSize = 52.sp,
+@Composable
+fun AppTypography(): Typography {
+    val dmSans = DMSans
+    val lato = Lato
+
+    return Typography(
+        displayLarge = TextStyle(
+            fontFamily = dmSans,
+            fontWeight = FontWeight.Bold,
+            fontSize = 57.sp
+        ),
+        displayMedium = TextStyle(
+            fontFamily = dmSans,
+            fontWeight = FontWeight.Bold,
+            fontSize = 45.sp
+        ),
+        displaySmall = TextStyle(
+            fontFamily = dmSans,
+            fontWeight = FontWeight.Bold,
+            fontSize = 36.sp
+        ),
+
+        headlineLarge = TextStyle(
+            fontFamily = dmSans,
+            fontWeight = FontWeight.Bold,
+            fontSize = 32.sp
+        ),
+        headlineMedium = TextStyle(
+            fontFamily = dmSans,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 28.sp
+        ),
+        headlineSmall = TextStyle(
+            fontFamily = dmSans,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 24.sp
+        ),
+
+        titleLarge = TextStyle(
+            fontFamily = dmSans,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 22.sp
+        ),
+        titleMedium = TextStyle(
+            fontFamily = dmSans,
+            fontWeight = FontWeight.Medium,
+            fontSize = 16.sp
+        ),
+        titleSmall = TextStyle(
+            fontFamily = dmSans,
+            fontWeight = FontWeight.Medium,
+            fontSize = 14.sp
+        ),
+
+        bodyLarge = TextStyle(
+            fontFamily = lato,
+            fontWeight = FontWeight.Normal,
+            fontSize = 16.sp
+        ),
+        bodyMedium = TextStyle(
+            fontFamily = lato,
+            fontWeight = FontWeight.Normal,
+            fontSize = 14.sp
+        ),
+        bodySmall = TextStyle(
+            fontFamily = lato,
+            fontWeight = FontWeight.Normal,
+            fontSize = 12.sp
+        ),
+
+        labelLarge = TextStyle(
+            fontFamily = lato,
+            fontWeight = FontWeight.Bold,
+            fontSize = 14.sp
+        ),
+        labelMedium = TextStyle(
+            fontFamily = lato,
+            fontWeight = FontWeight.Bold,
+            fontSize = 12.sp
+        ),
+        labelSmall = TextStyle(
+            fontFamily = lato,
+            fontWeight = FontWeight.Bold,
+            fontSize = 11.sp
+        )
     )
-val Typography.H1: TextStyle
-    @Composable get() = TextStyle(
-        fontFamily = DMSans,
-        fontWeight = FontWeight.Bold,
-        fontSize = 32.sp,
-    )
-val Typography.H2: TextStyle
-    @Composable get() = TextStyle(
-        fontFamily = DMSans,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 24.sp,
-    )
-val Typography.H3: TextStyle
-    @Composable get() = TextStyle(
-        fontFamily = DMSans,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 20.sp,
-    )
-val Typography.bodyRegular: TextStyle
-    @Composable get() = TextStyle(
-        fontFamily = Lato,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-    )
-val Typography.bodyBold: TextStyle
-    @Composable get() = TextStyle(
-        fontFamily = Lato,
-        fontWeight = FontWeight.Bold,
-        fontSize = 16.sp,
-    )
-val Typography.caption: TextStyle
-    @Composable get() = TextStyle(
-        fontFamily = Lato,
-        fontWeight = FontWeight.Normal,
-        fontSize = 13.sp,
-    )
-val Typography.label: TextStyle
-    @Composable get() = TextStyle(
-        fontFamily = Lato,
-        fontWeight = FontWeight.Bold,
-        fontSize = 12.sp,
-    )
+}
