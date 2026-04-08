@@ -17,6 +17,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.korniykom.webvetcare.presentation.components.textfields.PasswordTextField
+import com.korniykom.webvetcare.presentation.components.textfields.TextField
 import com.korniykom.webvetcare.presentation.screens.landing_page.LandingPageRoot
 import com.korniykom.webvetcare.presentation.theme.WebVetCareTheme
 
@@ -78,6 +79,52 @@ fun App() {
                    onToggleVisibilityClick = { disabledVisible = !disabledVisible },
                    placeholder = "Enter password",
                    title = "Disabled",
+                   enabled = false
+               )
+               Spacer(modifier = Modifier.height(16.dp))
+
+// Regular text field (empty)
+               val textState = rememberTextFieldState()
+
+               TextField(
+                   state = textState,
+                   placeholder = "Enter text",
+                   title = "Regular / Empty",
+               )
+
+               Spacer(modifier = Modifier.height(16.dp))
+
+// Regular text field (filled)
+               val filledTextState = rememberTextFieldState("Hello World")
+
+               TextField(
+                   state = filledTextState,
+                   placeholder = "Enter text",
+                   title = "Regular / Filled",
+               )
+
+               Spacer(modifier = Modifier.height(16.dp))
+
+// Regular text field (error)
+               val errorTextState = rememberTextFieldState("Bad")
+
+               TextField(
+                   state = errorTextState,
+                   placeholder = "Enter text",
+                   title = "Regular / Error",
+                   isError = true,
+                   supportingText = "Invalid input"
+               )
+
+               Spacer(modifier = Modifier.height(16.dp))
+
+// Regular text field (disabled)
+               val disabledTextState = rememberTextFieldState("Disabled")
+
+               TextField(
+                   state = disabledTextState,
+                   placeholder = "Enter text",
+                   title = "Regular / Disabled",
                    enabled = false
                )
            }
