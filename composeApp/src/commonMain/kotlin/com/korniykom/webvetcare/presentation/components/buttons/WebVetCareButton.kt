@@ -34,13 +34,13 @@ fun WebVetCareButton(
 ) {
     val colors = when (style) {
         WebVetCareButtonStyle.YELLOW -> ButtonDefaults.buttonColors(
-            contentColor = MaterialTheme.colorScheme.secondary,
+            contentColor = MaterialTheme.colorScheme.onTertiary,
             containerColor = MaterialTheme.colorScheme.tertiary,
         )
 
         WebVetCareButtonStyle.WHITE -> ButtonDefaults.buttonColors(
             contentColor = MaterialTheme.colorScheme.background,
-            containerColor = MaterialTheme.colorScheme.extended.transparent,
+            containerColor = MaterialTheme.colorScheme.onBackground,
         )
 
         WebVetCareButtonStyle.TEAL -> ButtonDefaults.buttonColors(
@@ -61,10 +61,7 @@ fun WebVetCareButton(
 
     val border = when (style) {
         WebVetCareButtonStyle.YELLOW -> defaultBorderStroke
-        WebVetCareButtonStyle.WHITE -> BorderStroke(
-            width = 2.dp,
-            color = MaterialTheme.colorScheme.background
-        )
+        WebVetCareButtonStyle.WHITE -> defaultBorderStroke
 
         WebVetCareButtonStyle.TEAL -> defaultBorderStroke
         WebVetCareButtonStyle.TEAL_GHOST -> BorderStroke(

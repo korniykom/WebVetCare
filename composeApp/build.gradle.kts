@@ -43,6 +43,7 @@ kotlin {
             implementation(ui.androidx.lifecycle.runtimeCompose)
             implementation(ui.koin.core)
             implementation(ui.koin.compose.viewmodel)
+            implementation(ui.windowSizeClass)
         }
         commonTest.dependencies {
             implementation(ui.kotlin.test)
