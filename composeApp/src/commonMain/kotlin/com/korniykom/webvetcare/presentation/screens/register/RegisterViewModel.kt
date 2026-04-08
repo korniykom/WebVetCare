@@ -1,4 +1,4 @@
-package com.korniykom.webvetcare.presentation.screens.login
+package com.korniykom.webvetcare.presentation.screens.register
 
 import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
@@ -14,10 +14,10 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 
-class LoginViewModel : ViewModel() {
+class RegisterViewModel : ViewModel() {
     private var hasLoadedInitialData = false
 
-    private val _state = MutableStateFlow(LoginState())
+    private val _state = MutableStateFlow(RegisterState())
     val state = _state
         .onStart {
             if (!hasLoadedInitialData) {
@@ -28,7 +28,7 @@ class LoginViewModel : ViewModel() {
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000L),
-            initialValue = LoginState()
+            initialValue = RegisterState()
         )
 
     private val isEmailValidFlow = snapshotFlow { state.value.emailTextFieldState.text.toString() }
@@ -40,6 +40,7 @@ class LoginViewModel : ViewModel() {
             .map { password -> password.isNotBlank() }
             .distinctUntilChanged()
 
+
     private fun observeTextStates() {
         combine(
             isEmailValidFlow,
@@ -47,23 +48,23 @@ class LoginViewModel : ViewModel() {
         ) { isEmailValid, isPasswordNotBlank ->
             _state.update {
                 it.copy(
-                    canLogin = isEmailValid && isPasswordNotBlank
+                    canCreateAccount = isEmailValid && isPasswordNotBlank
                 )
             }
         }.launchIn(viewModelScope)
     }
 
-    fun onAction(action: LoginAction) {
-        when(action) {
-            LoginAction.OnForgotPasswordClick -> {}
-            LoginAction.OnLoginClick -> {}
-            LoginAction.OnGoToRegisterClick -> {}
-            LoginAction.OnTogglePasswordVisibilityClick -> {
-                _state.update { it.copy(
-                    isPasswordVisible = !it.isPasswordVisible
-                ) }
+    fun onAction(action: RegisterAction) {
+        when (action) {
+            RegisterAction.OnCreateAccountClick -> {}
+            RegisterAction.OnGoToLoginClick -> {}
+            RegisterAction.OnTogglePasswordVisibilityClick -> {
+                _state.update {
+                    it.copy(
+                        isPasswordVisible = !it.isPasswordVisible
+                    )
+                }
             }
         }
     }
-
 }

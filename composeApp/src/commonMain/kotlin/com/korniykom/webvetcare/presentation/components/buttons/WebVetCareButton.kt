@@ -37,21 +37,29 @@ fun WebVetCareButton(
         WebVetCareButtonStyle.YELLOW -> ButtonDefaults.buttonColors(
             contentColor = MaterialTheme.colorScheme.onTertiary,
             containerColor = MaterialTheme.colorScheme.tertiary,
+            disabledContentColor = MaterialTheme.colorScheme.onTertiary.copy(alpha = .6f) ,
+            disabledContainerColor = MaterialTheme.colorScheme.tertiary.copy(alpha = .6f)
         )
 
         WebVetCareButtonStyle.WHITE -> ButtonDefaults.buttonColors(
             contentColor = MaterialTheme.colorScheme.background,
             containerColor = MaterialTheme.colorScheme.onBackground,
+            disabledContentColor = MaterialTheme.colorScheme.background.copy(alpha = .6f) ,
+            disabledContainerColor = MaterialTheme.colorScheme.onBackground.copy(alpha = .6f)
         )
 
         WebVetCareButtonStyle.TEAL -> ButtonDefaults.buttonColors(
             contentColor = MaterialTheme.colorScheme.background,
             containerColor = MaterialTheme.colorScheme.primary,
+            disabledContentColor = MaterialTheme.colorScheme.background.copy(alpha = .6f) ,
+            disabledContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = .6f)
         )
 
         WebVetCareButtonStyle.TEAL_GHOST -> ButtonDefaults.buttonColors(
             contentColor = MaterialTheme.colorScheme.primary,
             containerColor = MaterialTheme.colorScheme.onPrimary,
+            disabledContentColor = MaterialTheme.colorScheme.primary.copy(alpha = .6f) ,
+            disabledContainerColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = .6f)
         )
     }
 

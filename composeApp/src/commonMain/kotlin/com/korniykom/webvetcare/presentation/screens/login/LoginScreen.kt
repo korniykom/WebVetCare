@@ -83,6 +83,7 @@ fun LoginScreen(
                 text = "Login",
                 style = WebVetCareButtonStyle.TEAL,
                 onClick = {},
+                enabled = state.canLogin,
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(32.dp))
