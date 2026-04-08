@@ -65,8 +65,7 @@ fun TextFieldLayout(
                 style = MaterialTheme.typography.bodyBold.copy(
                     fontSize = 13.sp
                 ),
-                color = MaterialTheme.colorScheme.secondary
-            )
+                color = textFieldTitleColor(isError = isError, enabled = enabled),            )
             Spacer(modifier = Modifier.height(8.dp))
         }
         textField(textFieldStyleModifier, interactionSource)

@@ -4,12 +4,14 @@ import androidx.compose.runtime.Composable
 import com.korniykom.webvetcare.presentation.theme.Neutral40
 import com.korniykom.webvetcare.presentation.theme.NeutralVar50
 import com.korniykom.webvetcare.presentation.theme.NeutralVar60
+import com.korniykom.webvetcare.presentation.theme.NeutralVar70
 import com.korniykom.webvetcare.presentation.theme.NeutralVar80
 import com.korniykom.webvetcare.presentation.theme.NeutralVar95
 import com.korniykom.webvetcare.presentation.theme.NeutralVar99
 import com.korniykom.webvetcare.presentation.theme.Red50
 import com.korniykom.webvetcare.presentation.theme.Red80
 import com.korniykom.webvetcare.presentation.theme.Red95
+import com.korniykom.webvetcare.presentation.theme.Teal80
 import com.korniykom.webvetcare.presentation.theme.Teal90
 import com.korniykom.webvetcare.presentation.theme.Teal99
 
@@ -48,3 +50,22 @@ fun textFieldPlaceholderColor(isError: Boolean = false) = when {
     else -> NeutralVar60
 }
 
+@Composable
+fun textFieldTitleColor(isError: Boolean = false, enabled: Boolean = true) = when {
+    !enabled -> NeutralVar60
+    isError -> Red80
+    else -> NeutralVar50
+}
+
+
+@Composable
+fun textFieldIconColor(
+    enabled: Boolean,
+    isFocused: Boolean,
+    isError: Boolean,
+) = when {
+    !enabled -> NeutralVar70
+    isError -> Red50
+    isFocused -> Teal80
+    else -> NeutralVar80
+}
