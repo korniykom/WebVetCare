@@ -7,6 +7,7 @@ import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
+import com.korniykom.webvetcare.presentation.screens.dashboard.DashboardScreen
 import com.korniykom.webvetcare.presentation.screens.landing_page.LandingPageRoot
 import com.korniykom.webvetcare.presentation.screens.login.LoginScreenRoot
 import com.korniykom.webvetcare.presentation.screens.register.RegisterScreenRoot
@@ -62,8 +63,17 @@ fun NavigationRoot(
                         RegisterScreenRoot(
                             navigateToLoginScreen = {
                                 backStack.navigateToLoginScreen()
+                            },
+                            onRegisterSuccess = {
+                                backStack.navigateToDashboardScreen()
                             }
                         )
+                    }
+                }
+
+                is Route.Dashboard -> {
+                    NavEntry(key) {
+                        DashboardScreen()
                     }
                 }
 
@@ -81,6 +91,11 @@ fun MutableList<NavKey>.removeAllLoginScreens() {
     removeAll { it is Route.LoginScreen }
 }
 
+fun MutableList<NavKey>.removeAllDashboardScreens() {
+    removeAll { it is Route.Dashboard }
+}
+
+
 fun MutableList<NavKey>.navigateToRegisterScreen() {
     removeAllRegisterScreens()
     add(Route.RegisterScreen)
@@ -89,4 +104,9 @@ fun MutableList<NavKey>.navigateToRegisterScreen() {
 fun MutableList<NavKey>.navigateToLoginScreen() {
     removeAllLoginScreens()
     add(Route.LoginScreen)
+}
+
+fun MutableList<NavKey>.navigateToDashboardScreen() {
+    removeAllDashboardScreens()
+    add(Route.Dashboard)
 }

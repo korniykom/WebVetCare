@@ -15,6 +15,8 @@ import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.request.post
+import io.ktor.client.request.url
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
@@ -60,14 +62,23 @@ class HttpClientFactory(
                     }
 
                     refreshTokens {
-                        val response = client.post<Unit, AuthResponse>(
-                            route = "/api/auth/refresh",
-                            body = Unit
-                        )
-                        when (response) {
+                        val refreshClient = HttpClient(engine) {
+                            install(ContentNegotiation) {
+                                json(Json { ignoreUnknownKeys = true })
+                            }
+                        }
+
+                        val httpResponse = refreshClient.post {
+                            url(constructRoute("/api/auth/refresh"))
+                            contentType(ContentType.Application.Json)
+                        }
+
+                        val result = responseToResult<AuthResponse>(httpResponse)
+
+                        when (result) {
                             is NetworkResult.Success -> {
-                                tokenStorage.saveAccessToken(response.data.accessToken)
-                                BearerTokens(response.data.accessToken, "")
+                                tokenStorage.saveAccessToken(result.data.accessToken)
+                                BearerTokens(result.data.accessToken, "")
                             }
 
                             is NetworkResult.Failure -> {

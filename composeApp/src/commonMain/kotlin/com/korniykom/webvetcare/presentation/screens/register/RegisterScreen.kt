@@ -24,15 +24,25 @@ import com.korniykom.webvetcare.presentation.components.layouts.AdaptiveFormLayo
 import com.korniykom.webvetcare.presentation.components.textfields.PasswordTextField
 import com.korniykom.webvetcare.presentation.components.textfields.TextField
 import com.korniykom.webvetcare.presentation.theme.NeutralVar40
+import com.korniykom.webvetcare.presentation.util.ObserveAsEvents
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun RegisterScreenRoot(
     navigateToLoginScreen: () -> Unit,
+    onRegisterSuccess: () -> Unit,
     viewModel: RegisterViewModel = koinViewModel(),
     modifier: Modifier = Modifier,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+
+    ObserveAsEvents(viewModel.events) { event ->
+        when(event) {
+            is RegisterEvent.Success -> {
+                onRegisterSuccess()
+            }
+        }
+    }
 
     RegisterScreen(
         navigateToLoginScreen = navigateToLoginScreen,
@@ -77,7 +87,7 @@ fun RegisterScreen(
             WebVetCareButton(
                 text = "Create account",
                 style = WebVetCareButtonStyle.TEAL,
-                onClick = {},
+                onClick = {onAction(RegisterAction.OnCreateAccountClick)},
                 enabled = state.canCreateAccount,
                 modifier = Modifier.fillMaxWidth()
             )

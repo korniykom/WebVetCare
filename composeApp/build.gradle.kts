@@ -52,6 +52,7 @@ kotlin {
             implementation(ui.bundles.ktor.common)
             implementation(ui.touchlab.kermit)
             implementation(ui.kotlin.stdlib)
+            implementation(ui.ktor.client.cio)
 
 
 
@@ -59,13 +60,13 @@ kotlin {
         commonTest.dependencies {
             implementation(ui.kotlin.test)
         }
-        jsMain.dependencies {
-            implementation(ui.kotlin.stdlib.js)
+        webMain.dependencies {
+            implementation(ui.ktor.client.js)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(ui.kotlinx.coroutinesSwing)
-
+            implementation(ui.datastore.preferences)
         }
     }
 }
