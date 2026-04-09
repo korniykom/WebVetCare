@@ -4,11 +4,13 @@ import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed interface Route: NavKey{
+sealed interface Route : NavKey {
     @Serializable
-    data object LandingPage: Route, NavKey
+    data object LandingPage : Route, NavKey
+
     @Serializable
-    data object LoginScreen: Route, NavKey
+    data object LoginScreen : Route, NavKey
+
     @Serializable
-    data object RegisterScreen: Route, NavKey
+    data object RegisterScreen : Route, NavKey
 }

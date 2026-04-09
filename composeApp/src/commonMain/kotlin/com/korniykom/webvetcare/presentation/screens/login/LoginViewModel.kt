@@ -3,7 +3,7 @@ package com.korniykom.webvetcare.presentation.screens.login
 import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.korniykom.webvetcare.domain.EmailValidator
+import com.korniykom.webvetcare.domain.util.EmailValidator
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
@@ -54,14 +54,16 @@ class LoginViewModel : ViewModel() {
     }
 
     fun onAction(action: LoginAction) {
-        when(action) {
+        when (action) {
             LoginAction.OnForgotPasswordClick -> {}
             LoginAction.OnLoginClick -> {}
             LoginAction.OnGoToRegisterClick -> {}
             LoginAction.OnTogglePasswordVisibilityClick -> {
-                _state.update { it.copy(
-                    isPasswordVisible = !it.isPasswordVisible
-                ) }
+                _state.update {
+                    it.copy(
+                        isPasswordVisible = !it.isPasswordVisible
+                    )
+                }
             }
         }
     }

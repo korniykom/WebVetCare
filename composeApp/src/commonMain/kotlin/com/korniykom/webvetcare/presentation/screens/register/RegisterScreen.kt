@@ -23,7 +23,6 @@ import com.korniykom.webvetcare.presentation.components.buttons.WebVetCareButton
 import com.korniykom.webvetcare.presentation.components.layouts.AdaptiveFormLayout
 import com.korniykom.webvetcare.presentation.components.textfields.PasswordTextField
 import com.korniykom.webvetcare.presentation.components.textfields.TextField
-import com.korniykom.webvetcare.presentation.screens.login.LoginAction
 import com.korniykom.webvetcare.presentation.theme.NeutralVar40
 import org.koin.compose.viewmodel.koinViewModel
 

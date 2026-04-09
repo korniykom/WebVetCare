@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service
 import java.security.interfaces.RSAPrivateKey
 import java.security.interfaces.RSAPublicKey
 import java.time.Instant
-import java.util.*
+import java.util.UUID
 
 @Service
 class TokenService(

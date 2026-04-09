@@ -49,13 +49,23 @@ kotlin {
             implementation(ui.jetbrains.material3.adaptiveNavigation3)
             implementation(ui.jetbrains.lifecycle.viewmodelNavigation3)
             implementation(ui.kotlinx.serialization)
+            implementation(ui.bundles.ktor.common)
+            implementation(ui.touchlab.kermit)
+            implementation(ui.kotlin.stdlib)
+
+
+
         }
         commonTest.dependencies {
             implementation(ui.kotlin.test)
         }
+        jsMain.dependencies {
+            implementation(ui.kotlin.stdlib.js)
+        }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(ui.kotlinx.coroutinesSwing)
+
         }
     }
 }

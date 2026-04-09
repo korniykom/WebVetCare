@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 
 class LandingPageViewModel : ViewModel() {
     fun onAction(action: LandingPageAction) {
-        when(action) {
+        when (action) {
             LandingPageAction.LoginButtonClicked -> {}
             LandingPageAction.RegisterButtonClicked -> {}
         }

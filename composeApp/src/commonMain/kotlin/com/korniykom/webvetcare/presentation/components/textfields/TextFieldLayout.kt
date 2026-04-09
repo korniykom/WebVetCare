@@ -44,7 +44,11 @@ fun TextFieldLayout(
     val textFieldStyleModifier = Modifier
         .fillMaxWidth()
         .background(
-            color = textFieldContainerColor(enabled = enabled, isFocused = isFocused, isError = isError),
+            color = textFieldContainerColor(
+                enabled = enabled,
+                isFocused = isFocused,
+                isError = isError
+            ),
             shape = RoundedCornerShape(8.dp)
         )
         .border(
@@ -55,22 +59,23 @@ fun TextFieldLayout(
         .padding(12.dp)
 
     Column(modifier = modifier) {
-        if(title != null) {
+        if (title != null) {
             Text(
                 text = title,
                 style = MaterialTheme.typography.bodyMedium.copy(
                     fontSize = 13.sp
                 ),
-                color = textFieldTitleColor(isError = isError, enabled = enabled),            )
+                color = textFieldTitleColor(isError = isError, enabled = enabled),
+            )
             Spacer(modifier = Modifier.height(8.dp))
         }
         textField(textFieldStyleModifier, interactionSource)
 
-        if(supportingText != null) {
+        if (supportingText != null) {
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = supportingText,
-                color = if(isError) {
+                color = if (isError) {
                     MaterialTheme.colorScheme.error
                 } else {
                     MaterialTheme.colorScheme.tertiary

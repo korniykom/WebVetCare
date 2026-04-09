@@ -1,6 +1,6 @@
 package com.korniykom.auth.domain.type
 
-import java.util.*
+import java.util.UUID
 
 typealias UserId = UUID
 

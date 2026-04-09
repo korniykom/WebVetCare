@@ -1,4 +1,4 @@
-package com.korniykom.webvetcare.domain
+package com.korniykom.webvetcare.domain.util
 
 object EmailValidator {
     private const val EMAIL_PATTERN = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"

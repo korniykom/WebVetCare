@@ -1,7 +1,7 @@
 package com.korniykom.auth.security
 
 import java.security.SecureRandom
-import java.util.*
+import java.util.Base64
 
 object TokenGenerator {
     fun generateSecureToken(): String {

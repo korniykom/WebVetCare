@@ -40,7 +40,7 @@ fun TextField(
         BasicTextField(
             state = state,
             enabled = enabled,
-            lineLimits = if(singleLine) {
+            lineLimits = if (singleLine) {
                 TextFieldLineLimits.SingleLine
             } else {
                 TextFieldLineLimits.Default
