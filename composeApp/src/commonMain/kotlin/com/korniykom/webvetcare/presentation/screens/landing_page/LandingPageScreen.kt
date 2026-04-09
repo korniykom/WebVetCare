@@ -28,14 +28,20 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun LandingPageRoot(
+    navigateToLoginScreen: () -> Unit,
+    navigateToRegisterScreen: () -> Unit,
     viewModel: LandingPageViewModel = koinViewModel(),
 ) {
-    LandingPageScreen()
+    LandingPageScreen(
+        navigateToLoginScreen = navigateToLoginScreen,
+        navigateToRegisterScreen = navigateToRegisterScreen,
+    )
 }
 
 @Composable
 fun LandingPageScreen(
-
+    navigateToLoginScreen: () -> Unit,
+    navigateToRegisterScreen: () -> Unit,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         ParticleBackground(
@@ -78,13 +84,13 @@ fun LandingPageScreen(
             Row {
                 WebVetCareButton(
                     text = "Login",
-                    onClick = {},
+                    onClick = navigateToLoginScreen,
                     style = WebVetCareButtonStyle.TEAL
                 )
                 Spacer(modifier = Modifier.width(16.dp))
                 WebVetCareButton(
                     text = "Register",
-                    onClick = {},
+                    onClick = navigateToRegisterScreen,
                     style = WebVetCareButtonStyle.WHITE
                 )
             }

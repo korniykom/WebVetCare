@@ -5,6 +5,7 @@ plugins {
     alias(ui.plugins.kotlinMultiplatform)
     alias(ui.plugins.composeMultiplatform)
     alias(ui.plugins.composeCompiler)
+    alias(ui.plugins.kotlinSerialization)
 }
 
 val serviceName = "compose-web"
@@ -44,6 +45,10 @@ kotlin {
             implementation(ui.koin.core)
             implementation(ui.koin.compose.viewmodel)
             implementation(ui.windowSizeClass)
+            implementation(ui.jetbrains.navigation3.ui)
+            implementation(ui.jetbrains.material3.adaptiveNavigation3)
+            implementation(ui.jetbrains.lifecycle.viewmodelNavigation3)
+            implementation(ui.kotlinx.serialization)
         }
         commonTest.dependencies {
             implementation(ui.kotlin.test)

@@ -1,5 +1,6 @@
 package com.korniykom.webvetcare.presentation.screens.register
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,13 +28,15 @@ import com.korniykom.webvetcare.presentation.theme.NeutralVar40
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun RootRegisterScreen(
+fun RegisterScreenRoot(
+    navigateToLoginScreen: () -> Unit,
     viewModel: RegisterViewModel = koinViewModel(),
     modifier: Modifier = Modifier,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     RegisterScreen(
+        navigateToLoginScreen = navigateToLoginScreen,
         state = state,
         onAction = { action ->
             viewModel.onAction(action)
@@ -44,6 +47,7 @@ fun RootRegisterScreen(
 
 @Composable
 fun RegisterScreen(
+    navigateToLoginScreen: () -> Unit,
     state: RegisterState,
     onAction: (RegisterAction) -> Unit,
     modifier: Modifier = Modifier,
@@ -100,6 +104,9 @@ fun RegisterScreen(
                         textAlign = TextAlign.End,
                         color = NeutralVar40
                     ),
+                    modifier = Modifier.clickable(
+                        onClick = navigateToLoginScreen
+                    )
                 )
             }
 

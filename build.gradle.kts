@@ -6,4 +6,5 @@ plugins {
     alias(libs.plugins.kotlinJvm) apply false
     alias(libs.plugins.kotlinPluginSpring) apply false
     alias(libs.plugins.springDependencyManagement) apply false
+    alias(ui.plugins.kotlinSerialization) apply false
 }
