@@ -66,6 +66,7 @@ fun NavigationRoot(
                             },
                             onRegisterSuccess = {
                                 backStack.navigateToDashboardScreen()
+                                backStack.removeAllRegisterScreens()
                             }
                         )
                     }
