@@ -56,7 +56,7 @@ fun NavigationRoot(
                             },
                             onLoginSuccess = {
                                 backStack.navigateToDashboardScreen()
-                                backStack.removeAllLoginScreens())
+                                backStack.removeAllLoginScreens()
                             }
                         )
                     }

@@ -92,10 +92,9 @@ compose.desktop {
 }
 
 tasks.register<Exec>("buildImage") {
-    dependsOn("jsBrowserProductionWebpack")
-
     commandLine(
         "docker", "build",
+        "--build-arg", "BASE_URL=${System.getenv("BASE_URL") ?: "http://gateway/api"}",
         "-t", fullImageName,
         rootProject.projectDir.absolutePath
     )

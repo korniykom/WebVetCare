@@ -4,6 +4,9 @@ WORKDIR /app
 
 COPY . .
 
+ARG BASE_URL=http://localhost:8080/api
+ENV BASE_URL=$BASE_URL
+
 RUN ./gradlew :composeApp:jsBrowserDistribution --no-daemon
 
 FROM nginx:alpine
