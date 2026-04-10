@@ -19,3 +19,6 @@ spec:
           image: ghcr.io/korniykom/webvetcare-compose-web:0.0.1
           ports:
             - containerPort: 3000
+          env:
+            - name: BASE_URL
+              value: "http://gateway/api"

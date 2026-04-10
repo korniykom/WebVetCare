@@ -7,6 +7,7 @@ plugins {
     alias(ui.plugins.composeCompiler)
     alias(ui.plugins.kotlinSerialization)
 }
+val baseUrl = System.getenv("BASE_URL") ?: "http://localhost:8080/api"
 
 val serviceName = "compose-web"
 val namespace = "webvetcare"
