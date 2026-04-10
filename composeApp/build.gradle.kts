@@ -61,6 +61,12 @@ kotlin {
             implementation(ui.kotlin.test)
         }
         webMain.dependencies {
+        }
+        jsMain.dependencies {
+            implementation(ui.ktor.client.js)
+
+        }
+        wasmJsMain.dependencies {
             implementation(ui.ktor.client.js)
         }
         jvmMain.dependencies {
