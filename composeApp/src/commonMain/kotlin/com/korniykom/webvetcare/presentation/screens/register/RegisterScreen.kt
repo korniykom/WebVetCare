@@ -82,7 +82,19 @@ fun RegisterScreen(
                 onToggleVisibilityClick = { onAction(RegisterAction.OnTogglePasswordVisibilityClick) }
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(8.dp))
+
+            if(state.error != null) {
+                Text(
+                    text = state.error,
+                    style = MaterialTheme.typography.bodySmall,
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.errorContainer,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
 
             WebVetCareButton(
                 text = "Create account",

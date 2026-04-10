@@ -24,24 +24,33 @@ import com.korniykom.webvetcare.presentation.components.layouts.AdaptiveFormLayo
 import com.korniykom.webvetcare.presentation.components.textfields.PasswordTextField
 import com.korniykom.webvetcare.presentation.components.textfields.TextField
 import com.korniykom.webvetcare.presentation.theme.NeutralVar40
+import com.korniykom.webvetcare.presentation.util.ObserveAsEvents
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun LoginScreenRoot(
     navigateToRegister: () -> Unit,
+    onLoginSuccess: () -> Unit,
     viewModel: LoginViewModel = koinViewModel(),
     modifier: Modifier = Modifier
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
+    ObserveAsEvents(viewModel.events) { event ->
+        when (event) {
+            is LoginEvent.Success -> {
+                onLoginSuccess()
+            }
+        }
+    }
     LoginScreen(
         navigateToRegister = navigateToRegister,
         state = state,
         onAction = { action ->
             viewModel.onAction(action)
-        }
-
-    )
+        },
+        modifier = modifier,
+        )
 }
 
 @Composable
@@ -81,12 +90,24 @@ fun LoginScreen(
                 ),
                 modifier = Modifier.fillMaxWidth()
             )
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(8.dp))
+
+            if (state.error != null) {
+                Text(
+                    text = state.error,
+                    style = MaterialTheme.typography.bodySmall,
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.errorContainer,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
 
             WebVetCareButton(
                 text = "Login",
                 style = WebVetCareButtonStyle.TEAL,
-                onClick = {},
+                onClick = {onAction(LoginAction.OnLoginClick)},
                 enabled = state.canLogin,
                 modifier = Modifier.fillMaxWidth()
             )

@@ -7,6 +7,7 @@ import com.korniykom.webvetcare.domain.auth.AuthService
 import com.korniykom.webvetcare.domain.logging.WebVetCareLogger
 import com.korniykom.webvetcare.domain.util.DataError
 import com.korniykom.webvetcare.domain.util.EmailValidator
+import com.korniykom.webvetcare.domain.util.TokenStorage
 import com.korniykom.webvetcare.domain.util.onFailure
 import com.korniykom.webvetcare.domain.util.onSuccess
 import kotlinx.coroutines.channels.Channel
@@ -26,6 +27,7 @@ import kotlinx.coroutines.launch
 class RegisterViewModel(
     private val authService: AuthService,
     private val webVetCareLogger: WebVetCareLogger,
+    private val tokenStorage: TokenStorage,
 ) : ViewModel() {
     private val eventChannel = Channel<RegisterEvent>()
     val events = eventChannel.receiveAsFlow()
@@ -81,8 +83,9 @@ class RegisterViewModel(
                 email = email,
                 password = password
             )
-                .onSuccess {
+                .onSuccess { responseBody ->
                     eventChannel.send(RegisterEvent.Success)
+                    tokenStorage.saveAccessToken(responseBody.accessToken)
                 }
                 .onFailure { error ->
                     webVetCareLogger.error("Registration failed with error: $error")

@@ -6,7 +6,12 @@ import com.korniykom.webvetcare.domain.util.NetworkResult
 
 interface AuthService {
     suspend fun register(
+        email: String,
         password: String,
-        email: String
     ) : NetworkResult<RegisterResponse,DataError.Remote>
+
+    suspend fun login(
+        email: String,
+        password: String,
+    ): NetworkResult<LoginResponse, DataError.Remote>
 }

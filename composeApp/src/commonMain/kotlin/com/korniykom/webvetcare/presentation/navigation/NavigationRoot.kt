@@ -53,6 +53,10 @@ fun NavigationRoot(
                         LoginScreenRoot(
                             navigateToRegister = {
                                 backStack.navigateToRegisterScreen()
+                            },
+                            onLoginSuccess = {
+                                backStack.navigateToDashboardScreen()
+                                backStack.removeAllLoginScreens())
                             }
                         )
                     }
@@ -96,6 +100,10 @@ fun MutableList<NavKey>.removeAllDashboardScreens() {
     removeAll { it is Route.Dashboard }
 }
 
+fun MutableList<NavKey>.removeLandingPage() {
+    removeAll { it is Route.LandingPage }
+}
+
 
 fun MutableList<NavKey>.navigateToRegisterScreen() {
     removeAllRegisterScreens()
@@ -109,5 +117,6 @@ fun MutableList<NavKey>.navigateToLoginScreen() {
 
 fun MutableList<NavKey>.navigateToDashboardScreen() {
     removeAllDashboardScreens()
+    removeLandingPage()
     add(Route.Dashboard)
 }
