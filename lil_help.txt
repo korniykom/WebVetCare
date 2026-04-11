@@ -1,11 +1,11 @@
-minikube delete
+minikube delete &&
 
-minikube start
+minikube start &&
 
 kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/latest/download/controller.yaml
-
-minikube addons enable ingress
-minikube addons enable ingress-dns
+&&
+minikube addons enable ingress &&
+minikube addons enable ingress-dns &&
 
 kubectl get pods -n kube-system | grep sealed-secrets
 
@@ -15,9 +15,9 @@ kubectl create secret generic auth-jwt-keys \
   --from-file=public.pem=auth-service/src/main/resources/keys/public.pem \
   --namespace=webvetcare \
   --dry-run=client -o yaml | kubeseal --format=yaml > k8s/auth-service/jwt-keys-sealed.yaml
-
+&&
 kubectl apply -k k8s/
-
+&&
 minikube ip
 
 
