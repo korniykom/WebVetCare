@@ -94,7 +94,7 @@ compose.desktop {
 tasks.register<Exec>("buildImage") {
     commandLine(
         "docker", "build",
-        "--build-arg", "BASE_URL=${System.getenv("BASE_URL") ?: "http://gateway/api"}",
+        "--build-arg", "BASE_URL=${System.getenv("BASE_URL") ?: "http://webvetcare.ua/api"}",
         "-t", fullImageName,
         rootProject.projectDir.absolutePath
     )
