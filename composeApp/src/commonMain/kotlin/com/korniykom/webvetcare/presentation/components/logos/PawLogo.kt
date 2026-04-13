@@ -10,24 +10,30 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.painterResource
 import webvetcare.composeapp.generated.resources.Res
 import webvetcare.composeapp.generated.resources.paw
 
 @Composable
-fun PawLogo(modifier: Modifier = Modifier) {
+fun PawLogo(
+    imagePadding: Dp = 16.dp,
+    imageSize: Dp = 32.dp,
+    boxCornerSize: Dp = 24.dp,
+    modifier: Modifier = Modifier
+) {
     Box(
         modifier = modifier
-            .clip(RoundedCornerShape(20.dp))
+            .clip(RoundedCornerShape(boxCornerSize))
             .background(MaterialTheme.colorScheme.primary)
     ) {
         Image(
             painterResource(Res.drawable.paw),
             contentDescription = "Logo depicting paw",
             modifier = Modifier
-                .padding(16.dp)
-                .size(32.dp)
+                .padding(imagePadding)
+                .size(imageSize),
         )
     }
 }

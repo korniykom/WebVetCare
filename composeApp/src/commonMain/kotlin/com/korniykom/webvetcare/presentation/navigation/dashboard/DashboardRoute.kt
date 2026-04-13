@@ -6,9 +6,13 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed interface DashboardRoute: NavKey {
     @Serializable
-    data object Home: DashboardRoute
+    data object Profile: DashboardRoute
     @Serializable
-    data object Patients: DashboardRoute
+    data object BecomeDoctor: DashboardRoute
     @Serializable
-    data object Settings: DashboardRoute
+    data object BecomePatient: DashboardRoute
+    @Serializable
+    data object PatientProfile: DashboardRoute
+    @Serializable
+    data object DoctorProfile: DashboardRoute
 }

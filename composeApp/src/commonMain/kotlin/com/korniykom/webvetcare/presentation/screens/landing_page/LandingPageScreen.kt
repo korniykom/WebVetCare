@@ -30,7 +30,6 @@ import org.koin.compose.viewmodel.koinViewModel
 fun LandingPageRoot(
     navigateToLoginScreen: () -> Unit,
     navigateToRegisterScreen: () -> Unit,
-    viewModel: LandingPageViewModel = koinViewModel(),
 ) {
     LandingPageScreen(
         navigateToLoginScreen = navigateToLoginScreen,

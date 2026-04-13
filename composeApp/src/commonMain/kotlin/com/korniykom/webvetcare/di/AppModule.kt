@@ -6,7 +6,7 @@ import com.korniykom.webvetcare.data.networking.HttpClientFactory
 import com.korniykom.webvetcare.domain.auth.AuthService
 import com.korniykom.webvetcare.domain.logging.WebVetCareLogger
 import com.korniykom.webvetcare.domain.util.TokenStorage
-import com.korniykom.webvetcare.presentation.screens.landing_page.LandingPageViewModel
+import com.korniykom.webvetcare.presentation.screens.dashboard.sidemenu.DashboardSideMenuViewModel
 import com.korniykom.webvetcare.presentation.screens.login.LoginViewModel
 import com.korniykom.webvetcare.presentation.screens.register.RegisterViewModel
 import io.ktor.client.engine.HttpClientEngine
@@ -18,9 +18,9 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val appModule = module {
-    viewModelOf(::LandingPageViewModel)
     viewModelOf(::LoginViewModel)
     viewModelOf(::RegisterViewModel)
+    viewModelOf(::DashboardSideMenuViewModel)
     single<WebVetCareLogger> { KermitLogger }
     single { HttpClientFactory(get(), get()).create(get()) }
     singleOf(::KtorAuthService) bind AuthService::class
