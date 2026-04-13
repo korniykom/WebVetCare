@@ -35,3 +35,8 @@ enum class DeviceConfiguration {
         }
     }
 }
+
+fun DeviceConfiguration.isMultiPane(): Boolean {
+    return this == DeviceConfiguration.TABLET_LANDSCAPE
+            || this == DeviceConfiguration.DESKTOP
+}

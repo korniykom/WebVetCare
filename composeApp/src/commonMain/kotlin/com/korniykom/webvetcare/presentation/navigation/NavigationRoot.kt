@@ -1,13 +1,15 @@
 package com.korniykom.webvetcare.presentation.navigation
 
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation3.runtime.NavEntry
+import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
-import com.korniykom.webvetcare.presentation.screens.dashboard.DashboardScreen
 import com.korniykom.webvetcare.presentation.screens.landing_page.LandingPageRoot
 import com.korniykom.webvetcare.presentation.screens.login.LoginScreenRoot
 import com.korniykom.webvetcare.presentation.screens.register.RegisterScreenRoot
@@ -19,73 +21,66 @@ import kotlinx.serialization.serializer
 fun NavigationRoot(
     modifier: Modifier = Modifier
 ) {
-    val backStack = rememberNavBackStack(
+    val rootBackStack = rememberNavBackStack(
         configuration = SavedStateConfiguration {
             serializersModule = SerializersModule {
                 polymorphic(NavKey::class) {
                     subclass(Route.LandingPage::class, serializer())
                     subclass(Route.RegisterScreen::class, serializer())
                     subclass(Route.LoginScreen::class, serializer())
+                    subclass(Route.Dashboard::class, serializer())
                 }
             }
         },
         Route.LandingPage
     )
-    NavDisplay(
-        backStack = backStack,
-        entryProvider = { key ->
-            when (key) {
-                is Route.LandingPage -> {
-                    NavEntry(key) {
-                        LandingPageRoot(
-                            navigateToLoginScreen = {
-                                backStack.navigateToLoginScreen()
-                            },
-                            navigateToRegisterScreen = {
-                                backStack.navigateToRegisterScreen()
-                            }
-                        )
-                    }
-                }
+    SharedTransitionLayout {
 
-                is Route.LoginScreen -> {
-                    NavEntry(key) {
-                        LoginScreenRoot(
-                            navigateToRegister = {
-                                backStack.navigateToRegisterScreen()
-                            },
-                            onLoginSuccess = {
-                                backStack.navigateToDashboardScreen()
-                                backStack.removeAllLoginScreens()
-                            }
-                        )
-                    }
+        NavDisplay(
+            modifier = modifier,
+            backStack = rootBackStack,
+            entryDecorators = listOf(
+                rememberSaveableStateHolderNavEntryDecorator(),
+                rememberViewModelStoreNavEntryDecorator()
+            ),
+            entryProvider = entryProvider {
+                entry<Route.LandingPage> {
+                    LandingPageRoot(
+                        navigateToLoginScreen = {
+                            rootBackStack.navigateToLoginScreen()
+                        },
+                        navigateToRegisterScreen = {
+                            rootBackStack.navigateToRegisterScreen()
+                        }
+                    )
                 }
-
-                is Route.RegisterScreen -> {
-                    NavEntry(key) {
-                        RegisterScreenRoot(
-                            navigateToLoginScreen = {
-                                backStack.navigateToLoginScreen()
-                            },
-                            onRegisterSuccess = {
-                                backStack.navigateToDashboardScreen()
-                                backStack.removeAllRegisterScreens()
-                            }
-                        )
-                    }
+                entry<Route.LoginScreen> {
+                    LoginScreenRoot(
+                        navigateToRegister = {
+                            rootBackStack.navigateToRegisterScreen()
+                        },
+                        onLoginSuccess = {
+                            rootBackStack.navigateToDashboardScreen()
+                            rootBackStack.removeAllLoginScreens()
+                        }
+                    )
                 }
-
-                is Route.Dashboard -> {
-                    NavEntry(key) {
-                        DashboardScreen()
-                    }
+                entry<Route.RegisterScreen> {
+                    RegisterScreenRoot(
+                        navigateToLoginScreen = {
+                            rootBackStack.navigateToLoginScreen()
+                        },
+                        onRegisterSuccess = {
+                            rootBackStack.navigateToDashboardScreen()
+                            rootBackStack.removeAllRegisterScreens()
+                        }
+                    )
                 }
-
-                else -> error("Unknown nav key $key")
+                entry<Route.Dashboard> {
+                }
             }
-        }
-    )
+        )
+    }
 }
 
 fun MutableList<NavKey>.removeAllRegisterScreens() {

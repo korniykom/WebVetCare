@@ -6,13 +6,13 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed interface Route : NavKey {
     @Serializable
-    data object Dashboard: Route, NavKey
+    data object Dashboard: Route
     @Serializable
-    data object LandingPage : Route, NavKey
+    data object LandingPage : Route
 
     @Serializable
-    data object LoginScreen : Route, NavKey
+    data object LoginScreen : Route
 
     @Serializable
-    data object RegisterScreen : Route, NavKey
+    data object RegisterScreen : Route
 }
