@@ -10,9 +10,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -21,6 +24,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.korniykom.webvetcare.presentation.components.buttons.WebVetCareButton
 import com.korniykom.webvetcare.presentation.components.buttons.WebVetCareButtonStyle
 import com.korniykom.webvetcare.presentation.components.layouts.AdaptiveFormLayout
+import com.korniykom.webvetcare.presentation.components.snackbars.SnackBarType
+import com.korniykom.webvetcare.presentation.components.snackbars.WebVetCareSnackBar
+import com.korniykom.webvetcare.presentation.components.snackbars.show
 import com.korniykom.webvetcare.presentation.components.textfields.PasswordTextField
 import com.korniykom.webvetcare.presentation.components.textfields.TextField
 import com.korniykom.webvetcare.presentation.theme.NeutralVar40
@@ -36,14 +42,20 @@ fun LoginScreenRoot(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
+    val snackbarHostState = remember { SnackbarHostState() }
+
     ObserveAsEvents(viewModel.events) { event ->
         when (event) {
-            is LoginEvent.Success -> {
+            is LoginEvent.LoginSuccess -> {
                 onLoginSuccess()
+            }
+            is LoginEvent.LoginFailure -> {
+                snackbarHostState.show("Login Failed", SnackBarType.ERROR)
             }
         }
     }
     LoginScreen(
+        snackbarHostState = snackbarHostState,
         navigateToRegister = navigateToRegister,
         state = state,
         onAction = { action ->
@@ -55,90 +67,95 @@ fun LoginScreenRoot(
 
 @Composable
 fun LoginScreen(
+    snackbarHostState: SnackbarHostState,
     navigateToRegister: () -> Unit,
     state: LoginState,
     onAction: (LoginAction) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    AdaptiveFormLayout(
-        headerText = "Welcome back",
-        modifier = modifier.fillMaxSize()
+    Scaffold(
+        snackbarHost = { WebVetCareSnackBar(snackbarHostState) }
     ) {
-        Column(modifier = Modifier.fillMaxWidth()) {
-            TextField(
-                state = state.emailTextFieldState,
-                placeholder = "Enter your email",
-                title = "Email",
-            )
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            PasswordTextField(
-                state = state.passwordTextFieldState,
-                placeholder = "Enter your password",
-                title = "Password",
-                isPasswordVisible = state.isPasswordVisible,
-                onToggleVisibilityClick = { onAction(LoginAction.OnTogglePasswordVisibilityClick) }
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = "Forgot password?",
-                style = MaterialTheme.typography.bodySmall.copy(
-                    textDecoration = TextDecoration.Underline,
-                    textAlign = TextAlign.End,
-                    color = NeutralVar40
-                ),
-                modifier = Modifier.fillMaxWidth()
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-
-            if (state.error != null) {
-                Text(
-                    text = state.error,
-                    style = MaterialTheme.typography.bodySmall,
-                    textAlign = TextAlign.Center,
-                    color = MaterialTheme.colorScheme.errorContainer,
-                    modifier = Modifier.fillMaxWidth()
+        AdaptiveFormLayout(
+            headerText = "Welcome back",
+            modifier = modifier.fillMaxSize()
+        ) {
+            Column(modifier = Modifier.fillMaxWidth()) {
+                TextField(
+                    state = state.emailTextFieldState,
+                    placeholder = "Enter your email",
+                    title = "Email",
                 )
-            }
 
-            Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(12.dp))
 
-            WebVetCareButton(
-                text = "Login",
-                style = WebVetCareButtonStyle.TEAL,
-                onClick = {onAction(LoginAction.OnLoginClick)},
-                enabled = state.canLogin,
-                modifier = Modifier.fillMaxWidth()
-            )
-            Spacer(modifier = Modifier.height(32.dp))
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = "Don't have an account?",
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        textDecoration = TextDecoration.None,
-                        textAlign = TextAlign.End,
-                        color = NeutralVar40
-                    ),
+                PasswordTextField(
+                    state = state.passwordTextFieldState,
+                    placeholder = "Enter your password",
+                    title = "Password",
+                    isPasswordVisible = state.isPasswordVisible,
+                    onToggleVisibilityClick = { onAction(LoginAction.OnTogglePasswordVisibilityClick) }
                 )
-                Spacer(modifier = Modifier.width(4.dp))
+                Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Register",
+                    text = "Forgot password?",
                     style = MaterialTheme.typography.bodySmall.copy(
                         textDecoration = TextDecoration.Underline,
                         textAlign = TextAlign.End,
                         color = NeutralVar40
                     ),
-                    modifier = Modifier.clickable(
-                        onClick = navigateToRegister
-                    )
+                    modifier = Modifier.fillMaxWidth()
                 )
-            }
+                Spacer(modifier = Modifier.height(8.dp))
 
+                if (state.error != null) {
+                    Text(
+                        text = state.error,
+                        style = MaterialTheme.typography.bodySmall,
+                        textAlign = TextAlign.Center,
+                        color = MaterialTheme.colorScheme.errorContainer,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                WebVetCareButton(
+                    text = "Login",
+                    style = WebVetCareButtonStyle.TEAL,
+                    onClick = {onAction(LoginAction.OnLoginClick)},
+                    enabled = state.canLogin,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(32.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = "Don't have an account?",
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            textDecoration = TextDecoration.None,
+                            textAlign = TextAlign.End,
+                            color = NeutralVar40
+                        ),
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = "Register",
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            textDecoration = TextDecoration.Underline,
+                            textAlign = TextAlign.End,
+                            color = NeutralVar40
+                        ),
+                        modifier = Modifier.clickable(
+                            onClick = navigateToRegister
+                        )
+                    )
+                }
+
+            }
         }
     }
 }

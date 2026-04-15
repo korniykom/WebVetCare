@@ -7,5 +7,5 @@ data class RegisterState(
     val passwordTextFieldState: TextFieldState = TextFieldState(),
     val isPasswordVisible: Boolean = false,
     val canCreateAccount: Boolean = false,
-    val error: String? = null
+    val error: String? = null,
 )

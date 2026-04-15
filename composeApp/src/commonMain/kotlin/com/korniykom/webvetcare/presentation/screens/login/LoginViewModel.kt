@@ -9,6 +9,8 @@ import com.korniykom.webvetcare.domain.util.EmailValidator
 import com.korniykom.webvetcare.domain.util.TokenStorage
 import com.korniykom.webvetcare.domain.util.onFailure
 import com.korniykom.webvetcare.domain.util.onSuccess
+import com.korniykom.webvetcare.presentation.components.snackbars.SnackBarType
+import com.korniykom.webvetcare.presentation.components.snackbars.show
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -80,10 +82,11 @@ class LoginViewModel(
                 password = password
             )
                 .onSuccess { responseBody ->
-                    eventChannel.send(LoginEvent.Success)
+                    eventChannel.send(LoginEvent.LoginSuccess)
                     tokenStorage.saveAccessToken(responseBody.accessToken)
                 }
                 .onFailure { error ->
+                    eventChannel.send(LoginEvent.LoginFailure)
                     val loginError = when(error) {
                         DataError.Remote.NOT_FOUND -> "User not found"
                         DataError.Remote.UNAUTHORIZED -> "You entered wrong credentials"

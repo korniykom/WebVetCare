@@ -98,6 +98,11 @@ fun DashboardMenu(
 
                 }
                 Column(modifier = Modifier.padding(top = 16.dp)) {
+                    if(isExpanded) {
+                        DashboardSideMenuDivider(
+                            text = "USER",
+                        )
+                    }
                     ListItemWithIcon(
                         showOnlyIcon = !isExpanded,
                         icon = Res.drawable.account_circle,
@@ -107,15 +112,11 @@ fun DashboardMenu(
                             onGoToProfile()
                         },
                     )
-                    ListItemWithIcon(
-                        showOnlyIcon = !isExpanded,
-                        icon = Res.drawable.stethoscope,
-                        leadingText = "Become Doctor",
-                        isSelected = (state.value.currentTab == MenuOptions.BECOME_DOCTOR),
-                        onClick = {
-                            onGoToBecomeDoctor()
-                        },
-                    )
+                    if(isExpanded) {
+                        DashboardSideMenuDivider(
+                            text = "PATIENT",
+                        )
+                    }
                     ListItemWithIcon(
                         showOnlyIcon = !isExpanded,
                         icon = Res.drawable.paw,
@@ -136,6 +137,20 @@ fun DashboardMenu(
                             },
                         )
                     }
+                    if(isExpanded) {
+                        DashboardSideMenuDivider(
+                            text = "DOCTOR",
+                        )
+                    }
+                    ListItemWithIcon(
+                        showOnlyIcon = !isExpanded,
+                        icon = Res.drawable.stethoscope,
+                        leadingText = "Become Doctor",
+                        isSelected = (state.value.currentTab == MenuOptions.BECOME_DOCTOR),
+                        onClick = {
+                            onGoToBecomeDoctor()
+                        },
+                    )
                     if (state.value.userRoles.contains("DOCTOR")) {
                         ListItemWithIcon(
                             showOnlyIcon = !isExpanded,
@@ -163,4 +178,20 @@ fun DashboardMenu(
     }
 
 
+}
+
+@Composable
+private fun DashboardSideMenuDivider(
+    text: String,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
+    ) {
+        Text(
+            text = text,
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = .7f)
+        )
+    }
 }

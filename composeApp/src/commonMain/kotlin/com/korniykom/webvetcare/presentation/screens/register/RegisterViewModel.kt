@@ -70,7 +70,7 @@ class RegisterViewModel(
     }
 
     private fun register() {
-        if(!validateFormInput()) {
+        if (!validateFormInput()) {
             return
         }
 
@@ -83,12 +83,13 @@ class RegisterViewModel(
                 password = password
             )
                 .onSuccess { responseBody ->
-                    eventChannel.send(RegisterEvent.Success)
+                    eventChannel.send(RegisterEvent.RegisterSuccess)
                     tokenStorage.saveAccessToken(responseBody.accessToken)
                 }
                 .onFailure { error ->
+                    eventChannel.send(RegisterEvent.RegisterFailure)
                     webVetCareLogger.error("Registration failed with error: $error")
-                    val registrationError = when(error) {
+                    val registrationError = when (error) {
                         DataError.Remote.CONFLICT -> "User already exists"
                         else -> error.toString()
                     }
