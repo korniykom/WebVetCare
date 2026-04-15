@@ -99,7 +99,11 @@ fun DashboardScreen(
                     }
                     entry<DashboardRoute.BecomeDoctor> {
                         BecomeDoctorScreen(
-                            viewModel = viewModel
+                            viewModel = viewModel,
+                            navigateToDoctorProfile = {
+                                dashboardBackStack.navigateToDoctorProfile()
+                                viewModel.onAction(DashboardActions.OnGoToDoctorProfile)
+                            }
                         )
                     }
                     entry<DashboardRoute.BecomePatient> {
@@ -132,6 +136,7 @@ fun MutableList<NavKey>.navigateToProfile() {
 
 fun MutableList<NavKey>.navigateToBecomeDoctor() {
     removeAll { it is DashboardRoute.BecomeDoctor }
+
     add(DashboardRoute.BecomeDoctor)
 }
 
@@ -142,6 +147,7 @@ fun MutableList<NavKey>.navigateToBecomePatient() {
 
 fun MutableList<NavKey>.navigateToDoctorProfile() {
     removeAll { it is DashboardRoute.DoctorProfile }
+    removeAll { it is DashboardRoute.BecomeDoctor }
     add(DashboardRoute.DoctorProfile)
 }
 

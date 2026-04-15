@@ -19,7 +19,7 @@ data class DashboardState(
     val licenseNumberTextFieldState: TextFieldState = TextFieldState(),
     val clinicAddressTextFieldState: TextFieldState = TextFieldState(),
     val doctorAvailabilityTextFieldState: TextFieldState = TextFieldState(),
-    val canBecomeDoctor: Boolean = false,
+    val canBecomeDoctor: Boolean = true,
     val errorMessage: String = "",
 )
 

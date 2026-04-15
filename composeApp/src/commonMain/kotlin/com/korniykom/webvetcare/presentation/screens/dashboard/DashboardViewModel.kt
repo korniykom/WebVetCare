@@ -121,7 +121,8 @@ class DashboardViewModel(
                             doctorSpecialization = response.specialization,
                             doctorClinicAddress = response.clinicAddress,
                             doctorLicenseNumber = response.licenseNumber,
-                            doctorAvailability = response.availability
+                            doctorAvailability = response.availability,
+                            canBecomeDoctor = false,
                         )
                     }
                 }

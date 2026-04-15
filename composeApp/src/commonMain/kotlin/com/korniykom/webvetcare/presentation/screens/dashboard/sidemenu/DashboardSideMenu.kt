@@ -142,15 +142,17 @@ fun DashboardMenu(
                             text = "DOCTOR",
                         )
                     }
-                    ListItemWithIcon(
-                        showOnlyIcon = !isExpanded,
-                        icon = Res.drawable.stethoscope,
-                        leadingText = "Become Doctor",
-                        isSelected = (state.value.currentTab == MenuOptions.BECOME_DOCTOR),
-                        onClick = {
-                            onGoToBecomeDoctor()
-                        },
-                    )
+                    if(!state.value.userRoles.contains("DOCTOR")) {
+                        ListItemWithIcon(
+                            showOnlyIcon = !isExpanded,
+                            icon = Res.drawable.stethoscope,
+                            leadingText = "Become Doctor",
+                            isSelected = (state.value.currentTab == MenuOptions.BECOME_DOCTOR),
+                            onClick = {
+                                onGoToBecomeDoctor()
+                            },
+                        )
+                    }
                     if (state.value.userRoles.contains("DOCTOR")) {
                         ListItemWithIcon(
                             showOnlyIcon = !isExpanded,

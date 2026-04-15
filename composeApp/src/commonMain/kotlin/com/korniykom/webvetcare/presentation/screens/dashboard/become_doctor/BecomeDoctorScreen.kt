@@ -28,6 +28,7 @@ import com.korniykom.webvetcare.presentation.util.ObserveAsEvents
 @Composable
 fun BecomeDoctorScreen(
     viewModel: DashboardViewModel,
+    navigateToDoctorProfile: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
@@ -39,9 +40,10 @@ fun BecomeDoctorScreen(
             is DashboardEvent.SuccessfullyBecomeDoctor -> {
                 snackbarHostState.show("Successfully become doctor!", SnackBarType.SUCCESS)
                 viewModel.onAction(DashboardActions.OnFetchDataAboutUser)
+                navigateToDoctorProfile()
             }
             is DashboardEvent.FailedToBecomeDoctor -> {
-                snackbarHostState.show("Failed to become doctor", type = SnackBarType.ERROR)
+                snackbarHostState.show("Failed to become doctor, ${state.value.errorMessage}", type = SnackBarType.ERROR)
             }
             else -> {}
         }
@@ -63,30 +65,34 @@ fun BecomeDoctorScreen(
                         state = viewModel.state.value.specializationTextFieldState,
                         placeholder = "Enter your specialization",
                         title = "Specialization",
-                    )
+
+                        )
                     Spacer(modifier.height(8.dp))
                     TextField(
                         state = viewModel.state.value.licenseNumberTextFieldState,
                         placeholder = "Enter Doctor license number",
                         title = "License Number",
-                    )
+
+                        )
                     Spacer(modifier.height(8.dp))
                     TextField(
                         state = viewModel.state.value.clinicAddressTextFieldState,
                         placeholder = "Enter Doctor clinic address",
                         title = "Clinic Address",
-                    )
+
+                        )
                     Spacer(modifier.height(8.dp))
                     TextField(
                         state = viewModel.state.value.doctorAvailabilityTextFieldState,
                         placeholder = "Enter Doctor Availability",
                         title = "Availability",
-                    )
+
+                        )
                     Spacer(modifier = Modifier.height(16.dp))
                     WebVetCareButton(
                         text = "Become Doctor",
                         style = WebVetCareButtonStyle.TEAL,
-                        enabled = state.value.canBecomeDoctor,
+                        enabled = state.value.canBecomeDoctor ,
                         onClick = {viewModel.onAction(DashboardActions.OnBecomeDoctorClick)}
                     )
 
