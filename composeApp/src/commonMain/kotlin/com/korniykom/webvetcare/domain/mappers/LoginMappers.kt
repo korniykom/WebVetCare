@@ -2,8 +2,8 @@ package com.korniykom.webvetcare.domain.mappers
 
 import com.korniykom.webvetcare.data.dto.LoginRequestSerializable
 import com.korniykom.webvetcare.data.dto.LoginResponseSerializable
-import com.korniykom.webvetcare.domain.auth.LoginRequest
-import com.korniykom.webvetcare.domain.auth.LoginResponse
+import com.korniykom.webvetcare.domain.auth_service.LoginRequest
+import com.korniykom.webvetcare.domain.auth_service.LoginResponse
 
 fun LoginRequestSerializable.toDomain(): LoginRequest {
     return LoginRequest(

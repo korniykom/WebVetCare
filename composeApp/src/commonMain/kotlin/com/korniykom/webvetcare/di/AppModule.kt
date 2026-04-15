@@ -1,12 +1,13 @@
 package com.korniykom.webvetcare.di
 
-import com.korniykom.webvetcare.data.auth.KtorAuthService
+import com.korniykom.webvetcare.data.auth_service.KtorAuthService
 import com.korniykom.webvetcare.data.logging.KermitLogger
 import com.korniykom.webvetcare.data.networking.HttpClientFactory
-import com.korniykom.webvetcare.domain.auth.AuthService
+import com.korniykom.webvetcare.data.user_service.KtorUserService
+import com.korniykom.webvetcare.domain.auth_service.AuthService
 import com.korniykom.webvetcare.domain.logging.WebVetCareLogger
-import com.korniykom.webvetcare.domain.util.TokenStorage
-import com.korniykom.webvetcare.presentation.screens.dashboard.sidemenu.DashboardSideMenuViewModel
+import com.korniykom.webvetcare.domain.user_service.UserService
+import com.korniykom.webvetcare.presentation.screens.dashboard.DashboardViewModel
 import com.korniykom.webvetcare.presentation.screens.login.LoginViewModel
 import com.korniykom.webvetcare.presentation.screens.register.RegisterViewModel
 import io.ktor.client.engine.HttpClientEngine
@@ -20,10 +21,11 @@ import org.koin.dsl.module
 val appModule = module {
     viewModelOf(::LoginViewModel)
     viewModelOf(::RegisterViewModel)
-    viewModelOf(::DashboardSideMenuViewModel)
+    viewModelOf(::DashboardViewModel)
     single<WebVetCareLogger> { KermitLogger }
     single { HttpClientFactory(get(), get()).create(get()) }
     singleOf(::KtorAuthService) bind AuthService::class
+    singleOf(::KtorUserService) bind UserService::class
     single<HttpClientEngine> {
         CIO.create()
     }

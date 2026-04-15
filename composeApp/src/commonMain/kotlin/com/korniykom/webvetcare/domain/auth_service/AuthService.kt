@@ -1,6 +1,5 @@
-package com.korniykom.webvetcare.domain.auth
+package com.korniykom.webvetcare.domain.auth_service
 
-import com.korniykom.webvetcare.data.dto.RegisterResponseSerializable
 import com.korniykom.webvetcare.domain.util.DataError
 import com.korniykom.webvetcare.domain.util.NetworkResult
 

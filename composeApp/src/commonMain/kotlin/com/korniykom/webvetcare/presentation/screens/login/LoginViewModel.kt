@@ -3,13 +3,12 @@ package com.korniykom.webvetcare.presentation.screens.login
 import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.korniykom.webvetcare.domain.auth.AuthService
+import com.korniykom.webvetcare.domain.auth_service.AuthService
 import com.korniykom.webvetcare.domain.util.DataError
 import com.korniykom.webvetcare.domain.util.EmailValidator
 import com.korniykom.webvetcare.domain.util.TokenStorage
 import com.korniykom.webvetcare.domain.util.onFailure
 import com.korniykom.webvetcare.domain.util.onSuccess
-import com.korniykom.webvetcare.presentation.screens.register.RegisterEvent
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

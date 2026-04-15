@@ -1,21 +1,23 @@
-package com.korniykom.webvetcare.data.auth
+package com.korniykom.webvetcare.data.auth_service
 
 import com.korniykom.webvetcare.data.dto.LoginRequestSerializable
 import com.korniykom.webvetcare.data.dto.LoginResponseSerializable
 import com.korniykom.webvetcare.data.dto.RegisterRequestSerializable
 import com.korniykom.webvetcare.data.dto.RegisterResponseSerializable
 import com.korniykom.webvetcare.data.networking.post
-import com.korniykom.webvetcare.domain.auth.AuthService
-import com.korniykom.webvetcare.domain.auth.LoginResponse
-import com.korniykom.webvetcare.domain.auth.RegisterResponse
+import com.korniykom.webvetcare.domain.auth_service.AuthService
+import com.korniykom.webvetcare.domain.auth_service.LoginResponse
+import com.korniykom.webvetcare.domain.auth_service.RegisterResponse
 import com.korniykom.webvetcare.domain.mappers.toDomain
 import com.korniykom.webvetcare.domain.util.DataError
 import com.korniykom.webvetcare.domain.util.NetworkResult
+import com.korniykom.webvetcare.domain.util.TokenStorage
 import com.korniykom.webvetcare.domain.util.map
 import io.ktor.client.HttpClient
 
 class KtorAuthService(
-    private val httpClient: HttpClient
+    private val httpClient: HttpClient,
+    private val tokenStorage: TokenStorage
 ) : AuthService {
     override suspend fun register(
         email: String,
@@ -27,8 +29,9 @@ class KtorAuthService(
                 email = email,
                 password = password
             )
-        ).map { registerResponseSerializable ->
-            registerResponseSerializable.toDomain()
+        ).map { response ->
+            tokenStorage.saveAccessToken(response.accessToken)
+            response.toDomain()
         }
 
     }
@@ -43,8 +46,9 @@ class KtorAuthService(
                 email = email,
                 password = password
             )
-        ).map { loginResponseSerializable ->
-            loginResponseSerializable.toDomain()
+        ).map { response ->
+            tokenStorage.saveAccessToken(response.accessToken)
+            response.toDomain()
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.korniykom.webvetcare.presentation.navigation.dashboard
+package com.korniykom.webvetcare.presentation.screens.dashboard
 
 import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable

@@ -11,6 +11,6 @@ fun App() {
     WebVetCareTheme(
         darkTheme = true
     ) {
-        DashboardScreen()
+        NavigationRoot()
     }
 }

@@ -3,7 +3,7 @@ package com.korniykom.webvetcare.presentation.screens.register
 import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.korniykom.webvetcare.domain.auth.AuthService
+import com.korniykom.webvetcare.domain.auth_service.AuthService
 import com.korniykom.webvetcare.domain.logging.WebVetCareLogger
 import com.korniykom.webvetcare.domain.util.DataError
 import com.korniykom.webvetcare.domain.util.EmailValidator
@@ -14,7 +14,6 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map

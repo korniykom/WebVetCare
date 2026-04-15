@@ -2,6 +2,10 @@ package com.korniykom.webvetcare.presentation.screens.dashboard.sidemenu
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.expandHorizontally
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,9 +19,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -26,8 +27,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.korniykom.webvetcare.presentation.components.buttons.GoBackButton
 import com.korniykom.webvetcare.presentation.components.list_items.ListItemWithIcon
 import com.korniykom.webvetcare.presentation.components.logos.PawLogo
+import com.korniykom.webvetcare.presentation.screens.dashboard.DashboardActions
+import com.korniykom.webvetcare.presentation.screens.dashboard.DashboardViewModel
+import com.korniykom.webvetcare.presentation.screens.dashboard.MenuOptions
 import com.korniykom.webvetcare.presentation.theme.Teal99
-import org.koin.compose.viewmodel.koinViewModel
 import webvetcare.composeapp.generated.resources.Res
 import webvetcare.composeapp.generated.resources.account_circle
 import webvetcare.composeapp.generated.resources.paw
@@ -36,12 +39,17 @@ import webvetcare.composeapp.generated.resources.stethoscope
 
 @Composable
 fun DashboardMenu(
-    viewModel: DashboardSideMenuViewModel = koinViewModel(),
+    viewModel: DashboardViewModel,
+    onGoToProfile: () -> Unit,
+    onGoToBecomeDoctor: () -> Unit,
+    onGoToBecomePatient: () -> Unit,
+    onGoToDoctorProfile: () -> Unit,
+    onGoToPatientProfile: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
 
-    var isExpanded by remember { mutableStateOf(true) }
+    val isExpanded = state.value.isMenuExpanded
 
     val menuWidth by animateDpAsState(
         targetValue = if (isExpanded) 240.dp else 72.dp,
@@ -72,7 +80,11 @@ fun DashboardMenu(
                         boxCornerSize = 12.dp,
                         modifier = Modifier.padding(start = 4.dp)
                     )
-                    AnimatedVisibility(isExpanded) {
+                    AnimatedVisibility(
+                        visible = isExpanded,
+                        enter = fadeIn() + expandHorizontally(),
+                        exit = fadeOut() + shrinkHorizontally()
+                    ) {
 
                         Text(
                             text = "WebVetCare",
@@ -90,32 +102,51 @@ fun DashboardMenu(
                         showOnlyIcon = !isExpanded,
                         icon = Res.drawable.account_circle,
                         leadingText = "Profile",
-                        modifier = Modifier
+                        isSelected = (state.value.currentTab == MenuOptions.PROFILE),
+                        onClick = {
+                            onGoToProfile()
+                        },
                     )
                     ListItemWithIcon(
                         showOnlyIcon = !isExpanded,
                         icon = Res.drawable.stethoscope,
                         leadingText = "Become Doctor",
-                        modifier = Modifier
+                        isSelected = (state.value.currentTab == MenuOptions.BECOME_DOCTOR),
+                        onClick = {
+                            onGoToBecomeDoctor()
+                        },
                     )
                     ListItemWithIcon(
                         showOnlyIcon = !isExpanded,
                         icon = Res.drawable.paw,
                         leadingText = "Become Patient",
-                        modifier = Modifier
+                        isSelected = (state.value.currentTab == MenuOptions.BECOME_PATIENT),
+                        onClick = {
+                            onGoToBecomePatient()
+                        },
                     )
-                    ListItemWithIcon(
-                        showOnlyIcon = !isExpanded,
-                        icon = Res.drawable.settings,
-                        leadingText = "Patient Profile",
-                        modifier = Modifier
-                    )
-                    ListItemWithIcon(
-                        showOnlyIcon = !isExpanded,
-                        icon = Res.drawable.settings,
-                        leadingText = "Doctor Profile",
-                        modifier = Modifier
-                    )
+                    if (state.value.userEmail.contains("PATIENT")) {
+                        ListItemWithIcon(
+                            showOnlyIcon = !isExpanded,
+                            icon = Res.drawable.settings,
+                            leadingText = "Patient Profile",
+                            isSelected = (state.value.currentTab == MenuOptions.PATIENT_PROFILE),
+                            onClick = {
+                                onGoToPatientProfile()
+                            },
+                        )
+                    }
+                    if (state.value.userRoles.contains("DOCTOR")) {
+                        ListItemWithIcon(
+                            showOnlyIcon = !isExpanded,
+                            icon = Res.drawable.settings,
+                            leadingText = "Doctor Profile",
+                            isSelected = (state.value.currentTab == MenuOptions.DOCTOR_PROFILE),
+                            onClick = {
+                                onGoToDoctorProfile()
+                            },
+                        )
+                    }
                 }
 
             }
@@ -124,7 +155,7 @@ fun DashboardMenu(
                     .offset(x = (menuWidth))
                     .padding(top = 8.dp)
                     .width(24.dp),
-                onClick = { isExpanded = !isExpanded },
+                onClick = { viewModel.onAction(DashboardActions.OnToggleMenuExpand) },
                 isExpanded = isExpanded,
             )
         }

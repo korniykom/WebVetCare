@@ -10,6 +10,8 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
+import com.korniykom.webvetcare.presentation.screens.dashboard.DashboardRoute
+import com.korniykom.webvetcare.presentation.screens.dashboard.DashboardScreen
 import com.korniykom.webvetcare.presentation.screens.landing_page.LandingPageRoot
 import com.korniykom.webvetcare.presentation.screens.login.LoginScreenRoot
 import com.korniykom.webvetcare.presentation.screens.register.RegisterScreenRoot
@@ -77,6 +79,7 @@ fun NavigationRoot(
                     )
                 }
                 entry<Route.Dashboard> {
+                    DashboardScreen()
                 }
             }
         )
