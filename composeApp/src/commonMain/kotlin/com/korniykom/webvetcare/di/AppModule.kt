@@ -7,6 +7,7 @@ import com.korniykom.webvetcare.data.user_service.KtorUserService
 import com.korniykom.webvetcare.domain.auth_service.AuthService
 import com.korniykom.webvetcare.domain.logging.WebVetCareLogger
 import com.korniykom.webvetcare.domain.user_service.UserService
+import com.korniykom.webvetcare.presentation.navigation.NavigationViewModel
 import com.korniykom.webvetcare.presentation.screens.dashboard.DashboardViewModel
 import com.korniykom.webvetcare.presentation.screens.login.LoginViewModel
 import com.korniykom.webvetcare.presentation.screens.register.RegisterViewModel
@@ -22,6 +23,7 @@ val appModule = module {
     viewModelOf(::LoginViewModel)
     viewModelOf(::RegisterViewModel)
     viewModelOf(::DashboardViewModel)
+    viewModelOf(::NavigationViewModel)
     single<WebVetCareLogger> { KermitLogger }
     single { HttpClientFactory(get(), get()).create(get()) }
     singleOf(::KtorAuthService) bind AuthService::class

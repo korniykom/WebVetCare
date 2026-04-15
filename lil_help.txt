@@ -5,7 +5,7 @@ minikube start &&
 kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/latest/download/controller.yaml
 &&
 minikube addons enable ingress &&
-minikube addons enable ingress-dns &&
+minikube addons enable ingress-dns
 
 kubectl get pods -n kube-system | grep sealed-secrets
 
@@ -21,6 +21,7 @@ kubectl apply -k k8s/
 minikube ip
 
 
+
 kubectl get pods -n webvetcare
 
  kubectl describe pod auth-service-5d4dd9d867-lnfnq -n webvetcare
@@ -32,4 +33,6 @@ kubectl get pods -n webvetcare
 ./gradlew :user-service:pushImage
 ./gradlew :composeApp:pushImage
 
-kubectl delete secret ghcr-secret -n webvetcare
+kubectl delete secret ghcr-secret -n webvetcareя
+
+./gradlew :auth:test --tests com.korniykom.auth.AuthIntegrationTests

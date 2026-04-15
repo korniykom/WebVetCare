@@ -1,8 +1,16 @@
 package com.korniykom.webvetcare.presentation.screens.dashboard
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
@@ -39,6 +47,9 @@ fun DashboardScreen(
         },
         DashboardRoute.Profile
     )
+
+    val state by viewModel.state.collectAsStateWithLifecycle()
+
     Row {
         DashboardMenu(
             viewModel = viewModel,
@@ -63,36 +74,45 @@ fun DashboardScreen(
                 dashboardBackStack.navigateToPatientProfile()
             },
         )
-        NavDisplay(
-            backStack = dashboardBackStack,
-            entryProvider = entryProvider {
-                entry<DashboardRoute.Profile> {
-                    ProfileScreen(
-                        viewModel = viewModel
-                    )
-                }
-                entry<DashboardRoute.BecomeDoctor> {
-                    BecomeDoctorScreen(
-                        viewModel = viewModel
-                    )
-                }
-                entry<DashboardRoute.BecomePatient> {
-                    BecomePatientScreen(
-                        viewModel = viewModel
-                    )
-                }
-                entry<DashboardRoute.DoctorProfile> {
-                    DoctorProfileScreen(
-                        viewModel = viewModel
-                    )
-                }
-                entry<DashboardRoute.PatientProfile> {
-                    PatientProfileScreen(
-                        viewModel = viewModel
-                    )
-                }
+        Column {
+            Box(
+                modifier = Modifier.background(MaterialTheme.colorScheme.onBackground)
+            ) {
+                Text(
+                    text = state.username
+                )
             }
-        )
+            NavDisplay(
+                backStack = dashboardBackStack,
+                entryProvider = entryProvider {
+                    entry<DashboardRoute.Profile> {
+                        ProfileScreen(
+                            viewModel = viewModel
+                        )
+                    }
+                    entry<DashboardRoute.BecomeDoctor> {
+                        BecomeDoctorScreen(
+                            viewModel = viewModel
+                        )
+                    }
+                    entry<DashboardRoute.BecomePatient> {
+                        BecomePatientScreen(
+                            viewModel = viewModel
+                        )
+                    }
+                    entry<DashboardRoute.DoctorProfile> {
+                        DoctorProfileScreen(
+                            viewModel = viewModel
+                        )
+                    }
+                    entry<DashboardRoute.PatientProfile> {
+                        PatientProfileScreen(
+                            viewModel = viewModel
+                        )
+                    }
+                }
+            )
+        }
     }
 
 }

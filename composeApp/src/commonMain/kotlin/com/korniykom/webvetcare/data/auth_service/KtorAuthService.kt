@@ -21,13 +21,15 @@ class KtorAuthService(
 ) : AuthService {
     override suspend fun register(
         email: String,
-        password: String
+        password: String,
+        username: String,
     ): NetworkResult<RegisterResponse, DataError.Remote> {
         return httpClient.post<RegisterRequestSerializable, RegisterResponseSerializable>(
             route = "/auth/register",
             body = RegisterRequestSerializable(
                 email = email,
-                password = password
+                password = password,
+                username = username
             )
         ).map { response ->
             tokenStorage.saveAccessToken(response.accessToken)

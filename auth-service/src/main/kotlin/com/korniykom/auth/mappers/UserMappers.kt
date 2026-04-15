@@ -7,5 +7,6 @@ fun UserEntity.toUser(): User {
     return User(
         id = id!!,
         email = email,
+        username = username
     )
 }

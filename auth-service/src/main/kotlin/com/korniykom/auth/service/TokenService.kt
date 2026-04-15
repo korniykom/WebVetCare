@@ -32,12 +32,13 @@ class TokenService(
         ImmutableJWKSet(JWKSet(RSAKey.Builder(publicKey).privateKey(privateKey).build()))
     )
 
-    fun generateAccessToken(userId: UUID, email: String): String {
+    fun generateAccessToken(userId: UUID, email: String, username: String): String {
         val now = Instant.now()
         val claims = JwtClaimsSet.builder()
             .issuer("auth-service")
             .subject(userId.toString())
             .claim("email", email)
+            .claim("username", username)
             .issuedAt(now)
             .expiresAt(now.plusSeconds(jwtConfig.accessTokenExpiry!!))
             .build()

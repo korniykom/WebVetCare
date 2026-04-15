@@ -55,15 +55,20 @@ class RegisterViewModel(
             .map { password -> password.isNotBlank() }
             .distinctUntilChanged()
 
+    private val isUsernameNotBlankFlow =
+        snapshotFlow { state.value.usernameTextFieldState.text.toString() }
+            .map { username -> username.isNotBlank() }
+            .distinctUntilChanged()
 
     private fun observeTextStates() {
         combine(
             isEmailValidFlow,
-            isPasswordNotBlankFlow
-        ) { isEmailValid, isPasswordNotBlank ->
+            isPasswordNotBlankFlow,
+            isUsernameNotBlankFlow
+        ) { isEmailValid, isPasswordNotBlank, isUsernameValid ->
             _state.update {
                 it.copy(
-                    canCreateAccount = isEmailValid && isPasswordNotBlank
+                    canCreateAccount = isEmailValid && isPasswordNotBlank && isUsernameValid
                 )
             }
         }.launchIn(viewModelScope)
@@ -76,11 +81,13 @@ class RegisterViewModel(
 
         val email = state.value.emailTextFieldState.text.toString()
         val password = state.value.passwordTextFieldState.text.toString()
+        val username = state.value.passwordTextFieldState.text.toString()
 
         viewModelScope.launch {
             authService.register(
                 email = email,
-                password = password
+                password = password,
+                username = username
             )
                 .onSuccess { responseBody ->
                     eventChannel.send(RegisterEvent.RegisterSuccess)

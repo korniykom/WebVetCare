@@ -7,6 +7,7 @@ data class DashboardState(
     val currentTab: MenuOptions = MenuOptions.PROFILE,
     val rightPaneSize: Size =  Size.Zero,
     val userEmail: String = "",
+    val username: String = "",
     val userRoles: List<String> = emptyList(),
 )
 

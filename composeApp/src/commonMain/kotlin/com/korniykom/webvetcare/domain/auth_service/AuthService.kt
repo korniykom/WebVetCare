@@ -7,6 +7,7 @@ interface AuthService {
     suspend fun register(
         email: String,
         password: String,
+        username: String
     ) : NetworkResult<RegisterResponse,DataError.Remote>
 
     suspend fun login(

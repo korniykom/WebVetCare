@@ -68,7 +68,7 @@ class AuthIntegrationTests {
     fun `register success`() {
         webTestClient.post()
             .uri("/api/auth/register")
-            .bodyValue(RegisterRequest("test@example.com", password = "password"))
+            .bodyValue(RegisterRequest("test@example.com", password = "password", username = "username"))
             .exchange()
             .expectStatus().isCreated
             .expectHeader().exists("Set-Cookie")
@@ -80,11 +80,11 @@ class AuthIntegrationTests {
     fun `register duplicate email`() {
         webTestClient.post()
             .uri("/api/auth/register")
-            .bodyValue(RegisterRequest("test@example.com", password = "password"))
+            .bodyValue(RegisterRequest("test@example.com", password = "password",  username = "username"))
             .exchange()
         webTestClient.post()
             .uri("/api/auth/register")
-            .bodyValue(RegisterRequest("test@example.com", password = "password"))
+            .bodyValue(RegisterRequest("test@example.com", password = "password",  username = "username"))
             .exchange()
             .expectStatus().is4xxClientError
     }
@@ -93,7 +93,7 @@ class AuthIntegrationTests {
     fun `register invalid email`() {
         webTestClient.post()
             .uri("/api/auth/register")
-            .bodyValue(RegisterRequest("goofy-mail", password = "password"))
+            .bodyValue(RegisterRequest("goofy-mail", password = "password",  username = "username"))
             .exchange()
             .expectStatus().is4xxClientError
     }
@@ -102,7 +102,7 @@ class AuthIntegrationTests {
     fun `login success`() {
         webTestClient.post()
             .uri("/api/auth/register")
-            .bodyValue(RegisterRequest("test@example.com", password = "password"))
+            .bodyValue(RegisterRequest("test@example.com", password = "password",  username = "username"))
             .exchange()
 
         webTestClient.post()
@@ -119,7 +119,7 @@ class AuthIntegrationTests {
     fun `login wrong password`() {
         webTestClient.post()
             .uri("/api/auth/register")
-            .bodyValue(RegisterRequest("test@example.com", password = "password"))
+            .bodyValue(LoginRequest("test@example.com", password = "password"))
             .exchange()
 
         webTestClient.post()
@@ -133,7 +133,7 @@ class AuthIntegrationTests {
     fun `login user not found`() {
         webTestClient.post()
             .uri("/api/auth/register")
-            .bodyValue(RegisterRequest("test@example.com", password = "password"))
+            .bodyValue(LoginRequest("test@example.com", password = "password"))
             .exchange()
 
         webTestClient.post()
@@ -148,7 +148,7 @@ class AuthIntegrationTests {
     fun `refresh success`() {
         val registerResult = webTestClient.post()
             .uri("/api/auth/register")
-            .bodyValue(RegisterRequest("test@example.com", password = "password"))
+            .bodyValue(RegisterRequest("test@example.com", password = "password",  username = "username"))
             .exchange()
             .returnResult()
 
@@ -180,7 +180,7 @@ class AuthIntegrationTests {
     fun `logout success`() {
         val registerResult = webTestClient.post()
             .uri("/api/auth/register")
-            .bodyValue(RegisterRequest("test@example.com", password = "password"))
+            .bodyValue(RegisterRequest("test@example.com", password = "password",  username = "username"))
             .exchange()
             .returnResult()
 

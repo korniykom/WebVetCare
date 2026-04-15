@@ -18,11 +18,15 @@ import com.korniykom.webvetcare.presentation.screens.register.RegisterScreenRoot
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import kotlinx.serialization.serializer
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun NavigationRoot(
-    modifier: Modifier = Modifier
+    viewModel: NavigationViewModel = koinViewModel(),
+    modifier: Modifier = Modifier,
 ) {
+    val startDestination = viewModel.startDestination
+
     val rootBackStack = rememberNavBackStack(
         configuration = SavedStateConfiguration {
             serializersModule = SerializersModule {
@@ -34,7 +38,7 @@ fun NavigationRoot(
                 }
             }
         },
-        Route.LandingPage
+        startDestination ?: Route.LandingPage
     )
     SharedTransitionLayout {
 
@@ -116,5 +120,7 @@ fun MutableList<NavKey>.navigateToLoginScreen() {
 fun MutableList<NavKey>.navigateToDashboardScreen() {
     removeAllDashboardScreens()
     removeLandingPage()
+    removeAllLoginScreens()
+    removeAllRegisterScreens()
     add(Route.Dashboard)
 }

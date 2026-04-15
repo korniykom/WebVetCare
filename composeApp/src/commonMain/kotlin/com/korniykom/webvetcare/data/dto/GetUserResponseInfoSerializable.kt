@@ -6,5 +6,6 @@ import kotlinx.serialization.Serializable
 data class GetUserResponseInfoSerializable (
     val id: String,
     val email: String,
-    val roles: List<String>
+    val roles: List<String>,
+    val username: String,
 )

@@ -18,6 +18,7 @@ class UserController(
     fun getMe(@AuthenticationPrincipal jwt: Jwt): ResponseEntity<UserResponse> {
         val userId = jwt.subject
         val email = jwt.getClaim<String>("email")
-        return ResponseEntity.ok(userService.getOrCreateUser(userId, email))
+        val username = jwt.getClaim<String>("username")
+        return ResponseEntity.ok(userService.getOrCreateUser(userId, email, username))
     }
 }

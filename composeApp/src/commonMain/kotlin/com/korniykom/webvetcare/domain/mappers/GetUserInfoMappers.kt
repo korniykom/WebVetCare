@@ -7,6 +7,7 @@ fun GetUserResponseInfoSerializable.toDomain(): GetUserInfoResponse {
     return GetUserInfoResponse(
         id = id,
         email = email,
-        roles = roles
+        roles = roles,
+        username = username
     )
 }

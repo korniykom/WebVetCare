@@ -5,5 +5,6 @@ import com.korniykom.userservice.domain.enums.Role
 data class UserResponse(
     val id: String,
     val email: String,
-    val roles: Set<Role>
+    val roles: Set<Role>,
+    val username: String,
 )

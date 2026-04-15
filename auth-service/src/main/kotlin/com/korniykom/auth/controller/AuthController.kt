@@ -30,6 +30,7 @@ class AuthController(
         val (accessToken, refreshToken) = authService.register(
             email = body.email,
             password = body.password,
+            username = body.username
         )
 
         val cookie = Cookie("refresh_token", refreshToken).apply {

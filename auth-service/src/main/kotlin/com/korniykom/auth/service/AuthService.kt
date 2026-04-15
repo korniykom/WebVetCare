@@ -22,7 +22,7 @@ class AuthService(
 ) {
 
     @Transactional
-    fun register(email: String, password: String): Pair<String, String> {
+    fun register(email: String, password: String, username: String): Pair<String, String> {
         val trimmedEmail = email.trim()
 
         if (authUserRepository.findByEmail(trimmedEmail) != null) {
@@ -33,11 +33,12 @@ class AuthService(
             UserEntity(
                 id = null,
                 email = trimmedEmail,
-                password = passwordEncoder.encode(password)
+                password = passwordEncoder.encode(password),
+                username = username
             )
         ).toUser()
 
-        val accessToken = tokenService.generateAccessToken(savedUser.id, savedUser.email)
+        val accessToken = tokenService.generateAccessToken(savedUser.id, savedUser.email, savedUser.username)
         val refreshToken = tokenService.generateRefreshToken(savedUser.id)
 
 
@@ -53,7 +54,7 @@ class AuthService(
         }
 
         val domainUser = user.toUser()
-        val accessToken = tokenService.generateAccessToken(domainUser.id, domainUser.email)
+        val accessToken = tokenService.generateAccessToken(domainUser.id, domainUser.email, domainUser.username)
         val refreshToken = tokenService.generateRefreshToken(domainUser.id)
 
         return Pair(accessToken, refreshToken)
@@ -64,7 +65,7 @@ class AuthService(
         val user = authUserRepository.findById(userId).orElseThrow {
             UserNotFoundException()
         }
-        val accessToken = tokenService.generateAccessToken(userId, user.email)
+        val accessToken = tokenService.generateAccessToken(userId, user.email, user.username)
         val refreshToken = tokenService.generateRefreshToken(userId)
 
         return Pair(accessToken, refreshToken)

@@ -91,6 +91,14 @@ fun RegisterScreen(
 
                 Spacer(modifier = Modifier.height(12.dp))
 
+                TextField(
+                    state = state.usernameTextFieldState,
+                    placeholder = "Create your username",
+                    title = "Username",
+                )
+
+                Spacer(modifier = Modifier.height(12.dp))
+
                 PasswordTextField(
                     state = state.passwordTextFieldState,
                     placeholder = "Create your password",

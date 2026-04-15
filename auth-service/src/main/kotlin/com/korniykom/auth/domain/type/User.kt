@@ -7,4 +7,5 @@ typealias UserId = UUID
 data class User(
     val id: UserId,
     val email: String,
+    val username: String
 )

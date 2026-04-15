@@ -19,6 +19,8 @@ class User(
     val id: String,
     @Column(nullable = false)
     val email: String,
+    @Column(nullable = false)
+    val username: String,
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(
         name = "user_roles",

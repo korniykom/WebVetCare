@@ -14,6 +14,7 @@ fun RegisterResponseSerializable.toDomain(): RegisterResponse {
 fun RegisterRequestSerializable.toDomain(): RegisterRequest {
     return RegisterRequest(
         email = email,
-        password = password
+        password = password,
+        username = username
     )
 }

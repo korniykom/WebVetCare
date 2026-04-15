@@ -43,7 +43,8 @@ class DashboardViewModel(
                 .onSuccess { response ->
                     _state.update { it.copy(
                         userEmail = response.email,
-                        userRoles = response.roles
+                        userRoles = response.roles,
+                        username = response.username
                     ) }
                 }
                 .onFailure {

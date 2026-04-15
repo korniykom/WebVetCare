@@ -9,19 +9,21 @@ import org.springframework.stereotype.Service
 class UserService(
     private val userRepository: UserRepository
 ) {
-    fun getOrCreateUser(id: String, email: String): UserResponse {
+    fun getOrCreateUser(id: String, email: String, username: String): UserResponse {
         val user = userRepository.findById(id).orElseGet {
             userRepository.save(
                 User(
                     id = id,
-                    email = email
+                    email = email,
+                    username = username,
                 )
             )
         }
         return UserResponse(
             id = user.id,
             email = user.email,
-            roles = user.roles
+            roles = user.roles,
+            username = user.username
         )
     }
 }
