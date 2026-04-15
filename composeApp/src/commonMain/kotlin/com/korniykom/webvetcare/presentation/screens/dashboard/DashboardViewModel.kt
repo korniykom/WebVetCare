@@ -42,6 +42,7 @@ class DashboardViewModel(
             userService.getUserInfo(token!!)
                 .onSuccess { response ->
                     _state.update { it.copy(
+                        userId = response.id,
                         userEmail = response.email,
                         userRoles = response.roles,
                         username = response.username
@@ -86,6 +87,10 @@ class DashboardViewModel(
                         isMenuExpanded = !it.isMenuExpanded
                     )
                 }
+            }
+
+            DashboardActions.OnFetchDataAboutUser -> {
+                loadDataAboutUser()
             }
         }
     }

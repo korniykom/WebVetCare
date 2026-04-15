@@ -36,7 +36,7 @@ class AuthController(
         val cookie = Cookie("refresh_token", refreshToken).apply {
             isHttpOnly = true
             secure = false
-            path = "/api/auth/refresh"
+            path = "/"
             maxAge = jwtConfig.refreshTokenExpiry!!.toInt()
         }
 

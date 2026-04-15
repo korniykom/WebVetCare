@@ -11,6 +11,7 @@ import io.ktor.client.plugins.auth.Auth
 import io.ktor.client.plugins.auth.providers.BearerTokens
 import io.ktor.client.plugins.auth.providers.bearer
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.cookies.AcceptAllCookiesStorage
 import io.ktor.client.plugins.cookies.HttpCookies
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
@@ -20,6 +21,7 @@ import io.ktor.client.request.post
 import io.ktor.client.request.url
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
+import io.ktor.http.encodedPath
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
@@ -37,7 +39,9 @@ class HttpClientFactory(
                     }
                 )
             }
-            install(HttpCookies)
+            install(HttpCookies) {
+                storage = AcceptAllCookiesStorage()
+            }
 
             install(HttpTimeout) {
                 socketTimeoutMillis = 20_000L
@@ -64,16 +68,10 @@ class HttpClientFactory(
                     }
 
                     refreshTokens {
-                        val refreshClient = HttpClient(engine) {
-                            install(ContentNegotiation) {
-                                json(Json { ignoreUnknownKeys = true })
-                            }
+                        val httpResponse = client.post {
+                            url(constructRoute("/auth/refresh"))
                         }
 
-                        val httpResponse = refreshClient.post {
-                            url(constructRoute("/api/auth/refresh"))
-                            contentType(ContentType.Application.Json)
-                        }
 
                         val result = responseToResult<AuthResponse>(httpResponse)
 
@@ -91,9 +89,11 @@ class HttpClientFactory(
                     }
 
                     sendWithoutRequest { request ->
-                        !request.url.toString()
-                            .contains("/api/auth/login") && !request.url.toString()
-                            .contains("/api/auth/register")
+                        val path = request.url.encodedPath
+
+                        path != "/api/auth/login" &&
+                                path != "/api/auth/register" &&
+                                path != "/api/auth/refresh"
                     }
                 }
             }

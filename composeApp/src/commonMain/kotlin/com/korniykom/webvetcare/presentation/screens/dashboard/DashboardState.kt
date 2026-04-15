@@ -9,6 +9,7 @@ data class DashboardState(
     val userEmail: String = "",
     val username: String = "",
     val userRoles: List<String> = emptyList(),
+    val userId: String = "",
 )
 
 enum class MenuOptions {
