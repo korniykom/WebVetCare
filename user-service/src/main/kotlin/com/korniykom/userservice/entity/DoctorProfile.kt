@@ -14,5 +14,14 @@ class DoctorProfile(
     val userId: String,
 
     @Column(nullable = false)
-    val specialization: String
+    val specialization: String,
+
+    @Column(nullable = false)
+    val licenseNumber: String,
+
+    @Column(nullable = false)
+    val clinicAddress: String,
+
+    @Column
+    val availability: String,
 )

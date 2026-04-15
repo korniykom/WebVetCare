@@ -18,7 +18,7 @@ app:
     private-key-path: ${JWT_PRIVATE_KEY_PATH:classpath:keys/private.pem}
     public-key-path: ${JWT_PUBLIC_KEY_PATH:classpath:keys/public.pem}
     access-token-expiry: ${JWT_ACCESS_TOKEN_EXPIRY:60}
-    refresh-token-expiry: ${JWT_REFRESH_TOKEN_EXPIRY:360}
+    refresh-token-expiry: ${JWT_REFRESH_TOKEN_EXPIRY:120}
 logging:
   level:
     org.flywaydb: DEBUG

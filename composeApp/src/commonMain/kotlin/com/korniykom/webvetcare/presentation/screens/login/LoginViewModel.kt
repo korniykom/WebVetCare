@@ -9,8 +9,6 @@ import com.korniykom.webvetcare.domain.util.EmailValidator
 import com.korniykom.webvetcare.domain.util.TokenStorage
 import com.korniykom.webvetcare.domain.util.onFailure
 import com.korniykom.webvetcare.domain.util.onSuccess
-import com.korniykom.webvetcare.presentation.components.snackbars.SnackBarType
-import com.korniykom.webvetcare.presentation.components.snackbars.show
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -69,7 +67,7 @@ class LoginViewModel(
     }
 
     private fun login() {
-        if(!validateFormInput()) {
+        if (!validateFormInput()) {
             return
         }
 
@@ -87,12 +85,12 @@ class LoginViewModel(
                 }
                 .onFailure { error ->
                     eventChannel.send(LoginEvent.LoginFailure)
-                    val loginError = when(error) {
+                    val loginError = when (error) {
                         DataError.Remote.NOT_FOUND -> "User not found"
                         DataError.Remote.UNAUTHORIZED -> "You entered wrong credentials"
                         else -> error.toString()
                     }
-                    _state.update{ it.copy(error = loginError)}
+                    _state.update { it.copy(error = loginError) }
                 }
         }
     }
@@ -107,10 +105,14 @@ class LoginViewModel(
 
         return isEmailValid && isPasswordValid
     }
+
     fun onAction(action: LoginAction) {
         when (action) {
             LoginAction.OnForgotPasswordClick -> {}
-            LoginAction.OnLoginClick -> {login()}
+            LoginAction.OnLoginClick -> {
+                login()
+            }
+
             LoginAction.OnGoToRegisterClick -> {}
             LoginAction.OnTogglePasswordVisibilityClick -> {
                 _state.update {

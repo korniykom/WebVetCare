@@ -1,5 +1,6 @@
 package com.korniykom.webvetcare.presentation.screens.dashboard
 
+import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.korniykom.webvetcare.domain.user_service.UserService
@@ -9,6 +10,10 @@ import com.korniykom.webvetcare.domain.util.onSuccess
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
@@ -26,6 +31,7 @@ class DashboardViewModel(
     private val _state = MutableStateFlow(DashboardState())
     val state = _state.onStart {
         if (!hasLoadedInitialData) {
+            observeTextStates()
             loadDataAboutUser()
             hasLoadedInitialData = true
         }
@@ -41,15 +47,92 @@ class DashboardViewModel(
             val token = tokenStorage.getAccessToken()
             userService.getUserInfo(token!!)
                 .onSuccess { response ->
-                    _state.update { it.copy(
-                        userId = response.id,
-                        userEmail = response.email,
-                        userRoles = response.roles,
-                        username = response.username
-                    ) }
+                    _state.update {
+                        it.copy(
+                            userId = response.id,
+                            userEmail = response.email,
+                            userRoles = response.roles,
+                            username = response.username
+                        )
+                    }
                 }
-                .onFailure {
-                    //TODO show snackbar about failure
+                .onFailure { error ->
+                    _state.update {
+                        it.copy(
+                            errorMessage = error.toString()
+                        )
+                    }
+                }
+        }
+    }
+
+    private val isSpecializationValidFlow =
+        snapshotFlow { state.value.specializationTextFieldState.text.toString() }
+            .map { specialization -> specialization.isNotBlank() }
+            .distinctUntilChanged()
+
+    private val isLicenseNumberValidFlow =
+        snapshotFlow { state.value.licenseNumberTextFieldState.text.toString() }
+            .map { licenseNumber -> licenseNumber.isNotBlank() }
+            .distinctUntilChanged()
+
+    private val isClinicAddressValidFlow =
+        snapshotFlow { state.value.clinicAddressTextFieldState.text.toString() }
+            .map { clinicAddress -> clinicAddress.isNotBlank() }
+            .distinctUntilChanged()
+
+    private val isAvailabilityValidFlow =
+        snapshotFlow { state.value.doctorAvailabilityTextFieldState.text.toString() }
+            .map { availability -> availability.isNotBlank() }
+
+    private fun observeTextStates() {
+        combine(
+            isSpecializationValidFlow,
+            isLicenseNumberValidFlow,
+            isClinicAddressValidFlow,
+            isAvailabilityValidFlow
+        ) { isSpecializationValid, isLicenseNumberValid, isClinicAddressValid, isAvailabilityValid ->
+            _state.update {
+                it.copy(
+                    canBecomeDoctor = isSpecializationValid && isLicenseNumberValid && isClinicAddressValid && isAvailabilityValid
+                )
+            }
+        }.launchIn(viewModelScope)
+    }
+
+    private fun sendBecomeDoctorRequest() {
+        val specialization = state.value.specializationTextFieldState.text.toString()
+        val licenseNumber = state.value.licenseNumberTextFieldState.text.toString()
+        val clinicAddress = state.value.clinicAddressTextFieldState.text.toString()
+        val availability = state.value.doctorAvailabilityTextFieldState.text.toString()
+
+        viewModelScope.launch {
+
+            userService.becomeDoctor(
+                specialization = specialization,
+                licenseNumber = licenseNumber,
+                clinicAddress = clinicAddress,
+                availability = availability
+            )
+                .onSuccess { response ->
+                    eventChannel.send(DashboardEvent.SuccessfullyBecomeDoctor)
+                    _state.update {
+                        it.copy(
+                            doctorSpecialization = response.specialization,
+                            doctorClinicAddress = response.clinicAddress,
+                            doctorLicenseNumber = response.licenseNumber,
+                            doctorAvailability = response.availability
+                        )
+                    }
+                }
+                .onFailure { error ->
+                    eventChannel.send(DashboardEvent.FailedToBecomeDoctor)
+
+                    _state.update {
+                        it.copy(
+                            errorMessage = error.toString()
+                        )
+                    }
                 }
         }
     }
@@ -57,30 +140,45 @@ class DashboardViewModel(
     fun onAction(action: DashboardActions) {
         when (action) {
             DashboardActions.OnGoToBecomeDoctor -> {
-                _state.update { it.copy(
-                    currentTab = MenuOptions.BECOME_DOCTOR
-                ) }
+                _state.update {
+                    it.copy(
+                        currentTab = MenuOptions.BECOME_DOCTOR
+                    )
+                }
             }
+
             DashboardActions.OnGoToBecomePatient -> {
-                _state.update { it.copy(
-                    currentTab = MenuOptions.BECOME_PATIENT
-                ) }
+                _state.update {
+                    it.copy(
+                        currentTab = MenuOptions.BECOME_PATIENT
+                    )
+                }
             }
+
             DashboardActions.OnGoToDoctorProfile -> {
-                _state.update { it.copy(
-                    currentTab = MenuOptions.DOCTOR_PROFILE
-                ) }
+                _state.update {
+                    it.copy(
+                        currentTab = MenuOptions.DOCTOR_PROFILE
+                    )
+                }
             }
+
             DashboardActions.OnGoToPatientProfile -> {
-                _state.update { it.copy(
-                    currentTab = MenuOptions.PATIENT_PROFILE
-                ) }
+                _state.update {
+                    it.copy(
+                        currentTab = MenuOptions.PATIENT_PROFILE
+                    )
+                }
             }
+
             DashboardActions.OnGoToProfile -> {
-                _state.update { it.copy(
-                    currentTab = MenuOptions.PROFILE
-                ) }
+                _state.update {
+                    it.copy(
+                        currentTab = MenuOptions.PROFILE
+                    )
+                }
             }
+
             DashboardActions.OnToggleMenuExpand -> {
                 _state.update {
                     it.copy(
@@ -91,6 +189,10 @@ class DashboardViewModel(
 
             DashboardActions.OnFetchDataAboutUser -> {
                 loadDataAboutUser()
+            }
+
+            DashboardActions.OnBecomeDoctorClick -> {
+                sendBecomeDoctorRequest()
             }
         }
     }

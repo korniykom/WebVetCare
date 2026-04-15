@@ -10,4 +10,5 @@ sealed interface DashboardActions {
     data object OnGoToDoctorProfile: DashboardActions
     data object OnToggleMenuExpand: DashboardActions
     data object OnFetchDataAboutUser: DashboardActions
+    data object OnBecomeDoctorClick: DashboardActions
 }

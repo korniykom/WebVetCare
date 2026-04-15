@@ -6,5 +6,8 @@ sealed interface DashboardEvent {
     data object NavigateToBecomePatient: DashboardEvent
     data object NavigateToDoctorProfile: DashboardEvent
     data object NavigateToPatientProfile: DashboardEvent
+    data object SuccessfullyBecomeDoctor: DashboardEvent
+    data object FailedToBecomeDoctor: DashboardEvent
+
 
 }

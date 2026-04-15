@@ -1,5 +1,6 @@
 package com.korniykom.webvetcare.presentation.screens.dashboard
 
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.ui.geometry.Size
 
 data class DashboardState(
@@ -10,6 +11,16 @@ data class DashboardState(
     val username: String = "",
     val userRoles: List<String> = emptyList(),
     val userId: String = "",
+    val doctorLicenseNumber: String = "",
+    val doctorClinicAddress: String = "",
+    val doctorAvailability: String = "",
+    val doctorSpecialization: String = "",
+    val specializationTextFieldState: TextFieldState = TextFieldState(),
+    val licenseNumberTextFieldState: TextFieldState = TextFieldState(),
+    val clinicAddressTextFieldState: TextFieldState = TextFieldState(),
+    val doctorAvailabilityTextFieldState: TextFieldState = TextFieldState(),
+    val canBecomeDoctor: Boolean = false,
+    val errorMessage: String = "",
 )
 
 enum class MenuOptions {
