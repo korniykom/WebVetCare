@@ -31,7 +31,6 @@ class DashboardViewModel(
     private val _state = MutableStateFlow(DashboardState())
     val state = _state.onStart {
         if (!hasLoadedInitialData) {
-            observeTextStates()
             loadDataAboutUser()
             hasLoadedInitialData = true
         }
@@ -85,7 +84,29 @@ class DashboardViewModel(
         snapshotFlow { state.value.doctorAvailabilityTextFieldState.text.toString() }
             .map { availability -> availability.isNotBlank() }
 
-    private fun observeTextStates() {
+    private val isPatientEmailValidFlow =
+        snapshotFlow { state.value.patientEmailTextFieldState.text.toString() }
+            .map { email -> email.isNotBlank() }
+            .distinctUntilChanged()
+
+    private val isPatientPhoneNumberValidFlow =
+        snapshotFlow { state.value.patientContactNumberTextFieldState.text.toString() }
+            .map { number -> number.isNotBlank() }
+
+    private fun observeBecomePatientTextStates() {
+        combine(
+            isPatientEmailValidFlow,
+            isPatientPhoneNumberValidFlow
+        ) { isPatientEmailValid, isPatientPhoneNumberValid ->
+            _state.update {
+                it.copy(
+                    canBecomePatient = isPatientEmailValid && isPatientPhoneNumberValid
+                )
+            }
+        }.launchIn(viewModelScope)
+    }
+
+    private fun observeBecomeDoctorTextStates() {
         combine(
             isSpecializationValidFlow,
             isLicenseNumberValidFlow,
@@ -98,6 +119,35 @@ class DashboardViewModel(
                 )
             }
         }.launchIn(viewModelScope)
+    }
+    private fun sendBecomePatientRequest() {
+        val email = state.value.patientEmailTextFieldState.text.toString()
+        val phoneNumber = state.value.patientContactNumberTextFieldState.text.toString()
+
+        viewModelScope.launch {
+            userService.becomePatient(
+                contactPhoneNumber = phoneNumber,
+                contactEmail = email
+            )
+                .onSuccess { response ->
+                    eventChannel.send(DashboardEvent.SuccessfullyBecomePatient)
+                    _state.update { it.copy(
+                        canBecomePatient = false,
+                        patientEmail = response.contactEmail,
+                        patientPhoneNumber = response.contactPhoneNumber
+                    ) }
+                }
+                .onFailure { error ->
+                    eventChannel.send(DashboardEvent.FailedToBecomePatient)
+
+                    _state.update {
+                        it.copy(
+                            errorMessage = error.toString()
+                        )
+                    }
+
+                }
+        }
     }
 
     private fun sendBecomeDoctorRequest() {
@@ -141,6 +191,7 @@ class DashboardViewModel(
     fun onAction(action: DashboardActions) {
         when (action) {
             DashboardActions.OnGoToBecomeDoctor -> {
+                observeBecomeDoctorTextStates()
                 _state.update {
                     it.copy(
                         currentTab = MenuOptions.BECOME_DOCTOR
@@ -149,6 +200,7 @@ class DashboardViewModel(
             }
 
             DashboardActions.OnGoToBecomePatient -> {
+                observeBecomePatientTextStates()
                 _state.update {
                     it.copy(
                         currentTab = MenuOptions.BECOME_PATIENT
@@ -194,6 +246,10 @@ class DashboardViewModel(
 
             DashboardActions.OnBecomeDoctorClick -> {
                 sendBecomeDoctorRequest()
+            }
+
+            DashboardActions.OnBecomePatientClick -> {
+                sendBecomePatientRequest()
             }
         }
     }

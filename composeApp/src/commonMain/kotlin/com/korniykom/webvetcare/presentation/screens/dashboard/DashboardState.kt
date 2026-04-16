@@ -21,6 +21,11 @@ data class DashboardState(
     val doctorAvailabilityTextFieldState: TextFieldState = TextFieldState(),
     val canBecomeDoctor: Boolean = true,
     val errorMessage: String = "",
+    val canBecomePatient: Boolean = true,
+    val patientEmailTextFieldState: TextFieldState = TextFieldState(),
+    val patientContactNumberTextFieldState: TextFieldState = TextFieldState(),
+    val patientEmail: String = "",
+    val patientPhoneNumber: String = "",
 )
 
 enum class MenuOptions {

@@ -14,4 +14,9 @@ interface UserService {
         clinicAddress: String,
         availability: String
     ): NetworkResult<BecomeDoctorResponse, DataError.Remote>
+
+    suspend fun becomePatient(
+        contactEmail: String,
+        contactPhoneNumber: String,
+    ): NetworkResult<BecomePatientResponse, DataError.Remote>
 }

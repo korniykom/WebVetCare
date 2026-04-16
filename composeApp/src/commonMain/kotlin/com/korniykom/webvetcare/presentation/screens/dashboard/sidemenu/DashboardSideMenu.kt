@@ -117,16 +117,18 @@ fun DashboardMenu(
                             text = "PATIENT",
                         )
                     }
-                    ListItemWithIcon(
-                        showOnlyIcon = !isExpanded,
-                        icon = Res.drawable.paw,
-                        leadingText = "Become Patient",
-                        isSelected = (state.value.currentTab == MenuOptions.BECOME_PATIENT),
-                        onClick = {
-                            onGoToBecomePatient()
-                        },
-                    )
-                    if (state.value.userEmail.contains("PATIENT")) {
+                    if(!state.value.userRoles.contains("PATIENT")) {
+                        ListItemWithIcon(
+                            showOnlyIcon = !isExpanded,
+                            icon = Res.drawable.paw,
+                            leadingText = "Become Patient",
+                            isSelected = (state.value.currentTab == MenuOptions.BECOME_PATIENT),
+                            onClick = {
+                                onGoToBecomePatient()
+                            },
+                        )
+                    }
+                    if (state.value.userRoles.contains("PATIENT")) {
                         ListItemWithIcon(
                             showOnlyIcon = !isExpanded,
                             icon = Res.drawable.settings,

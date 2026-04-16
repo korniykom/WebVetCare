@@ -2,11 +2,14 @@ package com.korniykom.webvetcare.data.user_service
 
 import com.korniykom.webvetcare.data.dto.BecomeDoctorRequestSerializable
 import com.korniykom.webvetcare.data.dto.BecomeDoctorResponseSerializable
+import com.korniykom.webvetcare.data.dto.BecomePatientRequestSerializable
+import com.korniykom.webvetcare.data.dto.BecomePatientResponseSerializable
 import com.korniykom.webvetcare.data.dto.GetUserResponseInfoSerializable
 import com.korniykom.webvetcare.data.networking.get
 import com.korniykom.webvetcare.data.networking.post
 import com.korniykom.webvetcare.domain.mappers.toDomain
 import com.korniykom.webvetcare.domain.user_service.BecomeDoctorResponse
+import com.korniykom.webvetcare.domain.user_service.BecomePatientResponse
 import com.korniykom.webvetcare.domain.user_service.GetUserInfoResponse
 import com.korniykom.webvetcare.domain.user_service.UserService
 import com.korniykom.webvetcare.domain.util.DataError
@@ -41,6 +44,22 @@ class KtorUserService(
                 licenseNumber = licenseNumber,
                 clinicAddress = clinicAddress,
                 availability = availability
+            )
+        )
+            .map { response ->
+                response.toDomain()
+            }
+    }
+
+    override suspend fun becomePatient(
+        contactEmail: String,
+        contactPhoneNumber: String
+    ): NetworkResult<BecomePatientResponse, DataError.Remote> {
+        return httpClient.post<BecomePatientRequestSerializable, BecomePatientResponseSerializable>(
+            route = "/users/become-patient",
+            body = BecomePatientRequestSerializable(
+                contactEmail = contactEmail,
+                contactPhoneNumber = contactPhoneNumber
             )
         )
             .map { response ->

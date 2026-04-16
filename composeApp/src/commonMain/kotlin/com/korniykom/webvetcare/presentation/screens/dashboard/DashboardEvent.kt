@@ -9,5 +9,8 @@ sealed interface DashboardEvent {
     data object SuccessfullyBecomeDoctor: DashboardEvent
     data object FailedToBecomeDoctor: DashboardEvent
 
+    data object SuccessfullyBecomePatient: DashboardEvent
+    data object FailedToBecomePatient: DashboardEvent
+
 
 }

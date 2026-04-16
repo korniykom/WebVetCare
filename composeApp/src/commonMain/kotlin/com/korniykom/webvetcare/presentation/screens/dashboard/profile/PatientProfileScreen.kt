@@ -1,10 +1,13 @@
 package com.korniykom.webvetcare.presentation.screens.dashboard.profile
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.korniykom.webvetcare.presentation.components.layouts.AdaptiveFormLayout
 import com.korniykom.webvetcare.presentation.components.textfields.TextField
@@ -28,12 +31,18 @@ fun PatientProfileScreen(
         ) {
             Column(modifier = Modifier.fillMaxWidth()) {
                 TextField(
-                    state = TextFieldState(initialText = state.value.userEmail),
-                    placeholder = "Enter your email",
+                    state = TextFieldState(initialText = state.value.patientEmail),
+                    placeholder = "Phone number",
                     title = "Email",
                     enabled = false
                 )
-
+                Spacer(modifier = Modifier.height(8.dp))
+                TextField(
+                    state = TextFieldState(initialText = state.value.patientPhoneNumber),
+                    placeholder = "Phone number",
+                    title = "Phone number",
+                    enabled = false
+                )
 
             }
         }
