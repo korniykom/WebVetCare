@@ -14,5 +14,8 @@ class PatientProfile(
     val userId: String,
 
     @Column(nullable = false)
-    val contactEmail: String
+    val contactEmail: String,
+
+    @Column(nullable = false)
+    val contactPhoneNumber: String
 )

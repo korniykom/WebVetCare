@@ -30,13 +30,15 @@ class PatientService(
         val profile = patientProfileRepository.save(
             PatientProfile(
                 userId = userId,
-                contactEmail = request.contact_email
+                contactEmail = request.contactEmail,
+                contactPhoneNumber = request.contactPhoneNumber
             )
         )
 
         return PatientProfileResponse(
             id = profile.userId,
-            contactEmail = profile.contactEmail
+            contactEmail = profile.contactEmail,
+            contactPhoneNumber = profile.contactPhoneNumber
         )
     }
 
@@ -47,7 +49,8 @@ class PatientService(
 
         return PatientProfileResponse(
             id = profile.userId,
-            contactEmail = profile.contactEmail
+            contactEmail = profile.contactEmail,
+            contactPhoneNumber = profile.contactPhoneNumber
         )
     }
 }
