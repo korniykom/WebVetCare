@@ -13,8 +13,8 @@ version = "0.0.1-SNAPSHOT"
 description = "auth-service"
 
 val serviceName = "auth-service"
-val namespace = "webvetcare"
-val registryUrl = "ghcr.io/korniykom"
+val namespace = project.property("namespace") as String
+val registryUrl = project.property("registryUrl") as String
 val imageTag = project.version.toString()
 val mImageName = "$namespace-$serviceName"
 val fullImageName = "$registryUrl/$mImageName:$imageTag"

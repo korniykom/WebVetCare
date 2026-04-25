@@ -10,8 +10,9 @@ plugins {
 val baseUrl = System.getenv("BASE_URL") ?: "http://localhost:8080/api"
 
 val serviceName = "compose-web"
-val namespace = "webvetcare"
-val registryUrl = "ghcr.io/korniykom"
+
+val namespace = project.property("namespace") as String
+val registryUrl = project.property("registryUrl") as String
 val imageTag = "0.0.1"
 
 val imageName = "$namespace-$serviceName"
