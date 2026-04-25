@@ -1,8 +1,9 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: auth-postgres
 spec:
+  serviceName: auth-postgres
   replicas: 1
   selector:
     matchLabels:
@@ -24,3 +25,14 @@ spec:
               value: postgres
             - name: POSTGRES_PASSWORD
               value: postgres
+          volumeMounts:
+            - name: auth-postgres-data
+              mountPath: /var/lib/postgres/data
+  volumeClaimTemplates:
+    - metadata:
+        name: auth-postgres-data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 5Gi

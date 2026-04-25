@@ -18,15 +18,13 @@ resources:
   - auth-service/service.yaml
   - auth-service/jwt-keys-sealed.yaml
 
-  - auth-service/postgres/postgres-deployment.yaml
-  - auth-service/postgres/postgres-service-clusterip.yaml
-  - auth-service/postgres/postgres-service-nodeport.yaml
+  - auth-service/postgres/stateful-set.yaml
+  - auth-service/postgres/service.yaml
 
   - user-service/deployment.yaml
   - user-service/service.yaml
 
-  - user-service/postgres/postgres-deployment.yaml
-  - user-service/postgres/postgres-service-clusterip.yaml
-  - user-service/postgres/postgres-service-nodeport.yaml
+  - user-service/postgres/stateful-set.yaml
+  - user-service/postgres/service.yaml
 
   - ingress.yaml

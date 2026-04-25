@@ -11,8 +11,8 @@ kubectl get pods -n kube-system | grep sealed-secrets
 
 
 kubectl create secret generic auth-jwt-keys \
-  --from-file=private.pem=auth-service/src/main/resources/keys/private.pem \
-  --from-file=public.pem=auth-service/src/main/resources/keys/public.pem \
+  --from-file=private.pem=back-end/auth-service/src/main/resources/keys/private.pem \
+  --from-file=public.pem=back-end/auth-service/src/main/resources/keys/public.pem \
   --namespace=webvetcare \
   --dry-run=client -o yaml | kubeseal --format=yaml > k8s/auth-service/jwt-keys-sealed.yaml
 &&
