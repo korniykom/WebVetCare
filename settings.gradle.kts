@@ -34,7 +34,7 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
-include(":auth-service")
-include(":composeApp")
-include(":gateway")
-include(":user-service")
+include("back-end:auth-service")
+include("front-end:composeApp")
+include("back-end:gateway")
+include("back-end:user-service")
