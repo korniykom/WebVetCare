@@ -10,7 +10,7 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 
-val DarkNavy = Color(0xFF0B1F3A)
+val DarkNavy = Color(0xFFECCF14)
 val Teal = Color(0xFF1A7F78)
 val White = Color(0xFFF8FAFC)
 val LightGray = Color(0xFFE8EDF2)
@@ -26,7 +26,7 @@ val Navy40 = Color(0xFF284E87)
 val Navy50 = Color(0xFF3660A3)
 val Navy60 = Color(0xFF5680BF)
 val Navy70 = Color(0xFF7EA0D6)
-val Navy80 = Color(0xFFA8C1E9)
+val Navy80 = Color(0xFFE217D8)
 val Navy90 = Color(0xFFD0E1F7)
 val Navy95 = Color(0xFFE8F0FB)
 val Navy99 = Color(0xFFF5F8FE)

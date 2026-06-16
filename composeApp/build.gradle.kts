@@ -12,7 +12,7 @@ val baseUrl = System.getenv("BASE_URL") ?: "http://localhost:8080/api"
 val serviceName = "compose-web"
 val namespace = "webvetcare"
 val registryUrl = "ghcr.io/korniykom"
-val imageTag = "0.0.1"
+val imageTag = "0.0.2"
 
 val imageName = "$namespace-$serviceName"
 val fullImageName = "$registryUrl/$imageName:$imageTag"
@@ -92,19 +92,10 @@ compose.desktop {
 }
 
 tasks.register<Exec>("buildImage") {
-    commandLine(
-        "docker", "build",
-        "--build-arg", "BASE_URL=${System.getenv("BASE_URL") ?: "http://webvetcare.ua/api"}",
-        "-t", fullImageName,
-        rootProject.projectDir.absolutePath
-    )
-}
+    dependsOn("wasmJsBrowserDistribution")
+    commandLine("docker", "build", "-t", fullImageName, ".")}
 
 tasks.register<Exec>("pushImage") {
     dependsOn("buildImage")
-
-    commandLine(
-        "docker", "push",
-        fullImageName
-    )
+    commandLine("docker", "push", fullImageName)
 }
