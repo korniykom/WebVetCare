@@ -1,6 +1,6 @@
 [versions]
 kotlin = "2.3.20"
-springBoot = "4.0.5"
+springBoot = "4.1.0"
 springDependencyManagement = "1.1.7"
 springCloudBom = "2025.1.1"
 springCloudDependencyManagement = "2025.1.1"
