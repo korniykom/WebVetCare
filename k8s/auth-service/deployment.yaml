@@ -20,6 +20,8 @@ spec:
           ports:
             - containerPort: 9991
           env:
+            - name: SPRING_CLOUD_CONFIG_SERVER_URI
+              value: "http://config:9994"
             - name: DB_HOST
               value: auth-postgres
             - name: DB_PORT

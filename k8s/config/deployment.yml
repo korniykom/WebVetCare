@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config
+  namespace: webvetcare
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: config
+  template:
+    metadata:
+      labels:
+        app: config
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+
+      containers:
+        - name: config
+          image: ghcr.io/korniykom/webvetcare-config:0.0.1
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: 9994
+              name: http
+
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "native"
+            - name: CONFIG_REPO_PATH
+              value: "/config-repo"
+
+          volumeMounts:
+            - name: config-repo
+              mountPath: /config-repo
+
+          resources:
+            requests:
+              memory: "512Mi"
+            limits:
+              memory: "1Gi"
+
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 9994
+            initialDelaySeconds: 30
+            periodSeconds: 10
+
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 9994
+            initialDelaySeconds: 10
+            periodSeconds: 5
+
+      volumes:
+        - name: config-repo
+          hostPath:
+            path: /home/max/WebVetCare/local-git-config
+            type: Directory

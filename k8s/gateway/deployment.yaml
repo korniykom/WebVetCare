@@ -22,6 +22,8 @@ spec:
           ports:
             - containerPort: 8080
           env:
+            - name: SPRING_CLOUD_CONFIG_SERVER_URI
+              value: "http://config:9994"
             - name: AUTH_SERVICE_URL
               value: http://auth-service:9991
             - name: USER_SERVICE_URL

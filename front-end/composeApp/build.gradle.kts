@@ -7,12 +7,10 @@ plugins {
     alias(ui.plugins.composeCompiler)
     alias(ui.plugins.kotlinSerialization)
 }
-val baseUrl = System.getenv("BASE_URL") ?: "http://localhost:8080/api"
-
 val serviceName = "compose-web"
 val namespace = "webvetcare"
 val registryUrl = "ghcr.io/korniykom"
-val imageTag = "0.0.2"
+val imageTag = "0.0.3"
 
 val imageName = "$namespace-$serviceName"
 val fullImageName = "$registryUrl/$imageName:$imageTag"
