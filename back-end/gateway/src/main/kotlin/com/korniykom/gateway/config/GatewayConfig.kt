@@ -1,5 +1,6 @@
 package com.korniykom.gateway.config
 
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity
@@ -11,7 +12,13 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource
 
 @Configuration
 @EnableWebFluxSecurity
-class SecurityConfig {
+class GatewayConfig {
+
+    @Value("\${auth.service.uri:http://auth:9991}")
+    private lateinit var authServiceUri: String
+
+    @Value("\${user.service.uri:http://user:9992}")
+    private lateinit var userServiceUri: String
 
     @Bean
     fun securityFilterChain(http: ServerHttpSecurity): SecurityWebFilterChain {

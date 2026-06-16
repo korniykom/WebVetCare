@@ -37,6 +37,9 @@ dependencies {
     implementation(libs.jacksonModuleKotlin)
     implementation(libs.springCloudLoadBalancer)
 
+    implementation(libs.springCloudConfigClient)
+
+
     testImplementation(libs.kotlinTestJunit5)
     testRuntimeOnly(libs.junitPlatformLauncher)
 }
