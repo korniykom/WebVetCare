@@ -9,6 +9,8 @@ testcontainers = "1.21.4"
 java = "17"
 
 [libraries]
+springCloudConfigServer = { module = "org.springframework.cloud:spring-cloud-config-server" }
+springCloudConfigClient = { module = "org.springframework.cloud:spring-cloud-starter-config" }
 springCloudLoadBalancer = { module = "org.springframework.cloud:spring-cloud-starter-loadbalancer" }
 springCloudGateway = { module = "org.springframework.cloud:spring-cloud-gateway-server-webflux" }
 springCloudDependencies = { module = "org.springframework.cloud:spring-cloud-dependencies", version.ref = "springCloudBom" }
