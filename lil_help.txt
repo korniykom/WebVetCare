@@ -2,9 +2,10 @@ minikube delete
 
 minikube start
 
-minikube mount /home/max/WebVetCare:/home/max/WebVetCare
+kubectl create configmap config-files -n webvetcare --from-file=/home/max/WebVetCare/local-git-config/
 
-kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/latest/download/controller.yaml
+kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.37.0/controller.yaml
+
 
 minikube addons enable ingress
 minikube addons enable ingress-dns
@@ -38,3 +39,13 @@ kubectl get pods -n webvetcare
 kubectl delete secret ghcr-secret -n webvetcareя
 
 ./gradlew :auth:test --tests com.korniykom.auth.AuthIntegrationTests
+
+
+vim local-git-config/gateway.yml
+
+kubectl delete configmap config-files -n webvetcare
+kubectl create configmap config-files \
+  --from-file=/home/max/WebVetCare/local-git-config/ \
+  -n webvetcare
+
+curl -X POST http://192.168.49.2:30090/actuator/refresh

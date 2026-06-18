@@ -50,6 +50,9 @@ dependencies {
     testImplementation(libs.testcontainersPostgresql)
     testImplementation(libs.testcontainersJunitJupiter)
     testImplementation(libs.springBootStarterWebflux)
+
+    implementation(libs.springBootStarterActuator)
+
 }
 
 kotlin {

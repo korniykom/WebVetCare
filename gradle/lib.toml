@@ -15,6 +15,7 @@ springCloudLoadBalancer = { module = "org.springframework.cloud:spring-cloud-sta
 springCloudGateway = { module = "org.springframework.cloud:spring-cloud-gateway-server-webflux" }
 springCloudDependencies = { module = "org.springframework.cloud:spring-cloud-dependencies", version.ref = "springCloudBom" }
 springBootStarterOauth2ResourceServer = { module = "org.springframework.boot:spring-boot-starter-oauth2-resource-server", version.ref = "springBoot" }
+springBootStarterActuator = { module = "org.springframework.boot:spring-boot-starter-actuator", version.ref = "springBoot" }
 springSecurityOauth2ResourceServer = { module = "org.springframework.security:spring-security-oauth2-resource-server" }
 kotlinReflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
 jacksonModuleKotlin = { module = "tools.jackson.module:jackson-module-kotlin" }

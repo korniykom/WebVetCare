@@ -57,6 +57,5 @@ spec:
 
       volumes:
         - name: config-repo
-          hostPath:
-            path: /home/max/WebVetCare/local-git-config
-            type: Directory
+          configMap:
+            name: config-files

@@ -38,6 +38,7 @@ dependencies {
     implementation(libs.springCloudLoadBalancer)
 
     implementation(libs.springCloudConfigClient)
+    implementation(libs.springBootStarterActuator)
 
 
     testImplementation(libs.kotlinTestJunit5)

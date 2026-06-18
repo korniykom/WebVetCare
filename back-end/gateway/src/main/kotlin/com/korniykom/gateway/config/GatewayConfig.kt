@@ -28,6 +28,7 @@ class GatewayConfig {
             .authorizeExchange { exchanges ->
                 exchanges
                     .pathMatchers("/api/auth/**").permitAll()
+                    .pathMatchers("/actuator/**").permitAll()
                     .pathMatchers("/.well-known/jwks.json").permitAll()
                     .anyExchange().authenticated()
             }
