@@ -1,8 +1,8 @@
 package com.korniykom.auth.controller
 
 import com.korniykom.auth.config.JwtConfig
-import com.korniykom.auth.dto.LoginRequest
-import com.korniykom.auth.dto.RegisterRequest
+import com.korniykom.auth.dto.LoginRequestSerializable
+import com.korniykom.auth.dto.RegisterRequestSerializable
 import com.korniykom.auth.dto.TokenResponse
 import com.korniykom.auth.service.AuthService
 import jakarta.servlet.http.Cookie
@@ -24,7 +24,7 @@ class AuthController(
 ) {
     @PostMapping("/register")
     fun register(
-        @Valid @RequestBody body: RegisterRequest,
+        @Valid @RequestBody body: RegisterRequestSerializable,
         response: HttpServletResponse
     ): ResponseEntity<TokenResponse> {
         val (accessToken, refreshToken) = authService.register(
@@ -48,7 +48,7 @@ class AuthController(
 
     @PostMapping("/login")
     fun login(
-        @Valid @RequestBody body: LoginRequest,
+        @Valid @RequestBody body: LoginRequestSerializable,
         response: HttpServletResponse
     ): ResponseEntity<TokenResponse> {
         val (accessToken, refreshToken) = authService.login(

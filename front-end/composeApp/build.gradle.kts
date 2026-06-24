@@ -35,6 +35,9 @@ kotlin {
     sourceSets {
 
         commonMain.dependencies {
+//            implementation(projects.contract.auth)
+//            implementation(projects.contract.user)
+
             implementation(ui.compose.runtime)
             implementation(ui.compose.foundation)
             implementation(ui.compose.material3)

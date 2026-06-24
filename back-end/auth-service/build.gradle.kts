@@ -30,6 +30,7 @@ repositories {
 }
 
 dependencies {
+    implementation(projects.contract.auth)
     implementation(libs.springBootStarterWeb)
     implementation(libs.springBootStarterSecurity)
     implementation(libs.springBootStarterValidation)

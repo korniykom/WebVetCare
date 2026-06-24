@@ -1,6 +1,6 @@
 package com.korniykom.webvetcare.data.auth_service
 
-import com.korniykom.webvetcare.data.dto.LoginRequestSerializable
+import com.korniykom.auth.dto.LoginRequestSerializable
 import com.korniykom.webvetcare.data.dto.LoginResponseSerializable
 import com.korniykom.webvetcare.data.dto.RegisterRequestSerializable
 import com.korniykom.webvetcare.data.dto.RegisterResponseSerializable

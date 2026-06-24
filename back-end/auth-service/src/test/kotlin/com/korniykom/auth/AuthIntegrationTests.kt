@@ -1,7 +1,7 @@
 package com.korniykom.auth
 
-import com.korniykom.auth.dto.LoginRequest
-import com.korniykom.auth.dto.RegisterRequest
+import com.korniykom.auth.dto.LoginRequestSerializable
+import com.korniykom.auth.dto.RegisterRequestSerializable
 import com.korniykom.auth.repository.AuthUserRepository
 import com.korniykom.auth.repository.RefreshTokenRepository
 import org.junit.jupiter.api.Assertions.fail
@@ -68,7 +68,7 @@ class AuthIntegrationTests {
     fun `register success`() {
         webTestClient.post()
             .uri("/api/auth/register")
-            .bodyValue(RegisterRequest("test@example.com", password = "password", username = "username"))
+            .bodyValue(RegisterRequestSerializable("test@example.com", password = "password", username = "username"))
             .exchange()
             .expectStatus().isCreated
             .expectHeader().exists("Set-Cookie")
@@ -80,11 +80,11 @@ class AuthIntegrationTests {
     fun `register duplicate email`() {
         webTestClient.post()
             .uri("/api/auth/register")
-            .bodyValue(RegisterRequest("test@example.com", password = "password",  username = "username"))
+            .bodyValue(RegisterRequestSerializable("test@example.com", password = "password",  username = "username"))
             .exchange()
         webTestClient.post()
             .uri("/api/auth/register")
-            .bodyValue(RegisterRequest("test@example.com", password = "password",  username = "username"))
+            .bodyValue(RegisterRequestSerializable("test@example.com", password = "password",  username = "username"))
             .exchange()
             .expectStatus().is4xxClientError
     }
@@ -93,7 +93,7 @@ class AuthIntegrationTests {
     fun `register invalid email`() {
         webTestClient.post()
             .uri("/api/auth/register")
-            .bodyValue(RegisterRequest("goofy-mail", password = "password",  username = "username"))
+            .bodyValue(RegisterRequestSerializable("goofy-mail", password = "password",  username = "username"))
             .exchange()
             .expectStatus().is4xxClientError
     }
@@ -102,12 +102,12 @@ class AuthIntegrationTests {
     fun `login success`() {
         webTestClient.post()
             .uri("/api/auth/register")
-            .bodyValue(RegisterRequest("test@example.com", password = "password",  username = "username"))
+            .bodyValue(RegisterRequestSerializable("test@example.com", password = "password",  username = "username"))
             .exchange()
 
         webTestClient.post()
             .uri("/api/auth/login")
-            .bodyValue(LoginRequest(email = "test@example.com", password = "password"))
+            .bodyValue(LoginRequestSerializable(email = "test@example.com", password = "password"))
             .exchange()
             .expectStatus().isOk
             .expectHeader().exists("Set-Cookie")
@@ -119,12 +119,12 @@ class AuthIntegrationTests {
     fun `login wrong password`() {
         webTestClient.post()
             .uri("/api/auth/register")
-            .bodyValue(LoginRequest("test@example.com", password = "password"))
+            .bodyValue(LoginRequestSerializable("test@example.com", password = "password"))
             .exchange()
 
         webTestClient.post()
             .uri("/api/auth/login")
-            .bodyValue(LoginRequest(email = "test@example.com", password = "password123"))
+            .bodyValue(LoginRequestSerializable(email = "test@example.com", password = "password123"))
             .exchange()
             .expectStatus().is4xxClientError
     }
@@ -133,12 +133,12 @@ class AuthIntegrationTests {
     fun `login user not found`() {
         webTestClient.post()
             .uri("/api/auth/register")
-            .bodyValue(LoginRequest("test@example.com", password = "password"))
+            .bodyValue(LoginRequestSerializable("test@example.com", password = "password"))
             .exchange()
 
         webTestClient.post()
             .uri("/api/auth/login")
-            .bodyValue(LoginRequest(email = "test1@example.com", password = "password"))
+            .bodyValue(LoginRequestSerializable(email = "test1@example.com", password = "password"))
             .exchange()
             .expectStatus().is4xxClientError
 
@@ -148,7 +148,7 @@ class AuthIntegrationTests {
     fun `refresh success`() {
         val registerResult = webTestClient.post()
             .uri("/api/auth/register")
-            .bodyValue(RegisterRequest("test@example.com", password = "password",  username = "username"))
+            .bodyValue(RegisterRequestSerializable("test@example.com", password = "password",  username = "username"))
             .exchange()
             .returnResult()
 
@@ -180,7 +180,7 @@ class AuthIntegrationTests {
     fun `logout success`() {
         val registerResult = webTestClient.post()
             .uri("/api/auth/register")
-            .bodyValue(RegisterRequest("test@example.com", password = "password",  username = "username"))
+            .bodyValue(RegisterRequestSerializable("test@example.com", password = "password",  username = "username"))
             .exchange()
             .returnResult()
 
