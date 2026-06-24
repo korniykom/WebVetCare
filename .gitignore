@@ -88,3 +88,5 @@ Thumbs.db
 # ==========================
 k8s/frontend/.env
 k8s/gateway/.env
+
+back-end/auth-service/src/main/resources/keys
