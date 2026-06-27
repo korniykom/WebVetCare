@@ -4,22 +4,9 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.korniykom.webvetcare.domain.auth_service.AuthService
-import com.korniykom.webvetcare.domain.util.DataError
-import com.korniykom.webvetcare.domain.util.EmailValidator
-import com.korniykom.webvetcare.domain.util.TokenStorage
-import com.korniykom.webvetcare.domain.util.onFailure
-import com.korniykom.webvetcare.domain.util.onSuccess
+import com.korniykom.webvetcare.domain.util.*
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
@@ -108,6 +95,45 @@ class LoginViewModel(
 
     fun onAction(action: LoginAction) {
         when (action) {
+            is LoginAction.OnLookOnPasswordField -> {
+                when (action.isPasswordFieldActive) {
+                    true -> if(!state.value.isPasswordVisible) {
+                        _state.update { it.copy(
+                            freaksLookState = FreaksLookState.PASSWORD_FIELD_HIDDEN,
+                        ) }
+                    } else {
+                        _state.update { it.copy(
+                            freaksLookState = FreaksLookState.PASSWORD_FIELD_VISIBLE,
+                        ) }
+                    }
+
+                    else -> _state.update {
+                        it.copy(
+                            freaksLookState = FreaksLookState.NONE,
+                        )
+                    }
+                }
+
+
+            }
+            is LoginAction.OnLookOnEmailField -> {
+                when (action.isEmailFieldActive) {
+                    true -> _state.update {
+                        it.copy(
+                            freaksLookState = FreaksLookState.EMAIL_FIELD,
+                        )
+                    }
+
+                    else -> _state.update {
+                        it.copy(
+                            freaksLookState = FreaksLookState.NONE,
+                        )
+                    }
+                }
+
+
+            }
+
             LoginAction.OnForgotPasswordClick -> {}
             LoginAction.OnLoginClick -> {
                 login()
@@ -116,11 +142,19 @@ class LoginViewModel(
             LoginAction.OnGoToRegisterClick -> {}
             LoginAction.OnTogglePasswordVisibilityClick -> {
                 _state.update {
+                    val visible = !it.isPasswordVisible
+
                     it.copy(
-                        isPasswordVisible = !it.isPasswordVisible
+                        isPasswordVisible = visible,
+                        freaksLookState = when {
+                            visible -> FreaksLookState.PASSWORD_FIELD_VISIBLE
+                            else -> FreaksLookState.PASSWORD_FIELD_HIDDEN
+                        }
                     )
                 }
             }
+
+
         }
     }
 
