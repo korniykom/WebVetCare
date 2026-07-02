@@ -1,5 +1,6 @@
 package com.korniykom.webvetcare.presentation.components.login_components.freaks
 
+
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.updateTransition
@@ -14,7 +15,7 @@ import com.korniykom.webvetcare.presentation.screens.login.FreaksLookState
 
 
 @Composable
-fun RectFreak(
+fun AlmostRoyalFreak(
     freakInfo: RectFreakInfo,
     xOffset: Float = 0f,
     yOffset: Float = 0f,
@@ -181,7 +182,7 @@ private fun DrawScope.drawEyes(
 ) {
     drawCircle(
         color = freakInfo.outerEyeColor,
-        radius = 8f,
+        radius = 12f,
         center = Offset(
             x = centerX + freakInfo.bottomRightPointX + outerRightEyePositionX,
             y = centerY + freakInfo.bottomRightPointY + outerRightEyePositionY
@@ -190,7 +191,7 @@ private fun DrawScope.drawEyes(
 
     drawCircle(
         color = freakInfo.outerEyeColor,
-        radius = 8f,
+        radius = 12f,
         center = Offset(
             x = centerX + freakInfo.bottomLeftPointX + outerLeftEyePositionX,
             y = centerY + freakInfo.bottomLeftPointY + outerLeftEyePositionY
@@ -198,7 +199,7 @@ private fun DrawScope.drawEyes(
     )
     drawCircle(
         color = freakInfo.innerEyeColor,
-        radius = 4f,
+        radius =6f,
         center = Offset(
             x = centerX + freakInfo.bottomRightPointX + innerRightEyePositionX,
             y = centerY + freakInfo.bottomRightPointY + innerRightEyePositionY
@@ -206,7 +207,7 @@ private fun DrawScope.drawEyes(
     )
     drawCircle(
         color = freakInfo.innerEyeColor,
-        radius = 4f,
+        radius = 6f,
         center = Offset(
             x = centerX + freakInfo.bottomLeftPointX + innerLeftEyePositionX,
             y = centerY + freakInfo.bottomLeftPointY + innerLeftEyePositionY
@@ -221,8 +222,8 @@ private fun changeFreakFloatValues(state: FreaksLookState, freakInfo: RectFreakI
         bottomRightPointX = freakInfo.bottomRightPointX + 10, bottomRightPointY = freakInfo.bottomRightPointY + 30,
         outerLeftEyePositionX = freakInfo.outerLeftEyePositionX + 25, outerLeftEyePositionY = freakInfo.outerLeftEyePositionY + 5f ,
         outerRightEyePositionX = freakInfo.outerRightEyePositionX + 25, outerRightEyePositionY = freakInfo.outerRightEyePositionY + 5f,
-        innerLeftEyePositionX = freakInfo.innerLeftEyePositionX + 26, innerLeftEyePositionY = freakInfo.innerLeftEyePositionY + 4,
-        innerRightEyePositionX = freakInfo.innerRightEyePositionX + 26, innerRightEyePositionY = freakInfo.innerRightEyePositionY + 4,
+        innerLeftEyePositionX = freakInfo.innerLeftEyePositionX + 27, innerLeftEyePositionY = freakInfo.innerLeftEyePositionY + 6,
+        innerRightEyePositionX = freakInfo.innerRightEyePositionX + 27, innerRightEyePositionY = freakInfo.innerRightEyePositionY +6,
 
         )
 

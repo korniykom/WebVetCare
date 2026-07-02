@@ -7,13 +7,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.korniykom.webvetcare.presentation.components.login_components.freaks.RectFreak
-import com.korniykom.webvetcare.presentation.components.login_components.freaks.RectFreakInfo
+import com.korniykom.webvetcare.presentation.components.login_components.freaks.*
 import com.korniykom.webvetcare.presentation.screens.login.FreaksLookState
-import com.korniykom.webvetcare.presentation.theme.AlmostRoyal
-import com.korniykom.webvetcare.presentation.theme.SatinDeepBlack
-import com.korniykom.webvetcare.presentation.theme.UnicornSilver
-import com.korniykom.webvetcare.presentation.theme.WhiteAsHeaven
+import com.korniykom.webvetcare.presentation.theme.*
 
 @Composable
 fun LoginFreaks(
@@ -37,20 +33,20 @@ fun LoginFreaks(
         ) {
 
 
-        RectFreak(
+        AlmostRoyalFreak(
             modifier = Modifier.fillMaxSize(),
-            xOffset = -80f,
+            xOffset = -90f,
             freaksLookState = freaksLookState,
             freakInfo = RectFreakInfo(
                 bodyColor = AlmostRoyal,
 
-                topLeftPointX = 200f,
+                topLeftPointX = 160f,
                 topLeftPointY = 200f,
 
                 topRightPointX = 0f,
                 topRightPointY = 200f,
 
-                bottomLeftPointX = 200f,
+                bottomLeftPointX = 160f,
                 bottomLeftPointY = -200f,
 
                 bottomRightPointX = 0f,
@@ -63,17 +59,38 @@ fun LoginFreaks(
                 outerLeftEyePositionX = -50f,
                 outerLeftEyePositionY = 40f,
 
-                innerRightEyePositionX = 51f,
-                innerRightEyePositionY = 42f,
-                innerLeftEyePositionX = -49f,
-                innerLeftEyePositionY = 43f
+                innerRightEyePositionX = 50f,
+                innerRightEyePositionY = 40f,
+                innerLeftEyePositionX = -50f,
+                innerLeftEyePositionY = 40f
             )
         )
 
-        RectFreak(
+
+
+
+
+
+
+        OrangeSemiCircle(
+            modifier = Modifier.fillMaxSize(),
+            freaksLookState = freaksLookState,
+            freakInfo = SemiCircleInfo(
+                xScaleOffset = 1f,
+                yScaleOffset = 1f,
+                radius = 150f,
+                xOffset = -190f,
+                yOffset = 25f,
+                color = BurningTrail,
+                outerEyeColor = WhiteAsHeaven,
+                innerEyeColor = SatinDeepBlack
+            ),
+        )
+
+        SatinBlackRectFreak(
             modifier = Modifier.fillMaxSize(),
             yOffset = 100f,
-            xOffset = 60f,
+            xOffset = 20f,
             freaksLookState = freaksLookState,
             freakInfo = RectFreakInfo(
                 bodyColor = SatinDeepBlack,
@@ -104,7 +121,21 @@ fun LoginFreaks(
             )
         )
 
+        TealSemiCircle(
+            modifier = Modifier.fillMaxSize(),
+            freaksLookState = freaksLookState,
+            freakInfo = SemiCircleInfo(
+                xScaleOffset = 1f,
+                yScaleOffset = 1f,
+                radius = 100f,
+                xOffset = 60f,
+                yOffset = 50f,
+                color = Teal70,
 
+                outerEyeColor = WhiteAsHeaven,
+                innerEyeColor = SatinDeepBlack
+            ),
+        )
     }
 }
 
