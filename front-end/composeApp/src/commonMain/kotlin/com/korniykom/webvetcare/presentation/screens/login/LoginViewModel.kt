@@ -117,6 +117,9 @@ class LoginViewModel(
 
             }
             is LoginAction.OnLookOnEmailField -> {
+                _state.update { it.copy(
+                    isPasswordVisible = false
+                ) }
                 when (action.isEmailFieldActive) {
                     true -> _state.update {
                         it.copy(
