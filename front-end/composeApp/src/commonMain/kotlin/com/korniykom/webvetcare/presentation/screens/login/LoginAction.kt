@@ -5,4 +5,6 @@ sealed interface LoginAction {
     data object OnGoToRegisterClick : LoginAction
     data object OnForgotPasswordClick : LoginAction
     data object OnTogglePasswordVisibilityClick : LoginAction
+    data class OnLookOnEmailField(val isEmailFieldActive: Boolean): LoginAction
+    data class OnLookOnPasswordField(val isPasswordFieldActive: Boolean): LoginAction
 }

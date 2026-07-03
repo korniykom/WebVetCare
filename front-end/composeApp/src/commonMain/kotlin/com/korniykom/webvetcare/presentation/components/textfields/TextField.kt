@@ -35,7 +35,7 @@ fun TextField(
         supportingText = supportingText,
         enabled = enabled,
         onFocusChange = onFocusChange,
-        modifier = Modifier,
+        modifier = modifier,
     ) { styleModifier, interactionSource ->
         BasicTextField(
             state = state,

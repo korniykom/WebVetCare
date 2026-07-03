@@ -9,4 +9,9 @@ data class LoginState(
     val isPasswordVisible: Boolean = false,
     val canLogin: Boolean = false,
     val error: String? = null,
+    val freaksLookState: FreaksLookState = FreaksLookState.NONE
 )
+
+enum class FreaksLookState {
+    EMAIL_FIELD, PASSWORD_FIELD_HIDDEN, PASSWORD_FIELD_VISIBLE, NONE,
+}

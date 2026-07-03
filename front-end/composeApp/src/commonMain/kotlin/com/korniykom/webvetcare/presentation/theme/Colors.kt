@@ -10,7 +10,14 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 
-val DarkNavy = Color(0xFFECCF14)
+val WhiteAsHeaven = Color(0xFFfefefe)
+val UnicornSilver = Color(0xFFe8e8e8)
+val BurningTrail = Color(0xFFf0a026)
+val RainyGrey  = Color(0xFFa5a2a6)
+val AlmostRoyal = Color(0xFF672afa)
+val SatinDeepBlack = Color(0xFF1b1d21)
+
+val DarkNavy = Color(0xFF0B1F3A)
 val Teal = Color(0xFF1A7F78)
 val White = Color(0xFFF8FAFC)
 val LightGray = Color(0xFFE8EDF2)
@@ -26,7 +33,7 @@ val Navy40 = Color(0xFF284E87)
 val Navy50 = Color(0xFF3660A3)
 val Navy60 = Color(0xFF5680BF)
 val Navy70 = Color(0xFF7EA0D6)
-val Navy80 = Color(0xFFE217D8)
+val Navy80 = Color(0xFFA8C1E9)
 val Navy90 = Color(0xFFD0E1F7)
 val Navy95 = Color(0xFFE8F0FB)
 val Navy99 = Color(0xFFF5F8FE)
@@ -210,3 +217,4 @@ val darkExtendedColors = ExtendedColors(
     onWarningContainer = Amber90,
     transparent = Transparent,
 )
+
