@@ -1,16 +1,20 @@
 package com.korniykom.webvetcare.presentation.components.login_components.freaks
 
 
+import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.translate
 import com.korniykom.webvetcare.presentation.screens.login.FreaksLookState
 
 
@@ -21,6 +25,7 @@ fun AlmostRoyalFreak(
     yOffset: Float = 0f,
     modifier: Modifier = Modifier,
     freaksLookState: FreaksLookState,
+    slideInDistance: Float = 600f,
 ) {
     val transition = updateTransition(
         targetState = freaksLookState,
@@ -107,7 +112,16 @@ fun AlmostRoyalFreak(
         transitionSpec = { spring(dampingRatio = 0.55f, stiffness = 300f) }
     ) { state -> changeFreakFloatValues(state, freakInfo).outerLeftEyePositionY }
 
-
+    val slideInOffset = remember { Animatable(-slideInDistance) }
+    LaunchedEffect(Unit) {
+        slideInOffset.animateTo(
+            targetValue = 0f,
+            animationSpec = spring(
+                dampingRatio = 0.5f,
+                stiffness = 80f
+            )
+        )
+    }
 
 
     Canvas(modifier) {
@@ -115,21 +129,20 @@ fun AlmostRoyalFreak(
         val centerX = size.width / 2 + xOffset
         val centerY = size.height / 2 + yOffset
 
-        drawBody(
-            freakInfo,
-            centerX, centerY,
-            topLeftPointX, topLeftPointY,
-            topRightPointX, topRightPointY,
-            bottomLeftPointX, bottomLeftPointY,
-            bottomRightPointX, bottomRightPointY,
-            innerRightEyePositionX, innerRightEyePositionY,
-            outerRightEyePositionX, outerRightEyePositionY,
-            innerLeftEyePositionX, innerLeftEyePositionY,
-            outerLeftEyePositionX, outerLeftEyePositionY,
-
-
+        translate(left = slideInOffset.value) {
+            drawBody(
+                freakInfo,
+                centerX, centerY,
+                topLeftPointX, topLeftPointY,
+                topRightPointX, topRightPointY,
+                bottomLeftPointX, bottomLeftPointY,
+                bottomRightPointX, bottomRightPointY,
+                innerRightEyePositionX, innerRightEyePositionY,
+                outerRightEyePositionX, outerRightEyePositionY,
+                innerLeftEyePositionX, innerLeftEyePositionY,
+                outerLeftEyePositionX, outerLeftEyePositionY,
             )
-
+        }
     }
 }
 

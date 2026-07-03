@@ -1,15 +1,19 @@
 package com.korniykom.webvetcare.presentation.components.login_components.freaks
 
+import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.translate
 import com.korniykom.webvetcare.presentation.screens.login.FreaksLookState
 
 
@@ -20,7 +24,8 @@ fun SatinBlackRectFreak(
     yOffset: Float = 0f,
     modifier: Modifier = Modifier,
     freaksLookState: FreaksLookState,
-) {
+    fallOnDistance: Float = 600f,
+    ) {
     val transition = updateTransition(
         targetState = freaksLookState,
         label = "Freak"
@@ -107,28 +112,39 @@ fun SatinBlackRectFreak(
     ) { state -> changeFreakFloatValues(state, freakInfo).outerLeftEyePositionY }
 
 
-
+    val fallOnOffset = remember { Animatable(-fallOnDistance) }
+    LaunchedEffect(Unit) {
+        fallOnOffset.animateTo(
+            targetValue = 0f,
+            animationSpec = spring(
+                dampingRatio = .8f,
+                stiffness = 65f
+            )
+        )
+    }
 
     Canvas(modifier) {
 
         val centerX = size.width / 2 + xOffset
         val centerY = size.height / 2 + yOffset
 
-        drawBody(
-            freakInfo,
-            centerX, centerY,
-            topLeftPointX, topLeftPointY,
-            topRightPointX, topRightPointY,
-            bottomLeftPointX, bottomLeftPointY,
-            bottomRightPointX, bottomRightPointY,
-            innerRightEyePositionX, innerRightEyePositionY,
-            outerRightEyePositionX, outerRightEyePositionY,
-            innerLeftEyePositionX, innerLeftEyePositionY,
-            outerLeftEyePositionX, outerLeftEyePositionY,
+        translate(top = fallOnOffset.value) {
+            drawBody(
+                freakInfo,
+                centerX, centerY,
+                topLeftPointX, topLeftPointY,
+                topRightPointX, topRightPointY,
+                bottomLeftPointX, bottomLeftPointY,
+                bottomRightPointX, bottomRightPointY,
+                innerRightEyePositionX, innerRightEyePositionY,
+                outerRightEyePositionX, outerRightEyePositionY,
+                innerLeftEyePositionX, innerLeftEyePositionY,
+                outerLeftEyePositionX, outerLeftEyePositionY,
 
 
-            )
+                )
 
+        }
     }
 }
 

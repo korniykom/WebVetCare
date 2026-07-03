@@ -1,17 +1,21 @@
 package com.korniykom.webvetcare.presentation.components.login_components.freaks
 
 
+import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Fill
+import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.graphicsLayer
 import com.korniykom.webvetcare.presentation.screens.login.FreaksLookState
 
@@ -20,7 +24,8 @@ fun OrangeSemiCircle(
     freaksLookState: FreaksLookState,
     freakInfo: SemiCircleInfo,
     modifier: Modifier = Modifier,
-) {
+    slideInDistance: Float = 600f,
+    ) {
     val transition = updateTransition(
         targetState = freaksLookState,
         label = "SemiCircleFreak",
@@ -86,7 +91,16 @@ fun OrangeSemiCircle(
         transitionSpec = { spring(dampingRatio = 0.55f, stiffness = 300f) }
     ) { state -> changeFreakScale(state, freakInfo).innerRightEyeYOffset }
 
-
+    val slideInOffset = remember { Animatable(slideInDistance) }
+    LaunchedEffect(Unit) {
+        slideInOffset.animateTo(
+            targetValue = 0f,
+            animationSpec = spring(
+                dampingRatio = 0.5f,
+                stiffness = 80f
+            )
+        )
+    }
 
     Canvas(
         modifier = modifier
@@ -99,28 +113,30 @@ fun OrangeSemiCircle(
         val centerX = size.width / 2 + freakInfo.xOffset
         val centerY = size.height / 2 + freakInfo.yOffset
 
-        drawArc(
-            color = freakInfo.color,
-            startAngle = 180f,
-            sweepAngle = 180f,
-            useCenter = true,
-            topLeft = Offset(centerX + offsetX , centerY + offsetY ),
-            size = Size(freakInfo.radius * 2, freakInfo.radius * 2),
-            style = Fill
-        )
-        drawEyes(
-            freakInfo = freakInfo,
-            centerX = centerX,
-            centerY = centerY,
-            innerRightEyePositionX = innerRightEyeOffsetX,
-            innerRightEyePositionY = innerRightEyeOffsetY,
-            outerRightEyePositionX = outerRightEyeOffsetX,
-            outerRightEyePositionY = outerRightEyeOffsetY,
-            innerLeftEyePositionX = innerLeftEyeOffsetX,
-            innerLeftEyePositionY = innerLeftEyeOffsetY,
-            outerLeftEyePositionX = outerLeftEyeOffsetX,
-            outerLeftEyePositionY = outerLeftEyeOffsetY,
-        )
+        translate(left = slideInOffset.value ) {
+            drawArc(
+                color = freakInfo.color,
+                startAngle = 180f,
+                sweepAngle = 180f,
+                useCenter = true,
+                topLeft = Offset(centerX + offsetX , centerY + offsetY ),
+                size = Size(freakInfo.radius * 2, freakInfo.radius * 2),
+                style = Fill
+            )
+            drawEyes(
+                freakInfo = freakInfo,
+                centerX = centerX,
+                centerY = centerY,
+                innerRightEyePositionX = innerRightEyeOffsetX,
+                innerRightEyePositionY = innerRightEyeOffsetY,
+                outerRightEyePositionX = outerRightEyeOffsetX,
+                outerRightEyePositionY = outerRightEyeOffsetY,
+                innerLeftEyePositionX = innerLeftEyeOffsetX,
+                innerLeftEyePositionY = innerLeftEyeOffsetY,
+                outerLeftEyePositionX = outerLeftEyeOffsetX,
+                outerLeftEyePositionY = outerLeftEyeOffsetY,
+            )
+        }
     }
 }
 
