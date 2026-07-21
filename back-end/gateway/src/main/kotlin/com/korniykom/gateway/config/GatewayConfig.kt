@@ -14,12 +14,6 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource
 @EnableWebFluxSecurity
 class GatewayConfig {
 
-    @Value("\${auth.service.uri:http://auth:9991}")
-    private lateinit var authServiceUri: String
-
-    @Value("\${user.service.uri:http://user:9992}")
-    private lateinit var userServiceUri: String
-
     @Bean
     fun securityFilterChain(http: ServerHttpSecurity): SecurityWebFilterChain {
         return http

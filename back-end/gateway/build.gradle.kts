@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "com.korniykom"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.2"
 description = "gateway"
 
 val serviceName = "gateway"
