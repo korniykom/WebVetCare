@@ -37,7 +37,7 @@ plugins {
 include("back-end:auth-service")
 include("back-end:gateway")
 include("back-end:user-service")
+include("back-end:config")
 
 include("front-end:composeApp")
 
-include("services:config")
