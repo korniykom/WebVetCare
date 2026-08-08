@@ -30,10 +30,6 @@ dependencyResolutionManagement {
     }
 }
 
-plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
-}
-
 include("back-end:gateway")
 include("back-end:user-service")
 include("back-end:auth-service")
@@ -41,4 +37,3 @@ include("back-end:auth-service")
 include("front-end:composeApp")
 
 include("contract:auth")
-include("contract:user")

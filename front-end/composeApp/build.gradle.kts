@@ -21,21 +21,14 @@ kotlin {
 
     jvm()
 
-    js {
-        browser()
-        binaries.executable()
-    }
-
-    @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         browser()
-        binaries.executable()
     }
 
     sourceSets {
 
         commonMain.dependencies {
-//            implementation(projects.contract.auth)
+            implementation(projects.contract.auth)
 //            implementation(projects.contract.user)
 
             implementation(ui.compose.runtime)
