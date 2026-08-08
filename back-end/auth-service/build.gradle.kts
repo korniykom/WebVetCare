@@ -1,4 +1,6 @@
 
+description = "auth-service"
+
 plugins {
     alias(libs.plugins.dockerConventionPlugin)
     alias(libs.plugins.kotlinJvm)
@@ -6,18 +8,6 @@ plugins {
     alias(libs.plugins.springBoot)
     alias(libs.plugins.springDependencyManagement)
     alias(libs.plugins.kotlinPluginJpa)
-}
-
-group = "com.korniykom"
-version = "0.0.2-SNAPSHOT"
-description = "auth-service"
-
-
-docker {
-    imageTag.set(version.toString())
-    namespace.set("webvetcare")
-    registryUrl.set("ghcr.io/korniykom")
-    jvmVersion.set("17")
 }
 
 java {

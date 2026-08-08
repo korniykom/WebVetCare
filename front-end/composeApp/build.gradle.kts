@@ -10,12 +10,9 @@ plugins {
 val baseUrl = System.getenv("BASE_URL") ?: "http://localhost:8080/api"
 
 val serviceName = "compose-web"
-val namespace = "webvetcare"
-val registryUrl = "ghcr.io/korniykom"
-val imageTag = "0.0.2"
 
-val imageName = "$namespace-$serviceName"
-val fullImageName = "$registryUrl/$imageName:$imageTag"
+val imageName = "${project.providers.gradleProperty("namespace")}-$serviceName"
+val fullImageName = "${project.providers.gradleProperty("registryUrl")}/$imageName:${project.providers.gradleProperty("version")}"
 
 kotlin {
 

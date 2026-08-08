@@ -1,21 +1,12 @@
 
+description = "gateway"
+
 plugins {
     alias(libs.plugins.dockerConventionPlugin)
     alias(libs.plugins.kotlinJvm)
     alias(libs.plugins.kotlinPluginSpring)
     alias(libs.plugins.springBoot)
     alias(libs.plugins.springDependencyManagement)
-}
-
-group = "com.korniykom"
-version = "0.0.2-SNAPSHOT"
-description = "gateway"
-
-docker {
-    imageTag.set(version.toString())
-    namespace.set("webvetcare")
-    registryUrl.set("ghcr.io/korniykom")
-    jvmVersion.set("17")
 }
 
 java {
