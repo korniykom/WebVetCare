@@ -2,6 +2,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
+    alias(libs.plugins.dockerConventionPlugin)
     alias(ui.plugins.kotlinMultiplatform)
     alias(ui.plugins.composeMultiplatform)
     alias(ui.plugins.composeCompiler)
@@ -88,11 +89,7 @@ compose.desktop {
     }
 }
 
-tasks.register<Exec>("buildImage") {
-    dependsOn("wasmJsBrowserDistribution")
-    commandLine("docker", "build", "-t", fullImageName, ".")}
 
-tasks.register<Exec>("pushImage") {
-    dependsOn("buildImage")
-    commandLine("docker", "push", fullImageName)
+docker {
+    dockerfileBuildTaskDependency.set("wasmJsBrowserDistribution")
 }
