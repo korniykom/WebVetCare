@@ -1,11 +1,11 @@
 package com.korniykom.userservice.service
 
-import com.korniykom.userservice.domain.enums.Role
+import com.korniykom.user.dto.BecomePatientRequest
+import com.korniykom.user.dto.PatientProfileResponse
+import com.korniykom.user.dto.Role
 import com.korniykom.userservice.domain.exceptions.PatientProfileNotFoundException
 import com.korniykom.userservice.domain.exceptions.UserAlreadyPatientException
 import com.korniykom.userservice.domain.exceptions.UserNotFoundException
-import com.korniykom.userservice.dto.request.BecomePatientRequest
-import com.korniykom.userservice.dto.response.PatientProfileResponse
 import com.korniykom.userservice.entity.PatientProfile
 import com.korniykom.userservice.repository.PatientProfileRepository
 import com.korniykom.userservice.repository.UserRepository

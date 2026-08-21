@@ -1,6 +1,6 @@
 package com.korniykom.userservice.controller
 
-import com.korniykom.userservice.dto.response.UserResponse
+import com.korniykom.user.dto.UserResponse
 import com.korniykom.userservice.service.UserService
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal

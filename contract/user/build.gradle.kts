@@ -9,7 +9,7 @@ plugins {
 
 group = "com.korniykom"
 version = "0.0.1-SNAPSHOT"
-description = "contract-auth"
+description = "contract-user"
 
 kotlin {
     jvm()

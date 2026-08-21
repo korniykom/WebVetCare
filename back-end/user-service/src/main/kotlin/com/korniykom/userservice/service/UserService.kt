@@ -1,6 +1,6 @@
 package com.korniykom.userservice.service
 
-import com.korniykom.userservice.dto.response.UserResponse
+import com.korniykom.user.dto.UserResponse
 import com.korniykom.userservice.entity.User
 import com.korniykom.userservice.repository.UserRepository
 import org.springframework.stereotype.Service

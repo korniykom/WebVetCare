@@ -1,5 +1,8 @@
-package com.korniykom.userservice.dto.request
+package com.korniykom.user.dto
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class BecomeDoctorRequest(
     val specialization: String,
     val licenseNumber: String,

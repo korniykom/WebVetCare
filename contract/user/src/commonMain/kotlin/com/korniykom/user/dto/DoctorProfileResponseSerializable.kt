@@ -1,5 +1,8 @@
-package com.korniykom.userservice.dto.response
+package com.korniykom.user.dto
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class DoctorProfileResponse(
     val id: String,
     val specialization: String,

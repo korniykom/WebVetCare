@@ -28,6 +28,7 @@ repositories {
     mavenCentral()
 }
 dependencies {
+    implementation(projects.contract.user)
     implementation(libs.springBootStarterWeb)
     implementation(libs.springBootStarterSecurity)
     implementation(libs.springBootStarterValidation)
@@ -46,9 +47,7 @@ dependencies {
     testImplementation(libs.springBootStarterWebflux)
 }
 kotlin {
-    compilerOptions {
-        freeCompilerArgs.addAll("-Xjsr305=strict", "-Xannotation-default-target=param-property")
-    }
+
 }
 
 tasks.withType<Test> {

@@ -1,11 +1,6 @@
 package com.korniykom.userservice.exception_handling
 
-import com.korniykom.userservice.domain.exceptions.DoctorProfileNotFoundException
-import com.korniykom.userservice.domain.exceptions.PatientProfileNotFoundException
-import com.korniykom.userservice.domain.exceptions.UserAlreadyDoctorException
-import com.korniykom.userservice.domain.exceptions.UserAlreadyPatientException
-import com.korniykom.userservice.domain.exceptions.UserNotDoctorException
-import com.korniykom.userservice.domain.exceptions.UserNotFoundException
+import com.korniykom.userservice.domain.exceptions.*
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus

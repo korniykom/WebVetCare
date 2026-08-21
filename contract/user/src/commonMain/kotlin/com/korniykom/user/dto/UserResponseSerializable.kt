@@ -1,7 +1,8 @@
-package com.korniykom.userservice.dto.response
+package com.korniykom.user.dto
 
-import com.korniykom.userservice.domain.enums.Role
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class UserResponse(
     val id: String,
     val email: String,

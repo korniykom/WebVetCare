@@ -41,4 +41,5 @@ include("back-end:auth-service")
 include("front-end:composeApp")
 
 include("contract:auth")
+//include("contract:user")
 include("contract:user")
