@@ -6,13 +6,9 @@ import com.korniykom.webvetcare.data.dto.RegisterRequestSerializable
 import com.korniykom.webvetcare.data.dto.RegisterResponseSerializable
 import com.korniykom.webvetcare.data.networking.post
 import com.korniykom.webvetcare.domain.auth_service.AuthService
-import com.korniykom.webvetcare.domain.auth_service.LoginResponse
-import com.korniykom.webvetcare.domain.auth_service.RegisterResponse
-import com.korniykom.webvetcare.domain.mappers.toDomain
 import com.korniykom.webvetcare.domain.util.DataError
 import com.korniykom.webvetcare.domain.util.NetworkResult
 import com.korniykom.webvetcare.domain.util.TokenStorage
-import com.korniykom.webvetcare.domain.util.map
 import io.ktor.client.*
 
 class KtorAuthService(
@@ -23,7 +19,7 @@ class KtorAuthService(
         email: String,
         password: String,
         username: String,
-    ): NetworkResult<RegisterResponse, DataError.Remote> {
+    ): NetworkResult<RegisterResponseSerializable, DataError.Remote> {
         return httpClient.post<RegisterRequestSerializable, RegisterResponseSerializable>(
             route = "/auth/register",
             body = RegisterRequestSerializable(
@@ -31,26 +27,19 @@ class KtorAuthService(
                 password = password,
                 username = username
             )
-        ).map { response ->
-            tokenStorage.saveAccessToken(response.accessToken)
-            response.toDomain()
-        }
-
+        )
     }
 
     override suspend fun login(
         email: String,
         password: String
-    ): NetworkResult<LoginResponse, DataError.Remote> {
+    ): NetworkResult<LoginResponseSerializable, DataError.Remote> {
         return httpClient.post<LoginRequestSerializable, LoginResponseSerializable>(
             route = "/auth/login",
             body = LoginRequestSerializable(
                 email = email,
                 password = password
             )
-        ).map { response ->
-            tokenStorage.saveAccessToken(response.accessToken)
-            response.toDomain()
-        }
+        )
     }
 }

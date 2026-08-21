@@ -1,34 +1,23 @@
 package com.korniykom.webvetcare.data.user_service
 
-import com.korniykom.webvetcare.data.dto.BecomeDoctorRequestSerializable
-import com.korniykom.webvetcare.data.dto.BecomeDoctorResponseSerializable
-import com.korniykom.webvetcare.data.dto.BecomePatientRequestSerializable
-import com.korniykom.webvetcare.data.dto.BecomePatientResponseSerializable
-import com.korniykom.webvetcare.data.dto.GetUserResponseInfoSerializable
+import com.korniykom.webvetcare.data.dto.*
 import com.korniykom.webvetcare.data.networking.get
 import com.korniykom.webvetcare.data.networking.post
-import com.korniykom.webvetcare.domain.mappers.toDomain
-import com.korniykom.webvetcare.domain.user_service.BecomeDoctorResponse
-import com.korniykom.webvetcare.domain.user_service.BecomePatientResponse
-import com.korniykom.webvetcare.domain.user_service.GetUserInfoResponse
 import com.korniykom.webvetcare.domain.user_service.UserService
 import com.korniykom.webvetcare.domain.util.DataError
 import com.korniykom.webvetcare.domain.util.NetworkResult
-import com.korniykom.webvetcare.domain.util.map
-import io.ktor.client.HttpClient
+import io.ktor.client.*
 
 class KtorUserService(
     private val httpClient: HttpClient,
 ) : UserService {
     override suspend fun getUserInfo(
         accessToken: String
-    ): NetworkResult<GetUserInfoResponse, DataError.Remote> {
+    ): NetworkResult<GetUserResponseInfoSerializable, DataError.Remote> {
         return httpClient.get<GetUserResponseInfoSerializable>(
             route = "/users/me",
 
-            ).map { response ->
-            response.toDomain()
-        }
+            )
     }
 
     override suspend fun becomeDoctor(
@@ -36,7 +25,7 @@ class KtorUserService(
         licenseNumber: String,
         clinicAddress: String,
         availability: String
-    ): NetworkResult<BecomeDoctorResponse, DataError.Remote> {
+    ): NetworkResult<BecomeDoctorResponseSerializable, DataError.Remote> {
         return httpClient.post<BecomeDoctorRequestSerializable, BecomeDoctorResponseSerializable>(
             route = "/users/become-doctor",
             body = BecomeDoctorRequestSerializable(
@@ -46,15 +35,13 @@ class KtorUserService(
                 availability = availability
             )
         )
-            .map { response ->
-                response.toDomain()
-            }
+
     }
 
     override suspend fun becomePatient(
         contactEmail: String,
         contactPhoneNumber: String
-    ): NetworkResult<BecomePatientResponse, DataError.Remote> {
+    ): NetworkResult<BecomePatientResponseSerializable, DataError.Remote> {
         return httpClient.post<BecomePatientRequestSerializable, BecomePatientResponseSerializable>(
             route = "/users/become-patient",
             body = BecomePatientRequestSerializable(
@@ -62,9 +49,7 @@ class KtorUserService(
                 contactPhoneNumber = contactPhoneNumber
             )
         )
-            .map { response ->
-                response.toDomain()
-            }
+
     }
 
 }
