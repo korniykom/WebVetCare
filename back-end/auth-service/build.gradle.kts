@@ -1,23 +1,14 @@
-import org.springframework.boot.buildpack.platform.build.PullPolicy
+
+description = "auth-service"
 
 plugins {
+    alias(libs.plugins.dockerConventionPlugin)
     alias(libs.plugins.kotlinJvm)
     alias(libs.plugins.kotlinPluginSpring)
     alias(libs.plugins.springBoot)
     alias(libs.plugins.springDependencyManagement)
     alias(libs.plugins.kotlinPluginJpa)
 }
-
-group = "com.korniykom"
-version = "0.0.1-SNAPSHOT"
-description = "auth-service"
-
-val serviceName = "auth-service"
-val namespace = project.property("namespace") as String
-val registryUrl = project.property("registryUrl") as String
-val imageTag = project.version.toString()
-val mImageName = "$namespace-$serviceName"
-val fullImageName = "$registryUrl/$mImageName:$imageTag"
 
 java {
     toolchain {
@@ -58,20 +49,3 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-tasks.bootBuildImage {
-    imageName = "$mImageName:$imageTag"
-    imagePlatform = "linux/amd64"
-    pullPolicy = PullPolicy.IF_NOT_PRESENT
-    cleanCache = false
-    environment = mapOf("BP_JVM_VERSION" to libs.versions.java.get())
-}
-
-tasks.register<Exec>("tagImage") {
-    dependsOn(tasks.bootBuildImage)
-    commandLine("docker", "tag", "$mImageName:$imageTag", fullImageName)
-}
-
-tasks.register<Exec>("pushImage") {
-    dependsOn("tagImage")
-    commandLine("docker", "push", fullImageName)
-}

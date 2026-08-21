@@ -2,6 +2,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
+    alias(libs.plugins.dockerConventionPlugin)
     alias(ui.plugins.kotlinMultiplatform)
     alias(ui.plugins.composeMultiplatform)
     alias(ui.plugins.composeCompiler)
@@ -10,12 +11,9 @@ plugins {
 val baseUrl = System.getenv("BASE_URL") ?: "http://localhost:8080/api"
 
 val serviceName = "compose-web"
-val namespace = "webvetcare"
-val registryUrl = "ghcr.io/korniykom"
-val imageTag = "0.0.2"
 
-val imageName = "$namespace-$serviceName"
-val fullImageName = "$registryUrl/$imageName:$imageTag"
+val imageName = "${project.providers.gradleProperty("namespace")}-$serviceName"
+val fullImageName = "${project.providers.gradleProperty("registryUrl")}/$imageName:${project.providers.gradleProperty("version")}"
 
 kotlin {
 
@@ -91,11 +89,7 @@ compose.desktop {
     }
 }
 
-tasks.register<Exec>("buildImage") {
-    dependsOn("wasmJsBrowserDistribution")
-    commandLine("docker", "build", "-t", fullImageName, ".")}
 
-tasks.register<Exec>("pushImage") {
-    dependsOn("buildImage")
-    commandLine("docker", "push", fullImageName)
+docker {
+    dockerfileBuildTaskDependency.set("wasmJsBrowserDistribution")
 }
