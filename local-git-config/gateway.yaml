@@ -1,0 +1,26 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: auth-service
+          uri: ${AUTH_SERVICE_URL:http://localhost:9991}
+          predicates:
+            - Path=/api/auth/**
+        - id: user-service
+          uri: ${USER_SERVICE_URL:http://localhost:9992}
+          predicates:
+            - Path=/api/users/**
+        - id: jwks
+          uri: ${AUTH_SERVICE_URL:http://localhost:9991}
+          predicates:
+            - Path=/.well-known/jwks.json
+  application:
+    name: gateway
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${JWKS_URI:http://localhost:9991/.well-known/jwks.json}
+
+server:
+  port: 8080

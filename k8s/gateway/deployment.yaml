@@ -18,10 +18,12 @@ spec:
         - name: ghcr-secret
       containers:
         - name: gateway
-          image: ghcr.io/korniykom/webvetcare-gateway:0.0.1-snapshot
+          image: ghcr.io/korniykom/webvetcare-gateway:0.0.2
           ports:
             - containerPort: 8080
           env:
+            - name: SPRING_CLOUD_CONFIG_SERVER_URI
+              value: "http://config:9994"
             - name: AUTH_SERVICE_URL
               value: http://auth-service:9991
             - name: USER_SERVICE_URL

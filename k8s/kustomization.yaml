@@ -8,6 +8,9 @@ resources:
 
   - ghcr-secret.yaml
 
+  - config/service.yml
+  - config/deployment.yml
+
   - gateway/deployment.yaml
   - gateway/service.yaml
 

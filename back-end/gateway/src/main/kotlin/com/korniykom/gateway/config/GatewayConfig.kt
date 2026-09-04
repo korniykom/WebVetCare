@@ -1,5 +1,6 @@
 package com.korniykom.gateway.config
 
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity
@@ -11,7 +12,7 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource
 
 @Configuration
 @EnableWebFluxSecurity
-class SecurityConfig {
+class GatewayConfig {
 
     @Bean
     fun securityFilterChain(http: ServerHttpSecurity): SecurityWebFilterChain {
@@ -21,6 +22,7 @@ class SecurityConfig {
             .authorizeExchange { exchanges ->
                 exchanges
                     .pathMatchers("/api/auth/**").permitAll()
+                    .pathMatchers("/actuator/**").permitAll()
                     .pathMatchers("/.well-known/jwks.json").permitAll()
                     .anyExchange().authenticated()
             }

@@ -16,6 +16,6 @@ spec:
         - name: ghcr-secret
       containers:
         - name: frontend
-          image: ghcr.io/korniykom/webvetcare-compose-web:0.0.2
+          image: ghcr.io/korniykom/webvetcare-compose-web:0.0.3
           ports:
             - containerPort: 80

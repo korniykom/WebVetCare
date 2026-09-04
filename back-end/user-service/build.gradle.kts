@@ -28,6 +28,8 @@ repositories {
     mavenCentral()
 }
 dependencies {
+    implementation(platform(libs.springCloudDependencies))
+
     implementation(libs.springBootStarterWeb)
     implementation(libs.springBootStarterSecurity)
     implementation(libs.springBootStarterValidation)
@@ -40,10 +42,15 @@ dependencies {
     runtimeOnly(libs.postgresql)
     runtimeOnly(libs.flywayDatabasePostgresql)
 
+    implementation(libs.springCloudConfigClient)
+
     testImplementation(libs.springBootStarterTest)
     testImplementation(libs.testcontainersPostgresql)
     testImplementation(libs.testcontainersJunitJupiter)
     testImplementation(libs.springBootStarterWebflux)
+
+    implementation(libs.springBootStarterActuator)
+
 }
 kotlin {
     compilerOptions {

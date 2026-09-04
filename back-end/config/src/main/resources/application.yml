@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: config
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        git:
+          uri: ${SPRING_CLOUD_CONFIG_SERVER_GIT_URI:file:///tmp/config-repo}
+          default-label: main
+        native:
+          search-locations: file:${CONFIG_REPO_PATH:./local-git-config}
+
+server:
+  port: 9994
